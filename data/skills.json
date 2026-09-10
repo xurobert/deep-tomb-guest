@@ -1,0 +1,20 @@
+{
+	"deep_echo": {
+		"id": "deep_echo",
+		"name": "Deep Echo",
+		"description": "Channel resonant energy from the tomb depths. High damage, builds overload.",
+		"base_damage": 25,
+		"overload_cost": 30,
+		"type": "magic",
+		"element": "void"
+	},
+	"basic_attack": {
+		"id": "basic_attack",
+		"name": "Attack",
+		"description": "A standard physical attack.",
+		"base_damage": 10,
+		"overload_cost": 0,
+		"type": "physical",
+		"element": "none"
+	}
+}

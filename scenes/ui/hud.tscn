@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://dihx8kj5ncsmd"]
+
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_script"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 5
+script = ExtResource("1_script")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 70.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HPLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "HP: 100/100"
+
+[node name="RecognitionLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "Recognition: 0"
+
+[node name="SaveIndicator" type="Label" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 80.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.4, 0.9, 0.5, 1)
+text = "Saved!"

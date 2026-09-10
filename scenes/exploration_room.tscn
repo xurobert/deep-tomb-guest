@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctpvyh3kg2xnv"]
+
+[ext_resource type="PackedScene" uid="uid://cnjx8k2h1pq5d" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://dj2v8l6k3xmh5" path="res://scenes/interactable.tscn" id="2_interactable"]
+[ext_resource type="PackedScene" uid="uid://cv7h3m8kxj6nd" path="res://scenes/combat_trigger.tscn" id="3_combat"]
+[ext_resource type="PackedScene" uid="uid://bkl2p5mqhtrq1" path="res://scenes/save_point.tscn" id="4_save"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(320, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_side"]
+size = Vector2(16, 180)
+
+[node name="ExplorationRoom" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0.12, 0.1, 0.18, 1)
+
+[node name="Floor" type="ColorRect" parent="."]
+offset_left = -144.0
+offset_top = -74.0
+offset_right = 144.0
+offset_bottom = 74.0
+color = Color(0.2, 0.17, 0.25, 1)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -82)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 82)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-152, 0)
+shape = SubResource("RectangleShape2D_side")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(152, 0)
+shape = SubResource("RectangleShape2D_side")
+
+[node name="WallVisualTop" type="ColorRect" parent="Walls"]
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = -74.0
+color = Color(0.08, 0.06, 0.12, 1)
+
+[node name="WallVisualBottom" type="ColorRect" parent="Walls"]
+offset_left = -160.0
+offset_top = 74.0
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0.08, 0.06, 0.12, 1)
+
+[node name="WallVisualLeft" type="ColorRect" parent="Walls"]
+offset_left = -160.0
+offset_top = -90.0
+offset_right = -144.0
+offset_bottom = 90.0
+color = Color(0.08, 0.06, 0.12, 1)
+
+[node name="WallVisualRight" type="ColorRect" parent="Walls"]
+offset_left = 144.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0.08, 0.06, 0.12, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(0, 20)
+
+[node name="Artifact" parent="." instance=ExtResource("2_interactable")]
+position = Vector2(-80, -40)
+
+[node name="CombatTrigger" parent="." instance=ExtResource("3_combat")]
+position = Vector2(80, -40)
+
+[node name="SavePoint" parent="." instance=ExtResource("4_save")]
+position = Vector2(0, -50)
+
+[node name="Camera2D" type="Camera2D" parent="."]
