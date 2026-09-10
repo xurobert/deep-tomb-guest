@@ -1,0 +1,41 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Godot-specific ignores
+*.translation
+
+# Imported textures, etc
+.import/
+
+# Export templates and exported game files
+export/
+*.pck
+*.exe
+*.dmg
+*.app/
+*.apk
+*.aab
+*.x86_64
+*.x86
+*.arm64
+*.arm32
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# System/tool ignores
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE specific
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# Debug/log files
+*.log

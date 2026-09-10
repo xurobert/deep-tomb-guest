@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv7h3m8kxj6nd"]
+
+[ext_resource type="Script" path="res://scripts/exploration/combat_trigger.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
+size = Vector2(24, 24)
+
+[node name="CombatTrigger" type="Node2D"]
+script = ExtResource("1_script")
+interaction_text = "Challenge"
+message = "A shadowy presence lurks here..."
+enemy_id = "tomb_shade"
+
+[node name="Sprite" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.6, 0.2, 0.3, 1)
+
+[node name="EnemyIndicator" type="ColorRect" parent="Sprite"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 18.0
+offset_bottom = 18.0
+color = Color(0.4, 0.1, 0.2, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_area")
+
+[node name="PromptLabel" type="Label" parent="."]
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = -14.0
+horizontal_alignment = 1
+vertical_alignment = 1

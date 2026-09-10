@@ -1,0 +1,121 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0l2p5mkqhtq0"]
+
+[ext_resource type="Script" path="res://scripts/combat/combat_ui.gd" id="1_script"]
+
+[node name="CombatUI" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="CombatPanel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CombatPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="TurnIndicator" type="Label" parent="CombatPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "COMBAT"
+horizontal_alignment = 1
+
+[node name="EnemySection" type="VBoxContainer" parent="CombatPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="NameLabel" type="Label" parent="CombatPanel/VBox/EnemySection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Enemy"
+horizontal_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="CombatPanel/VBox/EnemySection"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="CombatPanel/VBox/EnemySection"]
+layout_mode = 2
+text = "HP: 50/50"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CombatPanel/VBox"]
+layout_mode = 2
+
+[node name="PlayerSection" type="VBoxContainer" parent="CombatPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="CombatPanel/VBox/PlayerSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Wanderer"
+horizontal_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="CombatPanel/VBox/PlayerSection"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 100.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="CombatPanel/VBox/PlayerSection"]
+layout_mode = 2
+text = "HP: 100/100"
+horizontal_alignment = 1
+
+[node name="OverloadSection" type="VBoxContainer" parent="CombatPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="OverloadBar" type="ProgressBar" parent="CombatPanel/VBox/OverloadSection"]
+custom_minimum_size = Vector2(200, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+show_percentage = false
+
+[node name="OverloadLabel" type="Label" parent="CombatPanel/VBox/OverloadSection"]
+layout_mode = 2
+text = "Overload: 0/100"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="CombatPanel/VBox"]
+layout_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="CombatPanel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="AttackButton" type="Button" parent="CombatPanel/VBox/Actions"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Attack"
+
+[node name="SkillButton" type="Button" parent="CombatPanel/VBox/Actions"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Deep Echo"
+
+[node name="ActionLog" type="RichTextLabel" parent="CombatPanel/VBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true

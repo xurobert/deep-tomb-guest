@@ -1,0 +1,22 @@
+{
+	"tomb_shade": {
+		"id": "tomb_shade",
+		"name": "Tomb Shade",
+		"hp": 50,
+		"max_hp": 50,
+		"attack": 8,
+		"defense": 2,
+		"recognition_value": 15,
+		"description": "A shadowy remnant that haunts the tomb corridors."
+	},
+	"dust_wraith": {
+		"id": "dust_wraith",
+		"name": "Dust Wraith",
+		"hp": 35,
+		"max_hp": 35,
+		"attack": 12,
+		"defense": 1,
+		"recognition_value": 10,
+		"description": "A fast-moving spirit formed from ancient dust."
+	}
+}
