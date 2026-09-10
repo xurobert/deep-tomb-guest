@@ -10,8 +10,8 @@ signal save_failed
 
 func _ready() -> void:
 	super._ready()
-	interaction_text = "Save"
-	message = "A place of rest..."
+	interaction_text = "保存"
+	message = "一个休憩之所..."
 	if prompt_label:
 		prompt_label.text = "[E] " + interaction_text
 

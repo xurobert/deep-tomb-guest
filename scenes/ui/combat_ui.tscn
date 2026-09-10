@@ -29,7 +29,7 @@ theme_override_constants/separation = 10
 [node name="TurnIndicator" type="Label" parent="CombatPanel/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "COMBAT"
+text = "战斗"
 horizontal_alignment = 1
 
 [node name="EnemySection" type="VBoxContainer" parent="CombatPanel/VBox"]
@@ -39,7 +39,7 @@ theme_override_constants/separation = 4
 [node name="NameLabel" type="Label" parent="CombatPanel/VBox/EnemySection"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Enemy"
+text = "敌人"
 horizontal_alignment = 1
 
 [node name="HPBar" type="ProgressBar" parent="CombatPanel/VBox/EnemySection"]
@@ -52,7 +52,7 @@ show_percentage = false
 
 [node name="HPLabel" type="Label" parent="CombatPanel/VBox/EnemySection"]
 layout_mode = 2
-text = "HP: 50/50"
+text = "生命值: 50/50"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="CombatPanel/VBox"]
@@ -65,7 +65,7 @@ theme_override_constants/separation = 4
 [node name="Label" type="Label" parent="CombatPanel/VBox/PlayerSection"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Wanderer"
+text = "流浪者"
 horizontal_alignment = 1
 
 [node name="HPBar" type="ProgressBar" parent="CombatPanel/VBox/PlayerSection"]
@@ -77,7 +77,7 @@ show_percentage = false
 
 [node name="HPLabel" type="Label" parent="CombatPanel/VBox/PlayerSection"]
 layout_mode = 2
-text = "HP: 100/100"
+text = "生命值: 100/100"
 horizontal_alignment = 1
 
 [node name="OverloadSection" type="VBoxContainer" parent="CombatPanel/VBox"]
@@ -92,7 +92,7 @@ show_percentage = false
 
 [node name="OverloadLabel" type="Label" parent="CombatPanel/VBox/OverloadSection"]
 layout_mode = 2
-text = "Overload: 0/100"
+text = "失控: 0/100"
 horizontal_alignment = 1
 
 [node name="HSeparator2" type="HSeparator" parent="CombatPanel/VBox"]
@@ -106,12 +106,12 @@ theme_override_constants/separation = 20
 [node name="AttackButton" type="Button" parent="CombatPanel/VBox/Actions"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
-text = "Attack"
+text = "攻击"
 
 [node name="SkillButton" type="Button" parent="CombatPanel/VBox/Actions"]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
-text = "Deep Echo"
+text = "异能共鸣"
 
 [node name="ActionLog" type="RichTextLabel" parent="CombatPanel/VBox"]
 custom_minimum_size = Vector2(0, 80)

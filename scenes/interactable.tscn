@@ -7,8 +7,8 @@ size = Vector2(24, 24)
 
 [node name="Interactable" type="Node2D"]
 script = ExtResource("1_script")
-interaction_text = "Examine"
-message = "An ancient artifact rests here, humming with faint energy."
+interaction_text = "检查"
+message = "一件远古文物静置于此，散发着微弱的能量嗡鸣。"
 
 [node name="Sprite" type="ColorRect" parent="."]
 offset_left = -8.0

@@ -39,7 +39,7 @@ func _start_combat() -> void:
 	if enemy.is_empty():
 		enemy = {
 			"id": "unknown",
-			"name": "Unknown Enemy",
+			"name": "未知敌人",
 			"hp": 30,
 			"max_hp": 30,
 			"attack": 5,

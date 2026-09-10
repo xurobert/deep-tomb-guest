@@ -1,67 +1,67 @@
-# Pixel Art Import Settings
+# 像素美术导入设置
 
-This document describes the required import settings for pixel art assets in Deep Tomb Guest.
+本文档描述了《墓穴访客》中像素美术素材所需的导入设置。
 
-## Global Settings (Already Configured)
+## 全局设置（已配置）
 
-The `project.godot` file includes:
+`project.godot` 文件包含以下配置：
 ```
 [rendering]
 textures/canvas_textures/default_texture_filter=0
 ```
 
-This sets the default texture filter to **Nearest** (no filtering), which is essential for crisp pixel art.
+这将默认贴图滤镜设置为 **最近邻（Nearest）**（无滤波），这对于清晰的像素美术效果至关重要。
 
-## Per-Asset Import Settings
+## 单素材导入设置
 
-When importing new pixel art textures, ensure these settings in the Import dock:
+导入新的像素美术贴图时，请确保在导入面板中使用以下设置：
 
-### Textures (.png, .jpg)
-- **Filter**: OFF (Nearest)
-- **Mipmaps**: OFF (Generate Mipmaps = false)
-- **Repeat**: Disabled (unless tiling texture)
+### 贴图 (.png, .jpg)
+- **滤镜 (Filter)**：关闭（Nearest 最近邻）
+- **Mipmaps**：关闭（Generate Mipmaps = false）
+- **重复 (Repeat)**：禁用（除非是平铺贴图）
 
-### How to Configure
+### 配置方法
 
-1. Select the texture in FileSystem
-2. Go to Import tab
-3. Set:
-   - Compress > Mode: Lossless
-   - Flags > Filter: OFF
-   - Flags > Mipmaps: OFF
-4. Click "Reimport"
+1. 在文件系统中选择贴图
+2. 进入「导入」选项卡
+3. 设置：
+   - Compress > Mode：Lossless（无损）
+   - Flags > Filter：关闭
+   - Flags > Mipmaps：关闭
+4. 点击「重新导入」
 
-### Preset Creation (Recommended)
+### 创建预设（推荐）
 
-To create a reusable preset:
-1. Configure one texture as above
-2. Click "Preset" dropdown in Import dock
-3. Select "Save Current as..."
-4. Name it "Pixel Art"
+创建可复用的预设：
+1. 按上述方式配置一个贴图
+2. 在导入面板中点击「预设」下拉菜单
+3. 选择「另存为当前设置...」
+4. 命名为「Pixel Art」
 
-## Asset Specifications
+## 素材规格
 
-| Asset Type | Canvas Size | Notes |
-|------------|-------------|-------|
-| Tiles | 16×16 px | Seamless edges for tiling |
-| Characters | 32×32 px | Centered, with room for animations |
-| UI Elements | Variable | Use multiples of 8px |
-| Effects/FX | Variable | Match context (tile or character scale) |
+| 素材类型 | 画布尺寸 | 备注 |
+|----------|----------|------|
+| 地砖 | 16×16 px | 边缘无缝以便平铺 |
+| 角色 | 32×32 px | 居中，为动画预留空间 |
+| UI 元素 | 可变 | 使用 8px 的倍数 |
+| 特效/FX | 可变 | 匹配上下文（地砖或角色比例） |
 
-## Naming Convention
+## 命名规范
 
 ```
 subject_state_dir_frame.png
 ```
 
-Examples:
-- `hero_idle_s_00.png` - Hero, idle animation, facing south, frame 0
-- `hero_walk_e_02.png` - Hero, walking, facing east, frame 2
-- `tile_floor_stone_00.png` - Floor tile, stone variant
-- `ui_btn_attack_normal.png` - UI button, attack, normal state
+示例：
+- `hero_idle_s_00.png` - 主角，待机动画，朝南，第 0 帧
+- `hero_walk_e_02.png` - 主角，行走，朝东，第 2 帧
+- `tile_floor_stone_00.png` - 地板砖，石质变体
+- `ui_btn_attack_normal.png` - UI 按钮，攻击，正常状态
 
-### Direction Codes
-- `n` = North (up)
-- `s` = South (down)
-- `e` = East (right)
-- `w` = West (left)
+### 方向代码
+- `n` = 北（上）
+- `s` = 南（下）
+- `e` = 东（右）
+- `w` = 西（左）

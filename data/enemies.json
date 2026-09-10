@@ -1,22 +1,22 @@
 {
 	"tomb_shade": {
 		"id": "tomb_shade",
-		"name": "Tomb Shade",
+		"name": "墓穴阴魂",
 		"hp": 50,
 		"max_hp": 50,
 		"attack": 8,
 		"defense": 2,
 		"recognition_value": 15,
-		"description": "A shadowy remnant that haunts the tomb corridors."
+		"description": "一个在墓穴走廊中游荡的阴暗残魂。"
 	},
 	"dust_wraith": {
 		"id": "dust_wraith",
-		"name": "Dust Wraith",
+		"name": "尘埃怨灵",
 		"hp": 35,
 		"max_hp": 35,
 		"attack": 12,
 		"defense": 1,
 		"recognition_value": 10,
-		"description": "A fast-moving spirit formed from ancient dust."
+		"description": "由远古尘埃形成的快速移动的魂灵。"
 	}
 }

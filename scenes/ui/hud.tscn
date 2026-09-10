@@ -26,11 +26,11 @@ grow_vertical = 2
 
 [node name="HPLabel" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-text = "HP: 100/100"
+text = "生命值: 100/100"
 
 [node name="RecognitionLabel" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-text = "Recognition: 0"
+text = "认可: 0"
 
 [node name="SaveIndicator" type="Label" parent="Panel"]
 visible = false
@@ -44,4 +44,4 @@ offset_right = 80.0
 offset_bottom = 31.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0.4, 0.9, 0.5, 1)
-text = "Saved!"
+text = "已保存！"
