@@ -37,11 +37,11 @@ func _try_show_next() -> void:
 
 func _show_toast(entity_name: String, amount: int) -> void:
 	if title_label:
-		title_label.text = "Recognition Gained"
+		title_label.text = "获得认可"
 	if message_label:
-		message_label.text = "The %s acknowledges your presence..." % entity_name
+		message_label.text = "%s认可了你的存在..." % entity_name
 	if amount_label:
-		amount_label.text = "+%d Recognition" % amount
+		amount_label.text = "+%d 认可" % amount
 	
 	visible = true
 	

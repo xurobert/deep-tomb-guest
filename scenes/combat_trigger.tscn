@@ -7,8 +7,8 @@ size = Vector2(24, 24)
 
 [node name="CombatTrigger" type="Node2D"]
 script = ExtResource("1_script")
-interaction_text = "Challenge"
-message = "A shadowy presence lurks here..."
+interaction_text = "挑战"
+message = "一股阴暗的气息潜伏于此..."
 enemy_id = "tomb_shade"
 
 [node name="Sprite" type="ColorRect" parent="."]
