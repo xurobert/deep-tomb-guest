@@ -29,4 +29,5 @@
 | 视角 | 2.5D 俯视箱庭 + 日系立绘对话 | [perspective-and-pipeline.md](art/perspective-and-pipeline.md) |
 | 分级 | 16+ 弱化（少血腥特写、暗示代替直给） | [palette-lock.md](art/palette-lock.md) |
 | IP | 纯同人自用，只借氛围，角色原创 | [palette-lock.md](art/palette-lock.md) |
+| 局内美术 | 像素（16×16/32×32）+ 概念图仅参考 + SpriteFrames 逐帧 | [决策记录-M0.md](决策记录-M0.md) |
 
