@@ -87,6 +87,20 @@ subject_state_dir_frame.png
 - `hero_idle_s_00.png` - 主角待机朝南，第 0 帧
 - `tile_floor_stone_00.png` - 石质地板砖
 
+### 动画技术约束
+
+- **使用**：Godot SpriteFrames 逐帧动画
+- **禁止**：骨骼绑定（Spine / DragonBones / Skeleton2D）
+
+详见 [帧动画规范](docs/art/animation-frames.md)。
+
+### 概念图 / AI 生成图使用规范
+
+- 概念图 / Grok 生成图**仅作参考**，存于 `docs/art/ref/`
+- **严禁**将概念图、AI 生成图提交至 `assets/` 作为最终资产
+
+详见 [命名与导入规范](docs/art/naming-and-import.md)。
+
 ## 当前功能（原型）
 
 - [x] 俯视角探索与碰撞

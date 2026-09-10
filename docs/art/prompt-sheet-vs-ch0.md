@@ -22,6 +22,42 @@ Pixel art style, clean edges, high silhouette readability.
 
 ---
 
+## 🔒 像素约束（Pixel Constraints）
+
+生成地图精灵时**必须**遵守以下像素约束：
+
+| 约束项 | 要求 |
+|--------|------|
+| 尺寸 | 32×32 像素（单帧）或符合 sprite sheet 单元格 |
+| 调色板 | 有限调色板（≤16 色为佳），使用锁定色值 |
+| 光照 | **禁止写实光照**，使用平面色块 + 简单明暗 |
+| 采样 | **Nearest-neighbor**，禁止抗锯齿/模糊 |
+| 边缘 | 干净硬边，无渐变羽化 |
+
+### 补充负面提示词
+
+针对像素资产生成，在通用负面提示词基础上追加：
+
+```
+no realistic lighting, no soft shadows, no anti-aliasing, no smooth gradients, 
+no blur, no bilinear filtering, no sub-pixel details, no photorealistic shading, 
+integer scaling only, nearest-neighbor interpolation
+```
+
+**中文参考**：禁止写实光照、禁止柔和阴影、禁止抗锯齿、禁止平滑渐变、禁止模糊、禁止双线性过滤、禁止亚像素细节、禁止照片级着色、仅允许整数缩放、最近邻插值。
+
+---
+
+## 🔒 概念图使用声明
+
+> ⚠️ 本文档中的提示词用于生成**参考概念图**，非最终游戏资产。
+> 
+> - AI/Grok 生成的图像**仅供参考**，标注「非进仓」
+> - 最终游戏资产须为手绘/手修像素图，存于 `assets/`
+> - 参考图可存于 `docs/art/ref/`，不得直接进入 `assets/`
+
+---
+
 ## 通用负面提示词（Negative Prompts）
 
 适用于所有游戏美术生成：
