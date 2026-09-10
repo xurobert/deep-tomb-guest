@@ -24,11 +24,13 @@ Pixel art style, clean edges, high silhouette readability.
 
 ## 🔒 像素约束（Pixel Constraints）
 
+> **2026-09-10 更新**：画布尺寸已升级（~~旧 16/32~~ → **新 32/64**）
+
 生成地图精灵时**必须**遵守以下像素约束：
 
 | 约束项 | 要求 |
 |--------|------|
-| 尺寸 | 32×32 像素（单帧）或符合 sprite sheet 单元格 |
+| 尺寸 | **角色 64×64、瓦片 32×32** 像素（单帧）或符合 sprite sheet 单元格 |
 | 调色板 | 有限调色板（≤16 色为佳），使用锁定色值 |
 | 光照 | **禁止写实光照**，使用平面色块 + 简单明暗 |
 | 采样 | **Nearest-neighbor**，禁止抗锯齿/模糊 |
@@ -76,13 +78,13 @@ no official Overlord character likeness, no copyrighted character design
 
 ### 1. 玩家地图精灵（Player Map Sprite）
 
-**规格**：32×32 像素，4 方向，待机 + 行走帧
+**规格**：**64×64 像素**（~~旧 32×32~~），4 方向，待机 + 行走帧
 
 #### 1.1 玩家待机（Idle）
 
 ```
 [STYLE BLOCK]
-Subject: adventurer character idle sprite, 32x32 pixel art, 4-directional (down, up, 
+Subject: adventurer character idle sprite, 64x64 pixel art, 4-directional (down, up, 
 left, right), single frame per direction. Hooded traveler with dark cloak, visible 
 face silhouette, neutral standing pose. Stone-black and bone-white dominant. 
 Transparent background.
@@ -93,7 +95,7 @@ Transparent background.
 
 ```
 [STYLE BLOCK]
-Subject: adventurer character walk cycle sprite sheet, 32x32 pixel art, 4-directional, 
+Subject: adventurer character walk cycle sprite sheet, 64x64 pixel art, 4-directional, 
 4 frames per direction (16 total). Hooded traveler with dark cloak, fluid walking 
 animation, cape movement. Transparent background.
 [NEGATIVE PROMPTS]
@@ -118,13 +120,13 @@ art with Japanese anime influence. Dark teal-stone background gradient.
 
 ### 3. 墓道入口地砖（Tomb Approach Tiles）
 
-**规格**：16×16 像素，可拼接瓦片集
+**规格**：**32×32 像素**（~~旧 16×16~~），可拼接瓦片集
 
 #### 3.1 石质地砖基础（Floor Stone Base）
 
 ```
 [STYLE BLOCK]
-Subject: dungeon floor tile, 16x16 pixel art, top-down view. Cracked stone slab, 
+Subject: dungeon floor tile, 32x32 pixel art, top-down view. Cracked stone slab, 
 weathered texture, stone-black #1A1C22 base with teal-stone #3A4A52 cracks. 
 Seamlessly tileable. Transparent or solid black background.
 [NEGATIVE PROMPTS]
@@ -134,7 +136,7 @@ Seamlessly tileable. Transparent or solid black background.
 
 ```
 [STYLE BLOCK]
-Subject: dungeon wall tile, 16x16 pixel art, top-down view for wall edge. Dark 
+Subject: dungeon wall tile, 32x32 pixel art, top-down view for wall edge. Dark 
 stone brick pattern, gothic arch texture hint, stone-black dominant with bone-white 
 mortar lines. Auto-tile compatible edges.
 [NEGATIVE PROMPTS]
@@ -144,7 +146,7 @@ mortar lines. Auto-tile compatible edges.
 
 ```
 [STYLE BLOCK]
-Subject: dungeon entrance stairway tile, 16x32 pixel art (2 tiles tall), top-down 
+Subject: dungeon entrance stairway tile, 32x64 pixel art (2 tiles tall), top-down 
 view. Stone steps descending into darkness, gilt-gold light glow from below, 
 ominous atmosphere. Scene transition marker.
 [NEGATIVE PROMPTS]
@@ -154,11 +156,11 @@ ominous atmosphere. Scene transition marker.
 
 ### 4. 骷髅守卫敌人（Skeleton Guard Enemy）
 
-**规格**：32×32 像素，敌人精灵
+**规格**：**64×64 像素**（~~旧 32×32~~），敌人精灵
 
 ```
 [STYLE BLOCK]
-Subject: skeleton guard enemy sprite, 32x32 pixel art, front-facing idle pose. 
+Subject: skeleton guard enemy sprite, 64x64 pixel art, front-facing idle pose. 
 Animated skeleton warrior with rusted sword and partial armor, bone-white skeleton 
 structure with blood-red eye glow. Gothic stylized bones, no realistic anatomy. 
 Transparent background.
@@ -169,11 +171,11 @@ Transparent background.
 
 ### 5. 魂灯存档点（Soul Lamp Save Point）
 
-**规格**：32×32 或 16×32 像素，环境物件
+**规格**：**64×64 或 32×64 像素**（~~旧 32×32 或 16×32~~），环境物件
 
 ```
 [STYLE BLOCK]
-Subject: soul lamp save point object, 32x32 pixel art, gothic lantern on stone 
+Subject: soul lamp save point object, 64x64 pixel art, gothic lantern on stone 
 pedestal. Floating ethereal flame inside, power-ash #7A8B9A glow with readable-green 
 #4A7C59 tint. Bone-white metalwork frame with gilt-gold accents. Soft ambient light 
 radius.
@@ -184,11 +186,11 @@ radius.
 
 ### 6. 异能共鸣觉醒特效（Deep Echo Awaken VFX Stub）
 
-**规格**：32×32 像素帧序列（4–8 帧），叠加特效
+**规格**：**64×64 像素**（~~旧 32×32~~）帧序列（4–8 帧），叠加特效
 
 ```
 [STYLE BLOCK]
-Subject: magical awakening VFX sprite sheet, 32x32 pixel art, 4-8 frame animation. 
+Subject: magical awakening VFX sprite sheet, 64x64 pixel art, 4-8 frame animation. 
 Ethereal energy burst emanating from center, power-ash #7A8B9A primary glow with 
 bone-white sparks. Radial expansion pattern, fading edges. Transparent background, 
 additive blend compatible.
