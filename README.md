@@ -68,6 +68,12 @@ deep-tomb-guest/
 
 在进入大规模制作前，请参阅 [垂直切片验收表](docs/垂直切片验收表.md) 完成功能与体验验收。
 
+## 工程文档
+
+- [章节点与 Flag 存档键](docs/工程-章节点与flag存档键.md) — 章节检查点、剧情 Flag 表、SaveManager 存档结构
+- [SpriteFrames 导入约定](docs/工程-SpriteFrames导入约定.md) — 美术资源导入流程、AnimatedSprite2D 节点绑定
+- [VS Flag 定义](data/flags.json) — 垂直切片必需 Flag 的 JSON 数据文件
+
 ## Pixel Art Settings
 ## 像素美术设置
 

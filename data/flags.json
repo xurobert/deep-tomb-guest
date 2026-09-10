@@ -1,0 +1,86 @@
+{
+  "_comment": "VS 必需 Flag 定义 - 仅包含垂直切片所需的 Flag",
+  "_version": "1.0",
+  "_scope": "vs",
+  
+  "chapter_0_started": {
+    "id": "chapter_0_started",
+    "display_name": "第0章开始",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家进入第0章（外围误入）"
+  },
+  
+  "entrance_collapsed": {
+    "id": "entrance_collapsed",
+    "display_name": "入口崩塌",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "入口崩塌，无法返回"
+  },
+  
+  "point_of_no_return_0": {
+    "id": "point_of_no_return_0",
+    "display_name": "不可返回点0",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "第0章不可逆事件触发"
+  },
+  
+  "first_save_point_activated": {
+    "id": "first_save_point_activated",
+    "display_name": "首个魂灯激活",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家激活了第一个魂灯存档点"
+  },
+  
+  "first_battle_started": {
+    "id": "first_battle_started",
+    "display_name": "首战开始",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家触发了首次战斗"
+  },
+  
+  "first_battle_won": {
+    "id": "first_battle_won",
+    "display_name": "首战胜利",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家赢得了首次战斗"
+  },
+  
+  "first_echo_awakened": {
+    "id": "first_echo_awakened",
+    "display_name": "首次异能觉醒",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家的异能共鸣首次觉醒"
+  },
+  
+  "echo_tutorial_complete": {
+    "id": "echo_tutorial_complete",
+    "display_name": "异能教学完成",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "异能共鸣使用教学完成"
+  },
+  
+  "first_recognition": {
+    "id": "first_recognition",
+    "display_name": "首次获得认可",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家首次获得认可点数"
+  }
+}

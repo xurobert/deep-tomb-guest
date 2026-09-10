@@ -15,12 +15,18 @@
 - [第0-1章节拍.md](第0-1章节拍.md) — 第0章与第1章设计节拍表，含教学点、工程flag、美术镜头需求
 - [PIXEL_ART_SETTINGS.md](PIXEL_ART_SETTINGS.md) — Godot 像素美术导入设置
 
+## 工程文档
+
+- [工程-章节点与flag存档键.md](工程-章节点与flag存档键.md) — 章节检查点、Flag 表、SaveManager 存档结构
+- [工程-SpriteFrames导入约定.md](工程-SpriteFrames导入约定.md) — SpriteFrames 导入流程与 AnimatedSprite2D 绑定
+
 ## 美术文档 (art/)
 
 - [art/palette-lock.md](art/palette-lock.md) — **美术方向锁定**（视角 / 分级 / IP 三项决策）
 - [art/perspective-and-pipeline.md](art/perspective-and-pipeline.md) — 视角与管线规范（2.5D 俯视箱庭）
 - [art/m1-shot-list.md](art/m1-shot-list.md) — M1 里程碑资源清单
 - [art/naming-and-import.md](art/naming-and-import.md) — 命名与导入规范
+- [art/animation-frames.md](art/animation-frames.md) — VS 帧动画规范
 
 ## 锁定决策速览
 
