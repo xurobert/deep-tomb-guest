@@ -4,7 +4,7 @@
 
 ## 锁定决策
 
-核心锁定已确定，详见 [palette-lock.md](palette-lock.md)：
+核心锁定已确定，详见 [palette-lock.md](palette-lock.md) 和 [grok-pixel-pipeline.md](grok-pixel-pipeline.md)：
 
 | 锁定项 | 决策 |
 |--------|------|
@@ -13,6 +13,7 @@
 | 🔒 IP | 纯同人自用，只借氛围，角色原创形，不描官方立绘 |
 | 🔒 动画技术 | Godot SpriteFrames 逐帧动画，**禁止骨骼绑定** |
 | 🔒 概念图 | 仅作参考存于 `docs/art/ref/`，**禁止进仓 `assets/`** |
+| 🔒 Grok 管线 | 生成→裁切→最近邻缩放→量化至 8 色板→审核；**禁止高清直导、禁止双线性/AA** |
 
 ## 文档列表
 
@@ -21,6 +22,7 @@
 | [animation-frames.md](animation-frames.md) | **VS 帧动画规范**（帧表、SpriteFrames、概念图规范） |
 | [pixel-pipeline.md](pixel-pipeline.md) | **像素美术生产管线**（Grok 生成 → 缩放量化 → 审核入库） |
 | [palette-lock.md](palette-lock.md) | 美术方向锁定（视角 / 分级 / IP 决策区块） |
+| [grok-pixel-pipeline.md](grok-pixel-pipeline.md) | **🔒 Grok 像素管线**（生成→裁切→缩放→量化→审核流程、锁定 8 色板） |
 | [perspective-and-pipeline.md](perspective-and-pipeline.md) | 视角规范与美术管线（2.5D、像素、立绘工作流） |
 | [naming-and-import.md](naming-and-import.md) | 文件命名规范、目录结构、Godot 导入设置 |
 | [m1-shot-list.md](m1-shot-list.md) | M1 里程碑资源清单（map-sprite / portrait 标注） |
