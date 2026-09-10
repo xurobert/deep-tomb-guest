@@ -64,6 +64,10 @@ deep-tomb-guest/
 - `docs/` - Reserved for Game Design Document (GDD)
 - `docs/art/` - Reserved for art direction documents and shot lists
 
+## 垂直切片验收
+
+在进入大规模制作前，请参阅 [垂直切片验收表](docs/垂直切片验收表.md) 完成功能与体验验收。
+
 ## Pixel Art Settings
 
 All textures should use:
