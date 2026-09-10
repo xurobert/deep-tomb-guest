@@ -35,15 +35,15 @@ func _on_combat_started() -> void:
 	visible = true
 	_clear_log()
 	_update_all_displays()
-	_log_message("[color=yellow]Combat begins![/color]")
+	_log_message("[color=yellow]战斗开始！[/color]")
 
 
 func _on_combat_ended(victory: bool) -> void:
 	_set_buttons_enabled(false)
 	if victory:
-		_log_message("[color=green]Victory![/color]")
+		_log_message("[color=green]胜利！[/color]")
 	else:
-		_log_message("[color=red]Defeated...[/color]")
+		_log_message("[color=red]战败...[/color]")
 	
 	await get_tree().create_timer(1.5).timeout
 	visible = false
@@ -52,13 +52,15 @@ func _on_combat_ended(victory: bool) -> void:
 func _on_turn_started(is_player_turn: bool) -> void:
 	_set_buttons_enabled(is_player_turn)
 	if turn_indicator:
-		turn_indicator.text = "YOUR TURN" if is_player_turn else "ENEMY TURN"
+		turn_indicator.text = "你的回合" if is_player_turn else "敌人回合"
 		turn_indicator.modulate = Color.GREEN if is_player_turn else Color.RED
 
 
 func _on_action_performed(actor: String, action: String, target: String, damage: int) -> void:
 	var color := "cyan" if actor == "Player" else "orange"
-	_log_message("[color=%s]%s[/color] uses %s on %s for [color=red]%d[/color] damage!" % [color, actor, action, target, damage])
+	var actor_name := "玩家" if actor == "Player" else "敌人"
+	var target_name := "玩家" if target == "Player" else "敌人"
+	_log_message("[color=%s]%s[/color]对%s使用%s，造成[color=red]%d[/color]点伤害！" % [color, actor_name, target_name, action, damage])
 	_update_all_displays()
 
 
@@ -67,7 +69,7 @@ func _on_overload_changed(current: int, maximum: int) -> void:
 		overload_bar.max_value = maximum
 		overload_bar.value = current
 	if overload_label:
-		overload_label.text = "Overload: %d/%d" % [current, maximum]
+		overload_label.text = "失控: %d/%d" % [current, maximum]
 		if current >= maximum * 0.8:
 			overload_label.modulate = Color.RED
 		elif current >= maximum * 0.5:
@@ -96,15 +98,15 @@ func _update_all_displays() -> void:
 		player_hp_bar.max_value = player_max_hp
 		player_hp_bar.value = player_hp
 	if player_hp_label:
-		player_hp_label.text = "HP: %d/%d" % [player_hp, player_max_hp]
+		player_hp_label.text = "生命值: %d/%d" % [player_hp, player_max_hp]
 	
 	if enemy_hp_bar:
 		enemy_hp_bar.max_value = enemy_max_hp
 		enemy_hp_bar.value = enemy_hp
 	if enemy_hp_label:
-		enemy_hp_label.text = "HP: %d/%d" % [enemy_hp, enemy_max_hp]
+		enemy_hp_label.text = "生命值: %d/%d" % [enemy_hp, enemy_max_hp]
 	if enemy_name_label:
-		enemy_name_label.text = TurnManager.enemy.get("name", "Enemy")
+		enemy_name_label.text = TurnManager.enemy.get("name", "敌人")
 	
 	_on_overload_changed(overload, max_overload)
 
