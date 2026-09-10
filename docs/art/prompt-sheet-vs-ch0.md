@@ -24,6 +24,8 @@ Pixel art style, clean edges, high silhouette readability.
 
 ## 🔒 像素约束（Pixel Constraints）
 
+> **2026-09-10 更新**：画布尺寸已升级（~~旧 16/32~~ → **新 32/64**）
+
 生成地图精灵时**必须**遵守以下像素约束：
 
 | 约束项 | 要求 |
