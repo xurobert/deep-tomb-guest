@@ -8,7 +8,7 @@ enum GameState { EXPLORATION, COMBAT, MENU, DIALOGUE, SAVING }
 
 var current_state: GameState = GameState.EXPLORATION
 var player_data: Dictionary = {
-	"name": "Wanderer",
+	"name": "流浪者",
 	"hp": 100,
 	"max_hp": 100,
 	"overload": 0,

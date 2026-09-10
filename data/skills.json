@@ -1,8 +1,8 @@
 {
 	"deep_echo": {
 		"id": "deep_echo",
-		"name": "Deep Echo",
-		"description": "Channel resonant energy from the tomb depths. High damage, builds overload.",
+		"name": "异能共鸣",
+		"description": "引导来自墓穴深处的共鸣能量。高伤害，积累失控值。",
 		"base_damage": 25,
 		"overload_cost": 30,
 		"type": "magic",
@@ -10,8 +10,8 @@
 	},
 	"basic_attack": {
 		"id": "basic_attack",
-		"name": "Attack",
-		"description": "A standard physical attack.",
+		"name": "攻击",
+		"description": "标准物理攻击。",
 		"base_damage": 10,
 		"overload_cost": 0,
 		"type": "physical",

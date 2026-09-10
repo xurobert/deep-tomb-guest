@@ -4,8 +4,8 @@ class_name Interactable
 
 signal on_interact
 
-@export var interaction_text: String = "Examine"
-@export var message: String = "An ancient artifact rests here."
+@export var interaction_text: String = "检查"
+@export var message: String = "一件远古文物静置于此。"
 
 @onready var prompt_label: Label = $PromptLabel
 @onready var area: Area2D = $Area2D

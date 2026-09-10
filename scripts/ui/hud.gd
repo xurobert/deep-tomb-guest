@@ -20,9 +20,9 @@ func _process(_delta: float) -> void:
 
 func _update_display() -> void:
 	if hp_label:
-		hp_label.text = "HP: %d/%d" % [GameManager.player_data.hp, GameManager.player_data.max_hp]
+		hp_label.text = "生命值: %d/%d" % [GameManager.player_data.hp, GameManager.player_data.max_hp]
 	if recognition_label:
-		recognition_label.text = "Recognition: %d" % GameManager.player_data.recognition
+		recognition_label.text = "认可: %d" % GameManager.player_data.recognition
 
 
 func _on_state_changed(new_state: GameManager.GameState) -> void:
@@ -31,7 +31,7 @@ func _on_state_changed(new_state: GameManager.GameState) -> void:
 
 func _on_save_completed(success: bool) -> void:
 	if save_indicator:
-		save_indicator.text = "Saved!" if success else "Save Failed"
+		save_indicator.text = "已保存！" if success else "保存失败"
 		save_indicator.visible = true
 		
 		await get_tree().create_timer(2.0).timeout

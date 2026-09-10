@@ -5,6 +5,7 @@
 ## 核心文档
 
 - [GDD-v1.1.md](GDD-v1.1.md) — 游戏需求文稿（v1.1，纯回合制，Godot 4）
+- [决策记录-M0.md](决策记录-M0.md) — M0 阶段拍板记录（2.5D / 16+ / 纯同人）
 - [术语对照表.md](术语对照表.md) — 英文代码 id 与中文显示名对照
 - [PIXEL_ART_SETTINGS.md](PIXEL_ART_SETTINGS.md) — Godot 像素美术导入设置
 
@@ -22,3 +23,4 @@
 | 视角 | 2.5D 俯视箱庭 + 日系立绘对话 | [perspective-and-pipeline.md](art/perspective-and-pipeline.md) |
 | 分级 | 16+ 弱化（少血腥特写、暗示代替直给） | [palette-lock.md](art/palette-lock.md) |
 | IP | 纯同人自用，只借氛围，角色原创 | [palette-lock.md](art/palette-lock.md) |
+
