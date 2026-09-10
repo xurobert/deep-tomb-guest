@@ -19,6 +19,7 @@
 | 文档 | 内容 |
 |------|------|
 | [animation-frames.md](animation-frames.md) | **VS 帧动画规范**（帧表、SpriteFrames、概念图规范） |
+| [pixel-pipeline.md](pixel-pipeline.md) | **像素美术生产管线**（Grok 生成 → 缩放量化 → 审核入库） |
 | [palette-lock.md](palette-lock.md) | 美术方向锁定（视角 / 分级 / IP 决策区块） |
 | [perspective-and-pipeline.md](perspective-and-pipeline.md) | 视角规范与美术管线（2.5D、像素、立绘工作流） |
 | [naming-and-import.md](naming-and-import.md) | 文件命名规范、目录结构、Godot 导入设置 |
@@ -34,8 +35,8 @@
 
 | 资源类型 | 尺寸 |
 |----------|------|
-| 地图瓦片 (map-tile) | **32×32 px**（~~旧 16×16~~） |
-| 地图精灵 (map-sprite) | **64×64 px**（~~旧 32×32~~） |
+| 地图瓦片 (map-tile) | 32×32 px |
+| 地图精灵 (map-sprite) | 64×64 px |
 | 立绘 (portrait) | 512+ px（高分辨率） |
 
 ### 目录结构

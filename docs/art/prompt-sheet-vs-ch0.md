@@ -30,7 +30,8 @@ Pixel art style, clean edges, high silhouette readability.
 
 | 约束项 | 要求 |
 |--------|------|
-| 尺寸 | **角色 64×64、瓦片 32×32** 像素（单帧）或符合 sprite sheet 单元格 |
+| 角色尺寸 | **64×64 像素**（单帧）或符合 sprite sheet 单元格 |
+| 瓦片尺寸 | **32×32 像素** |
 | 调色板 | 有限调色板（≤16 色为佳），使用锁定色值 |
 | 光照 | **禁止写实光照**，使用平面色块 + 简单明暗 |
 | 采样 | **Nearest-neighbor**，禁止抗锯齿/模糊 |
@@ -78,7 +79,7 @@ no official Overlord character likeness, no copyrighted character design
 
 ### 1. 玩家地图精灵（Player Map Sprite）
 
-**规格**：**64×64 像素**（~~旧 32×32~~），4 方向，待机 + 行走帧
+**规格**：64×64 像素，4 方向，待机 + 行走帧
 
 #### 1.1 玩家待机（Idle）
 
@@ -120,7 +121,7 @@ art with Japanese anime influence. Dark teal-stone background gradient.
 
 ### 3. 墓道入口地砖（Tomb Approach Tiles）
 
-**规格**：**32×32 像素**（~~旧 16×16~~），可拼接瓦片集
+**规格**：32×32 像素，可拼接瓦片集
 
 #### 3.1 石质地砖基础（Floor Stone Base）
 
@@ -156,7 +157,7 @@ ominous atmosphere. Scene transition marker.
 
 ### 4. 骷髅守卫敌人（Skeleton Guard Enemy）
 
-**规格**：**64×64 像素**（~~旧 32×32~~），敌人精灵
+**规格**：64×64 像素，敌人精灵
 
 ```
 [STYLE BLOCK]
@@ -171,7 +172,7 @@ Transparent background.
 
 ### 5. 魂灯存档点（Soul Lamp Save Point）
 
-**规格**：**64×64 或 32×64 像素**（~~旧 32×32 或 16×32~~），环境物件
+**规格**：64×64 或 32×64 像素，环境物件
 
 ```
 [STYLE BLOCK]
@@ -186,7 +187,7 @@ radius.
 
 ### 6. 异能共鸣觉醒特效（Deep Echo Awaken VFX Stub）
 
-**规格**：**64×64 像素**（~~旧 32×32~~）帧序列（4–8 帧），叠加特效
+**规格**：64×64 像素帧序列（4–8 帧），叠加特效
 
 ```
 [STYLE BLOCK]

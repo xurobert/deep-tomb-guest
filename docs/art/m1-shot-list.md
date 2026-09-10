@@ -10,19 +10,19 @@
 
 | id | 资产 | 画布 | 帧数 | 优先级 | 备注 |
 |----|------|------|------|--------|------|
-| player_idle | 冒险者待机（四方向） | **64×64** | 4×1 | P0 | 每方向 1 帧静态 |
-| player_walk | 冒险者行走（四方向） | **64×64** | 4×4 | P0 | 每方向 4 帧循环 |
-| tile_floor_stone | 石质地砖 | **32×32** | 1 | P0 | 外围箱庭基础砖 |
-| tile_floor_bone | 骨白地砖 | **32×32** | 1 | P1 | 变体装饰 |
-| tile_wall_tomb | 墓道墙壁 | **32×32** | 待定 | P0 | 需自动贴图规则 |
-| tile_entrance | 墓穴入口 | **32×64** | 1 | P1 | 场景过渡点 |
-| enemy_silhouette_a | 敌人剪影 A | **64×64** | 1 | P0 | 临时占位，具体设计待定 |
-| enemy_silhouette_b | 敌人剪影 B | **64×64** | 1 | P1 | 临时占位，具体设计待定 |
+| player_idle | 冒险者待机（四方向） | 64×64 | 4×1 | P0 | 每方向 1 帧静态 |
+| player_walk | 冒险者行走（四方向） | 64×64 | 4×4 | P0 | 每方向 4 帧循环 |
+| tile_floor_stone | 石质地砖 | 32×32 | 1 | P0 | 外围箱庭基础砖 |
+| tile_floor_bone | 骨白地砖 | 32×32 | 1 | P1 | 变体装饰 |
+| tile_wall_tomb | 墓道墙壁 | 32×32 | 待定 | P0 | 需自动贴图规则 |
+| tile_entrance | 墓穴入口 | 32×64 | 1 | P1 | 场景过渡点 |
+| enemy_silhouette_a | 敌人剪影 A | 64×64 | 1 | P0 | 临时占位，具体设计待定 |
+| enemy_silhouette_b | 敌人剪影 B | 64×64 | 1 | P1 | 临时占位，具体设计待定 |
 | ui_panel_battle | 战斗面板底框 | 待定 | 1 | P0 | 石碑灰底 + 鎏金边框 |
 | ui_button_action | 行动按钮 | 待定 | 3 | P0 | 常态/悬停/按下 三态 |
 | ui_hp_bar | 生命值条 | 待定 | 1 | P0 | 血曜填充 |
-| vfx_deep_echo | 异能共鸣特效 | **64×64** | 待定 | P1 | power-ash 色调，具体动画待定 |
-| vfx_overload | 失控特效 | **64×64** | 待定 | P1 | overload-purple 色调，具体动画待定 |
+| vfx_deep_echo | 异能共鸣特效 | 64×64 | 待定 | P1 | power-ash 色调，具体动画待定 |
+| vfx_overload | 失控特效 | 64×64 | 待定 | P1 | overload-purple 色调，具体动画待定 |
 | ui_toast_recognition | 认可提示框 | 待定 | 1 | P1 | Recognition 获得时弹出 |
 
 ## 说明
