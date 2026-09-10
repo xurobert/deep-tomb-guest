@@ -51,6 +51,8 @@ textures/canvas_textures/default_texture_filter=0
 > **2026-09-10 更新**：画布尺寸已从 16/32 升级到 32/64，硬像素边缘，有限调色板。  
 > 管线：Grok → nearest-neighbor 缩放至目标画布 + posterize → 一致性检查 → 入仓
 
+> 🔒 **锁定决策（2026-09-10）**：角色 64×64，瓦片 32×32。禁止将 AI 生成高清图直接导入。
+
 ## 命名规范
 
 ```
