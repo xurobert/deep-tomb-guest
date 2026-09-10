@@ -170,8 +170,22 @@ fx_attack_slash_00.png      # 普通攻击斩击帧 0
 
 ---
 
+## 🔒 概念图 / AI 生成图使用规范
+
+| 类型 | 允许位置 | 说明 |
+|------|----------|------|
+| 概念图 / Grok 生成图 | `docs/art/ref/` | 仅作参考，标注「非进仓」|
+| 最终像素资产 | `assets/` | 仅限手绘/手修像素图 |
+
+**严禁**：将 AI 生成图、概念草图直接提交至 `assets/` 目录作为最终游戏资产。
+
+参考图须存放于 `docs/art/ref/` 目录下，并在文件名或引用处标注「非进仓」。
+
+---
+
 ## 文档关联
 
+- [animation-frames.md](animation-frames.md) — VS 帧动画规范（帧表、SpriteFrames 配置）
 - [perspective-and-pipeline.md](perspective-and-pipeline.md) — 视角与管线
 - [palette-lock.md](palette-lock.md) — 美术方向锁定
 - [m1-shot-list.md](m1-shot-list.md) — M1 资源清单
