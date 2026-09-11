@@ -9,8 +9,10 @@ const TILE_SIZE := 16
 
 var can_move: bool = true
 var nearby_interactable: Node2D = null
+var current_direction: String = "s"
+var is_moving: bool = false
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = $InteractionArea
 
 
@@ -23,15 +25,20 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not can_move:
 		velocity = Vector2.ZERO
+		_update_animation()
 		return
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_dir * SPEED
 	
 	if velocity.length() > 0:
-		_update_facing(input_dir)
+		is_moving = true
+		current_direction = _get_direction_code(input_dir)
+	else:
+		is_moving = false
 	
 	move_and_slide()
+	_update_animation()
 
 
 func _input(event: InputEvent) -> void:
@@ -41,9 +48,22 @@ func _input(event: InputEvent) -> void:
 			nearby_interactable.interact()
 
 
-func _update_facing(direction: Vector2) -> void:
-	if abs(direction.x) > abs(direction.y):
-		sprite.flip_h = direction.x < 0
+func _get_direction_code(input: Vector2) -> String:
+	if abs(input.y) > abs(input.x):
+		return "n" if input.y < 0 else "s"
+	else:
+		return "w" if input.x < 0 else "e"
+
+
+func _update_animation() -> void:
+	var anim_name: String
+	if is_moving:
+		anim_name = "walk_" + current_direction
+	else:
+		anim_name = "idle_" + current_direction
+	
+	if anim.animation != anim_name:
+		anim.play(anim_name)
 
 
 func _on_game_state_changed(new_state: GameManager.GameState) -> void:
