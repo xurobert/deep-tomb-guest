@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0l2p5mkqhtq0"]
+[gd_scene load_steps=4 format=3 uid="uid://b0l2p5mkqhtq0"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_ui.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://oe8mj8ijjclw" path="res://assets/art/characters/enemies/enemy_bone_guard_combat_sil_idle.png" id="2_enemy"]
+[ext_resource type="Texture2D" uid="uid://bj5r3rmy4h62c" path="res://assets/art/fx/skills/fx_deep_echo_sil_00.png" id="3_fx"]
 
 [node name="CombatUI" type="CanvasLayer"]
 layer = 10
@@ -13,13 +15,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="EnemySprite" type="Sprite2D" parent="CombatPanel"]
+texture_filter = 0
+position = Vector2(320, 70)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_enemy")
+
+[node name="SkillFX" type="Sprite2D" parent="CombatPanel"]
+visible = false
+texture_filter = 0
+position = Vector2(320, 70)
+scale = Vector2(2, 2)
+texture = ExtResource("3_fx")
+
 [node name="VBox" type="VBoxContainer" parent="CombatPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = 20.0
+offset_top = 100.0
 offset_right = -20.0
 offset_bottom = -20.0
 grow_horizontal = 2

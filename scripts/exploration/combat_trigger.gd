@@ -6,12 +6,15 @@ class_name CombatTrigger
 @export var trigger_on_touch: bool = false
 
 var enemies_data: Dictionary = {}
+var _defeated: bool = false
+var _starting: bool = false
 
 
 func _ready() -> void:
 	super._ready()
 	_load_enemy_data()
-	
+	if prompt_label:
+		prompt_label.add_theme_color_override("font_color", Color(1.0, 0.35, 0.35))
 	if trigger_on_touch and area:
 		area.body_entered.connect(_on_body_entered)
 
@@ -20,7 +23,7 @@ func _load_enemy_data() -> void:
 	var file := FileAccess.open("res://data/enemies.json", FileAccess.READ)
 	if file:
 		var json := JSON.new()
-		if json.parse(file.get_as_text()) == OK:
+		if json.parse(file.get_as_text()) == OK and typeof(json.data) == TYPE_DICTIONARY:
 			enemies_data = json.data
 		file.close()
 
@@ -34,9 +37,32 @@ func _on_body_entered(body: Node2D) -> void:
 		_start_combat()
 
 
+func _normalize_enemy(raw: Dictionary) -> Dictionary:
+	var enemy: Dictionary = raw.duplicate(true)
+	enemy["id"] = str(enemy.get("id", enemy_id))
+	enemy["name"] = str(enemy.get("name", "未知敌人"))
+	enemy["hp"] = int(enemy.get("hp", 30))
+	enemy["max_hp"] = int(enemy.get("max_hp", enemy["hp"]))
+	enemy["attack"] = int(enemy.get("attack", 5))
+	enemy["defense"] = int(enemy.get("defense", 1))
+	enemy["recognition_value"] = int(enemy.get("recognition_value", 5))
+	return enemy
+
+
 func _start_combat() -> void:
-	var enemy := enemies_data.get(enemy_id, {}).duplicate(true)
-	if enemy.is_empty():
+	if _defeated or _starting:
+		return
+	if GameManager.current_state != GameManager.GameState.EXPLORATION:
+		return
+	if TurnManager.is_in_combat or TurnManager.combat_active:
+		return
+
+	_starting = true
+	var raw: Variant = enemies_data.get(enemy_id, {})
+	var enemy: Dictionary
+	if typeof(raw) == TYPE_DICTIONARY and not raw.is_empty():
+		enemy = _normalize_enemy(raw)
+	else:
 		enemy = {
 			"id": "unknown",
 			"name": "未知敌人",
@@ -46,5 +72,18 @@ func _start_combat() -> void:
 			"defense": 1,
 			"recognition_value": 5
 		}
-	
+
+	if not TurnManager.combat_ended.is_connected(_on_combat_ended):
+		TurnManager.combat_ended.connect(_on_combat_ended)
 	GameManager.start_combat(enemy)
+	_starting = false
+
+
+func _on_combat_ended(victory: bool) -> void:
+	if victory:
+		_defeated = true
+		hide_prompt()
+		visible = false
+		if area:
+			area.set_deferred("monitoring", false)
+			area.set_deferred("monitorable", false)

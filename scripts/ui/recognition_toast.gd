@@ -20,7 +20,7 @@ func _ready() -> void:
 func _on_recognition_earned(entity_name: String, amount: int) -> void:
 	var toast_data := {
 		"entity": entity_name,
-		"amount": amount
+		"amount": int(amount)
 	}
 	toast_queue.append(toast_data)
 	_try_show_next()
@@ -29,10 +29,10 @@ func _on_recognition_earned(entity_name: String, amount: int) -> void:
 func _try_show_next() -> void:
 	if is_showing or toast_queue.is_empty():
 		return
-	
+
 	is_showing = true
 	var data: Dictionary = toast_queue.pop_front()
-	_show_toast(data.entity, data.amount)
+	_show_toast(str(data.get("entity", "敌人")), int(data.get("amount", 0)))
 
 
 func _show_toast(entity_name: String, amount: int) -> void:
@@ -42,9 +42,9 @@ func _show_toast(entity_name: String, amount: int) -> void:
 		message_label.text = "%s认可了你的存在..." % entity_name
 	if amount_label:
 		amount_label.text = "+%d 认可" % amount
-	
+
 	visible = true
-	
+
 	if animation_player and animation_player.has_animation("show"):
 		animation_player.play("show")
 		await animation_player.animation_finished
@@ -53,13 +53,13 @@ func _show_toast(entity_name: String, amount: int) -> void:
 		var tween := create_tween()
 		tween.tween_property(panel, "modulate:a", 1.0, 0.3)
 		await tween.finished
-		
+
 		await get_tree().create_timer(2.0).timeout
-		
+
 		tween = create_tween()
 		tween.tween_property(panel, "modulate:a", 0.0, 0.5)
 		await tween.finished
-	
+
 	visible = false
 	is_showing = false
 	_try_show_next()
