@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3fhe7kiqxixj"
-path="res://.godot/imported/hero_idle_w_00.png-cf504c24890c9c19721b8e6285f582a3.ctex"
+uid="uid://catv26oywhcso"
+path="res://.godot/imported/enemy_bone_guard_idle_s_00.png-bf942dd68561b35fe0db16f4f16a6337.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/characters/hero/hero_idle_w_00.png"
-dest_files=["res://.godot/imported/hero_idle_w_00.png-cf504c24890c9c19721b8e6285f582a3.ctex"]
+source_file="res://assets/art/characters/enemies/enemy_bone_guard_idle_s_00.png"
+dest_files=["res://.godot/imported/enemy_bone_guard_idle_s_00.png-bf942dd68561b35fe0db16f4f16a6337.ctex"]
 
 [params]
 

@@ -9,6 +9,7 @@ size = Vector2(24, 24)
 script = ExtResource("1_script")
 interaction_text = "检查"
 message = "一件远古文物静置于此，散发着微弱的能量嗡鸣。"
+prompt_color = Color(1, 0.9, 0.3, 1)
 
 [node name="Sprite" type="ColorRect" parent="."]
 offset_left = -8.0
@@ -29,5 +30,6 @@ offset_left = -30.0
 offset_top = -30.0
 offset_right = 30.0
 offset_bottom = -14.0
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
 horizontal_alignment = 1
 vertical_alignment = 1

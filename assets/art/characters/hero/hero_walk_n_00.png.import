@@ -2,13 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid=""
-path=""
+uid="uid://my6ynkduumia"
+path="res://.godot/imported/hero_walk_n_00.png-feaf526a168213c5c944da7c46fe2271.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://assets/art/characters/hero/hero_walk_n_00.png"
-dest_files=[]
+dest_files=["res://.godot/imported/hero_walk_n_00.png-feaf526a168213c5c944da7c46fe2271.ctex"]
 
 [params]
 

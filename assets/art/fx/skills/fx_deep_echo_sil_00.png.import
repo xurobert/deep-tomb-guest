@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3fhe7kiqxixj"
-path="res://.godot/imported/hero_idle_w_00.png-cf504c24890c9c19721b8e6285f582a3.ctex"
+uid="uid://bj5r3rmy4h62c"
+path="res://.godot/imported/fx_deep_echo_sil_00.png-2b8109814dc22fd41978be863b2516d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/characters/hero/hero_idle_w_00.png"
-dest_files=["res://.godot/imported/hero_idle_w_00.png-cf504c24890c9c19721b8e6285f582a3.ctex"]
+source_file="res://assets/art/fx/skills/fx_deep_echo_sil_00.png"
+dest_files=["res://.godot/imported/fx_deep_echo_sil_00.png-2b8109814dc22fd41978be863b2516d4.ctex"]
 
 [params]
 

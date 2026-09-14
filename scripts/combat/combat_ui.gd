@@ -14,17 +14,22 @@ class_name CombatUI
 @onready var attack_button: Button = $CombatPanel/VBox/Actions/AttackButton
 @onready var skill_button: Button = $CombatPanel/VBox/Actions/SkillButton
 @onready var turn_indicator: Label = $CombatPanel/VBox/TurnIndicator
+@onready var enemy_sprite: Sprite2D = $CombatPanel/EnemySprite
+@onready var skill_fx: Sprite2D = $CombatPanel/SkillFX
 
 
 func _ready() -> void:
 	visible = false
-	
+	if skill_fx:
+		skill_fx.visible = false
+
 	TurnManager.combat_started.connect(_on_combat_started)
 	TurnManager.combat_ended.connect(_on_combat_ended)
 	TurnManager.turn_started.connect(_on_turn_started)
 	TurnManager.action_performed.connect(_on_action_performed)
 	TurnManager.overload_changed.connect(_on_overload_changed)
-	
+	TurnManager.skill_used.connect(_on_skill_used)
+
 	if attack_button:
 		attack_button.pressed.connect(_on_attack_pressed)
 	if skill_button:
@@ -36,6 +41,8 @@ func _on_combat_started() -> void:
 	_clear_log()
 	_update_all_displays()
 	_log_message("[color=yellow]战斗开始！[/color]")
+	if skill_fx:
+		skill_fx.visible = false
 
 
 func _on_combat_ended(victory: bool) -> void:
@@ -44,9 +51,11 @@ func _on_combat_ended(victory: bool) -> void:
 		_log_message("[color=green]胜利！[/color]")
 	else:
 		_log_message("[color=red]战败...[/color]")
-	
+
 	await get_tree().create_timer(1.5).timeout
 	visible = false
+	if skill_fx:
+		skill_fx.visible = false
 
 
 func _on_turn_started(is_player_turn: bool) -> void:
@@ -58,8 +67,8 @@ func _on_turn_started(is_player_turn: bool) -> void:
 
 func _on_action_performed(actor: String, action: String, target: String, damage: int) -> void:
 	var color := "cyan" if actor == "Player" else "orange"
-	var actor_name := "玩家" if actor == "Player" else "敌人"
-	var target_name := "玩家" if target == "Player" else "敌人"
+	var actor_name := "玩家" if actor == "Player" else str(TurnManager.enemy.get("name", "敌人"))
+	var target_name := "玩家" if target == "Player" else str(TurnManager.enemy.get("name", "敌人"))
 	_log_message("[color=%s]%s[/color]对%s使用%s，造成[color=red]%d[/color]点伤害！" % [color, actor_name, target_name, action, damage])
 	_update_all_displays()
 
@@ -78,36 +87,49 @@ func _on_overload_changed(current: int, maximum: int) -> void:
 			overload_label.modulate = Color.WHITE
 
 
+func _on_skill_used(skill_id: String) -> void:
+	if skill_id != "deep_echo" or skill_fx == null:
+		return
+	skill_fx.visible = true
+	skill_fx.modulate = Color(1, 1, 1, 1)
+	var tween := create_tween()
+	tween.tween_property(skill_fx, "modulate:a", 0.0, 0.6)
+	await tween.finished
+	skill_fx.visible = false
+
+
 func _on_attack_pressed() -> void:
+	_set_buttons_enabled(false)
 	TurnManager.perform_attack()
 
 
 func _on_skill_pressed() -> void:
+	_set_buttons_enabled(false)
 	TurnManager.perform_skill("deep_echo")
 
 
 func _update_all_displays() -> void:
 	var player_hp := TurnManager.get_player_hp()
-	var player_max_hp: int = TurnManager.player.get("max_hp", 100)
+	var player_max_hp: int = int(TurnManager.player.get("max_hp", 100))
 	var enemy_hp := TurnManager.get_enemy_hp()
-	var enemy_max_hp: int = TurnManager.enemy.get("max_hp", 50)
-	var overload: int = TurnManager.player.get("overload", 0)
-	var max_overload: int = TurnManager.player.get("max_overload", 100)
-	
+	var enemy_max_hp: int = int(TurnManager.enemy.get("max_hp", 50))
+	var overload: int = int(TurnManager.player.get("overload", 0))
+	var max_overload: int = int(TurnManager.player.get("max_overload", 100))
+
 	if player_hp_bar:
 		player_hp_bar.max_value = player_max_hp
 		player_hp_bar.value = player_hp
 	if player_hp_label:
 		player_hp_label.text = "生命值: %d/%d" % [player_hp, player_max_hp]
-	
+
 	if enemy_hp_bar:
 		enemy_hp_bar.max_value = enemy_max_hp
 		enemy_hp_bar.value = enemy_hp
 	if enemy_hp_label:
 		enemy_hp_label.text = "生命值: %d/%d" % [enemy_hp, enemy_max_hp]
 	if enemy_name_label:
-		enemy_name_label.text = TurnManager.enemy.get("name", "敌人")
-	
+		enemy_name_label.text = str(TurnManager.enemy.get("name", "敌人"))
+
 	_on_overload_changed(overload, max_overload)
 
 

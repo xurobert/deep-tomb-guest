@@ -29,32 +29,37 @@ func change_state(new_state: GameState) -> void:
 
 
 func start_combat(enemy_data: Dictionary) -> void:
+	if current_state == GameState.COMBAT or TurnManager.is_in_combat:
+		return
 	change_state(GameState.COMBAT)
 	TurnManager.start_combat(player_data.duplicate(true), enemy_data)
 
 
-func end_combat(victory: bool, recognition_gained: int) -> void:
+func end_combat(victory: bool, recognition_gained: int, enemy_name: String = "敌人") -> void:
 	if victory and recognition_gained > 0:
-		player_data.recognition += recognition_gained
-		recognition_earned.emit("Enemy", recognition_gained)
+		player_data["recognition"] = int(player_data.get("recognition", 0)) + recognition_gained
+		recognition_earned.emit(enemy_name, recognition_gained)
+	# Keep combat HP/overload on the exploration sheet
+	player_data["hp"] = TurnManager.get_player_hp() if TurnManager.player else int(player_data.get("hp", 100))
+	player_data["overload"] = int(TurnManager.player.get("overload", player_data.get("overload", 0))) if TurnManager.player else int(player_data.get("overload", 0))
 	change_state(GameState.EXPLORATION)
 
 
 func add_overload(amount: int) -> void:
-	player_data.overload = mini(player_data.overload + amount, player_data.max_overload)
+	player_data["overload"] = mini(int(player_data.get("overload", 0)) + amount, int(player_data.get("max_overload", 100)))
 
 
 func reset_overload() -> void:
-	player_data.overload = 0
+	player_data["overload"] = 0
 
 
 func heal_player(amount: int) -> void:
-	player_data.hp = mini(player_data.hp + amount, player_data.max_hp)
+	player_data["hp"] = mini(int(player_data.get("hp", 0)) + amount, int(player_data.get("max_hp", 100)))
 
 
 func damage_player(amount: int) -> void:
-	player_data.hp = maxi(player_data.hp - amount, 0)
+	player_data["hp"] = maxi(int(player_data.get("hp", 0)) - amount, 0)
 
 
 func is_player_alive() -> bool:
-	return player_data.hp > 0
+	return int(player_data.get("hp", 0)) > 0
