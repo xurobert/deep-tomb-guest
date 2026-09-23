@@ -1,8 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0l2p5mkqhtq0"]
+[gd_scene load_steps=9 format=3 uid="uid://b0l2p5mkqhtq0"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_ui.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://oe8mj8ijjclw" path="res://assets/art/characters/enemies/enemy_bone_guard_combat_sil_idle.png" id="2_enemy"]
+[ext_resource type="Texture2D" uid="uid://b3m1c0mbat1dl3" path="res://assets/art/characters/enemies/enemy_bone_guard_combat_idle_00.png" id="2_enemy"]
 [ext_resource type="Texture2D" uid="uid://bj5r3rmy4h62c" path="res://assets/art/fx/skills/fx_deep_echo_sil_00.png" id="3_fx"]
+[ext_resource type="Texture2D" uid="uid://ctilefl00r00m1" path="res://assets/art/tiles/combat/tile_combat_floor_00.png" id="4_floor"]
+[ext_resource type="Texture2D" uid="uid://ctilewalled00m1" path="res://assets/art/tiles/combat/tile_combat_wall_edge_00.png" id="5_wall"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_top"]
+bg_color = Color(0.04, 0.03, 0.07, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.25, 0.2, 0.35, 1)
+corner_radius_left = 4
+corner_radius_right = 4
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_bottom"]
+bg_color = Color(0.04, 0.03, 0.07, 0.9)
+border_width_left = 1
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.25, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_actionlog"]
+bg_color = Color(0.02, 0.02, 0.04, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.18, 0.3, 1)
+corner_radius_left = 3
+corner_radius_right = 3
+corner_radius_bottom_left = 3
+corner_radius_bottom_right = 3
 
 [node name="CombatUI" type="CanvasLayer"]
 layer = 10
@@ -15,23 +53,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BattlefieldBG" type="ColorRect" parent="CombatPanel"]
+[node name="BattlefieldBG" type="Control" parent="CombatPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.06, 0.05, 0.09, 1)
 metadata/_edit_use_custom_anchors = true
+
+[node name="FloorTiles" type="TextureRect" parent="CombatPanel/BattlefieldBG"]
+texture_filter = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_floor")
+stretch_mode = 1
+
+[node name="WallEdge" type="TextureRect" parent="CombatPanel/BattlefieldBG"]
+texture_filter = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 132.0
+offset_bottom = 164.0
+grow_horizontal = 2
+texture = ExtResource("5_wall")
+stretch_mode = 1
 
 [node name="BattlefieldOverlay" type="ColorRect" parent="CombatPanel/BattlefieldBG"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 140.0
+offset_bottom = 132.0
 grow_horizontal = 2
-color = Color(0.08, 0.06, 0.12, 0.6)
+color = Color(0.03, 0.02, 0.06, 0.4)
 metadata/_edit_use_custom_anchors = true
 
 [node name="TopPanel" type="PanelContainer" parent="CombatPanel"]
@@ -43,6 +102,7 @@ offset_top = 8.0
 offset_right = -10.0
 offset_bottom = 130.0
 grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_top")
 
 [node name="EnemySection" type="VBoxContainer" parent="CombatPanel/TopPanel"]
 layout_mode = 2
@@ -110,8 +170,8 @@ grow_vertical = 2
 
 [node name="EnemySprite" type="Sprite2D" parent="CombatPanel/BattleArea"]
 texture_filter = 0
-position = Vector2(0, -30)
-scale = Vector2(2, 2)
+position = Vector2(0, -20)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_enemy")
 
 [node name="SkillFX" type="Sprite2D" parent="CombatPanel/BattleArea"]
@@ -133,6 +193,7 @@ offset_right = 200.0
 offset_bottom = -140.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_actionlog")
 
 [node name="ActionLog" type="RichTextLabel" parent="CombatPanel/ActionLogPanel"]
 layout_mode = 2
@@ -151,6 +212,7 @@ offset_right = -10.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_bottom")
 
 [node name="HBox" type="HBoxContainer" parent="CombatPanel/BottomPanel"]
 layout_mode = 2
