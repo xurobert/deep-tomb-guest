@@ -9,13 +9,10 @@ signal save_failed
 
 
 func _ready() -> void:
+	interaction_text = "魂灯存档"
+	message = "一座散发幽蓝光芒的石座灯，可以在此保存进度。"
 	prompt_color = Color(0.4, 0.75, 1.0)
 	super._ready()
-	interaction_text = "保存"
-	message = "一个休憩之所..."
-	if prompt_label:
-		prompt_label.text = "[E] " + interaction_text
-		prompt_label.add_theme_color_override("font_color", prompt_color)
 
 
 func _on_interacted() -> void:

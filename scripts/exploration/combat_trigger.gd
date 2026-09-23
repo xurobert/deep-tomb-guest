@@ -11,10 +11,11 @@ var _starting: bool = false
 
 
 func _ready() -> void:
+	if interaction_text == "检查":
+		interaction_text = "挑战"
+	prompt_color = Color(1.0, 0.35, 0.35)
 	super._ready()
 	_load_enemy_data()
-	if prompt_label:
-		prompt_label.add_theme_color_override("font_color", Color(1.0, 0.35, 0.35))
 	if trigger_on_touch and area:
 		area.body_entered.connect(_on_body_entered)
 
