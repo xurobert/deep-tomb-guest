@@ -13,6 +13,8 @@ var player_data: Dictionary = {
 	"max_hp": 100,
 	"overload": 0,
 	"max_overload": 100,
+	"resonance": 100,
+	"max_resonance": 100,
 	"recognition": 0,
 	"skills": ["deep_echo"]
 }
