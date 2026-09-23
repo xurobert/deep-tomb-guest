@@ -5,14 +5,21 @@ class_name CombatUI
 # 敌方区域
 @onready var turn_indicator: Label = $CombatPanel/TopPanel/EnemySection/TurnIndicator
 @onready var enemy_name_label: Label = $CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox/NameLabel
-@onready var enemy_intel_label: Label = $CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox/IntelLabel
+@onready var enemy_intel_icon: TextureRect = $CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox/IntelRow/IntelIcon
+@onready var enemy_intel_label: Label = $CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox/IntelRow/IntelLabel
 @onready var enemy_hp_bar: ProgressBar = $CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyHPBox/HPBar
 @onready var enemy_hp_label: Label = $CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyHPBox/HPLabel
 
 # 战场区域
 @onready var battle_area: Control = $CombatPanel/BattleArea
 @onready var enemy_sprite: Sprite2D = $CombatPanel/BattleArea/EnemySprite
+@onready var hit_fx: Sprite2D = $CombatPanel/BattleArea/HitFX
 @onready var skill_fx: Sprite2D = $CombatPanel/BattleArea/SkillFX
+@onready var insight_fx: Sprite2D = $CombatPanel/BattleArea/InsightFX
+
+# 情报图标纹理（预加载）
+var tex_intel_unknown: Texture2D = preload("res://assets/art/ui/intel/ui_intel_unknown_32.png")
+var tex_intel_revealed: Texture2D = preload("res://assets/art/ui/intel/ui_intel_revealed_32.png")
 
 # 战斗日志
 @onready var action_log: RichTextLabel = $CombatPanel/ActionLogPanel/ActionLog
@@ -48,6 +55,10 @@ func _ready() -> void:
 	visible = false
 	if skill_fx:
 		skill_fx.visible = false
+	if hit_fx:
+		hit_fx.visible = false
+	if insight_fx:
+		insight_fx.visible = false
 
 	TurnManager.combat_started.connect(_on_combat_started)
 	TurnManager.combat_ended.connect(_on_combat_ended)
@@ -93,6 +104,10 @@ func _on_combat_started() -> void:
 	
 	if skill_fx:
 		skill_fx.visible = false
+	if hit_fx:
+		hit_fx.visible = false
+	if insight_fx:
+		insight_fx.visible = false
 
 
 func _on_combat_ended(victory: bool) -> void:
@@ -106,6 +121,10 @@ func _on_combat_ended(victory: bool) -> void:
 	visible = false
 	if skill_fx:
 		skill_fx.visible = false
+	if hit_fx:
+		hit_fx.visible = false
+	if insight_fx:
+		insight_fx.visible = false
 
 
 func _on_turn_started(is_player_turn: bool) -> void:
@@ -243,14 +262,23 @@ func _update_enemy_intel_display() -> void:
 	if enemy_intel_label:
 		match current_intel_state:
 			IntelState.UNKNOWN:
-				enemy_intel_label.text = "[情报: ???]"
+				enemy_intel_label.text = "情报: ???"
 				enemy_intel_label.modulate = Color(0.6, 0.6, 0.7)
 			IntelState.PARTIAL:
-				enemy_intel_label.text = "[情报: 部分]"
+				enemy_intel_label.text = "情报: 部分"
 				enemy_intel_label.modulate = Color(1.0, 0.9, 0.5)
 			IntelState.COMPLETE:
-				enemy_intel_label.text = "[情报: 完整]"
+				enemy_intel_label.text = "情报: 完整"
 				enemy_intel_label.modulate = Color(0.5, 1.0, 0.6)
+	
+	if enemy_intel_icon:
+		match current_intel_state:
+			IntelState.UNKNOWN:
+				enemy_intel_icon.texture = tex_intel_unknown
+				enemy_intel_icon.modulate = Color(0.6, 0.6, 0.7)
+			IntelState.PARTIAL, IntelState.COMPLETE:
+				enemy_intel_icon.texture = tex_intel_revealed
+				enemy_intel_icon.modulate = Color(0.5, 1.0, 0.6) if current_intel_state == IntelState.COMPLETE else Color(1.0, 0.9, 0.5)
 
 
 func reveal_enemy_intel(level: IntelState) -> void:
@@ -259,8 +287,10 @@ func reveal_enemy_intel(level: IntelState) -> void:
 	match level:
 		IntelState.PARTIAL:
 			_log_message("[color=yellow]获得了部分情报！[/color]")
+			_play_insight_fx()
 		IntelState.COMPLETE:
 			_log_message("[color=green]情报收集完毕！弱点已揭示。[/color]")
+			_play_insight_fx()
 
 
 # ========== 共鸣槽系统 ==========
@@ -302,6 +332,13 @@ func _consume_resonance(amount: int) -> void:
 # ========== 视觉反馈 ==========
 
 func _play_hit_effect() -> void:
+	if hit_fx:
+		hit_fx.visible = true
+		hit_fx.modulate = Color(1, 1, 1, 1)
+		var fx_tween := create_tween()
+		fx_tween.tween_property(hit_fx, "modulate:a", 0.0, 0.3)
+		fx_tween.tween_callback(func(): hit_fx.visible = false)
+	
 	if enemy_sprite:
 		var orig_pos := enemy_sprite.position
 		var tween := create_tween()
@@ -310,6 +347,16 @@ func _play_hit_effect() -> void:
 		tween.tween_property(enemy_sprite, "position", orig_pos + Vector2(-5, 0), 0.03)
 		tween.tween_property(enemy_sprite, "position", orig_pos, 0.03)
 		tween.tween_property(enemy_sprite, "modulate", Color.WHITE, 0.1)
+
+
+func _play_insight_fx() -> void:
+	if insight_fx:
+		insight_fx.visible = true
+		insight_fx.modulate = Color(1, 1, 1, 1)
+		var tween := create_tween()
+		tween.tween_property(insight_fx, "scale", Vector2(2.5, 2.5), 0.2).from(Vector2(1.5, 1.5))
+		tween.parallel().tween_property(insight_fx, "modulate:a", 0.0, 0.4)
+		tween.tween_callback(func(): insight_fx.visible = false; insight_fx.scale = Vector2(2, 2))
 
 
 func _show_key_tutorial() -> void:
