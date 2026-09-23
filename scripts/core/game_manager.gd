@@ -20,6 +20,7 @@ var player_data: Dictionary = {
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	call_deferred("_try_load_save")
 
 
 func change_state(new_state: GameState) -> void:
@@ -63,3 +64,9 @@ func damage_player(amount: int) -> void:
 
 func is_player_alive() -> bool:
 	return int(player_data.get("hp", 0)) > 0
+
+
+func _try_load_save() -> void:
+	if SaveManager.has_save():
+		SaveManager.load_game()
+		print("[GameManager] 已加载存档")
