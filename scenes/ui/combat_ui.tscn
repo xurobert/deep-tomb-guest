@@ -15,122 +15,261 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="EnemySprite" type="Sprite2D" parent="CombatPanel"]
-texture_filter = 0
-position = Vector2(320, 70)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_enemy")
-
-[node name="SkillFX" type="Sprite2D" parent="CombatPanel"]
-visible = false
-texture_filter = 0
-position = Vector2(320, 70)
-scale = Vector2(2, 2)
-texture = ExtResource("3_fx")
-
-[node name="VBox" type="VBoxContainer" parent="CombatPanel"]
+[node name="BattlefieldBG" type="ColorRect" parent="CombatPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 100.0
-offset_right = -20.0
-offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
+color = Color(0.06, 0.05, 0.09, 1)
+metadata/_edit_use_custom_anchors = true
 
-[node name="TurnIndicator" type="Label" parent="CombatPanel/VBox"]
+[node name="BattlefieldOverlay" type="ColorRect" parent="CombatPanel/BattlefieldBG"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 140.0
+grow_horizontal = 2
+color = Color(0.08, 0.06, 0.12, 0.6)
+metadata/_edit_use_custom_anchors = true
+
+[node name="TopPanel" type="PanelContainer" parent="CombatPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = 130.0
+grow_horizontal = 2
+
+[node name="EnemySection" type="VBoxContainer" parent="CombatPanel/TopPanel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "战斗"
+theme_override_constants/separation = 6
+
+[node name="TurnIndicator" type="Label" parent="CombatPanel/TopPanel/EnemySection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "== 战斗 =="
 horizontal_alignment = 1
 
-[node name="EnemySection" type="VBoxContainer" parent="CombatPanel/VBox"]
+[node name="EnemyInfo" type="HBoxContainer" parent="CombatPanel/TopPanel/EnemySection"]
 layout_mode = 2
-theme_override_constants/separation = 4
+size_flags_horizontal = 4
+theme_override_constants/separation = 16
 
-[node name="NameLabel" type="Label" parent="CombatPanel/VBox/EnemySection"]
+[node name="EnemyNameBox" type="VBoxContainer" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="NameLabel" type="Label" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1, 0.85, 0.6, 1)
 text = "敌人"
 horizontal_alignment = 1
 
-[node name="HPBar" type="ProgressBar" parent="CombatPanel/VBox/EnemySection"]
-custom_minimum_size = Vector2(200, 20)
+[node name="IntelLabel" type="Label" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
+text = "[情报: ???]"
+horizontal_alignment = 1
+
+[node name="EnemyHPBox" type="VBoxContainer" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="HPBar" type="ProgressBar" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyHPBox"]
+custom_minimum_size = Vector2(180, 18)
+layout_mode = 2
 max_value = 50.0
 value = 50.0
 show_percentage = false
 
-[node name="HPLabel" type="Label" parent="CombatPanel/VBox/EnemySection"]
+[node name="HPLabel" type="Label" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyHPBox"]
 layout_mode = 2
-text = "生命值: 50/50"
+theme_override_font_sizes/font_size = 12
+text = "HP: 50/50"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="CombatPanel/VBox"]
-layout_mode = 2
+[node name="BattleArea" type="Control" parent="CombatPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -60.0
+offset_right = 160.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="PlayerSection" type="VBoxContainer" parent="CombatPanel/VBox"]
-layout_mode = 2
-theme_override_constants/separation = 4
+[node name="EnemySprite" type="Sprite2D" parent="CombatPanel/BattleArea"]
+texture_filter = 0
+position = Vector2(0, -30)
+scale = Vector2(2, 2)
+texture = ExtResource("2_enemy")
 
-[node name="Label" type="Label" parent="CombatPanel/VBox/PlayerSection"]
+[node name="SkillFX" type="Sprite2D" parent="CombatPanel/BattleArea"]
+visible = false
+texture_filter = 0
+position = Vector2(0, -30)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_fx")
+
+[node name="ActionLogPanel" type="PanelContainer" parent="CombatPanel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -210.0
+offset_right = 200.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ActionLog" type="RichTextLabel" parent="CombatPanel/ActionLogPanel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+bbcode_enabled = true
+scroll_following = true
+
+[node name="BottomPanel" type="PanelContainer" parent="CombatPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -130.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBox" type="HBoxContainer" parent="CombatPanel/BottomPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayerSection" type="VBoxContainer" parent="CombatPanel/BottomPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="PlayerNameLabel" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
 text = "流浪者"
-horizontal_alignment = 1
 
-[node name="HPBar" type="ProgressBar" parent="CombatPanel/VBox/PlayerSection"]
-custom_minimum_size = Vector2(200, 20)
+[node name="HPRow" type="HBoxContainer" parent="CombatPanel/BottomPanel/HBox/PlayerSection"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="HPTitle" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection/HPRow"]
+layout_mode = 2
+text = "HP"
+
+[node name="HPBar" type="ProgressBar" parent="CombatPanel/BottomPanel/HBox/PlayerSection/HPRow"]
+custom_minimum_size = Vector2(120, 16)
+layout_mode = 2
+size_flags_horizontal = 3
 value = 100.0
 show_percentage = false
 
-[node name="HPLabel" type="Label" parent="CombatPanel/VBox/PlayerSection"]
+[node name="HPLabel" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection/HPRow"]
+custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
-text = "生命值: 100/100"
-horizontal_alignment = 1
+text = "100/100"
 
-[node name="OverloadSection" type="VBoxContainer" parent="CombatPanel/VBox"]
+[node name="ResonanceRow" type="HBoxContainer" parent="CombatPanel/BottomPanel/HBox/PlayerSection"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 
-[node name="OverloadBar" type="ProgressBar" parent="CombatPanel/VBox/OverloadSection"]
-custom_minimum_size = Vector2(200, 16)
+[node name="ResonanceTitle" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection/ResonanceRow"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.6, 0.5, 1, 1)
+text = "共鸣"
+
+[node name="ResonanceBar" type="ProgressBar" parent="CombatPanel/BottomPanel/HBox/PlayerSection/ResonanceRow"]
+custom_minimum_size = Vector2(120, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
 show_percentage = false
 
-[node name="OverloadLabel" type="Label" parent="CombatPanel/VBox/OverloadSection"]
+[node name="ResonanceLabel" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection/ResonanceRow"]
+custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
-text = "失控: 0/100"
+theme_override_colors/font_color = Color(0.6, 0.5, 1, 1)
+text = "100/100"
+
+[node name="OverloadRow" type="HBoxContainer" parent="CombatPanel/BottomPanel/HBox/PlayerSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="OverloadTitle" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection/OverloadRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.4, 1)
+text = "失控"
+
+[node name="OverloadBar" type="ProgressBar" parent="CombatPanel/BottomPanel/HBox/PlayerSection/OverloadRow"]
+custom_minimum_size = Vector2(120, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
+
+[node name="OverloadLabel" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection/OverloadRow"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.4, 1)
+text = "0/100"
+
+[node name="VSeparator" type="VSeparator" parent="CombatPanel/BottomPanel/HBox"]
+layout_mode = 2
+
+[node name="CommandSection" type="VBoxContainer" parent="CombatPanel/BottomPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="CommandTitle" type="Label" parent="CombatPanel/BottomPanel/HBox/CommandSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.8, 0.8, 0.6, 1)
+text = "◆ 指令 ◆"
 horizontal_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="CombatPanel/VBox"]
-layout_mode = 2
-
-[node name="Actions" type="HBoxContainer" parent="CombatPanel/VBox"]
+[node name="Actions" type="HBoxContainer" parent="CombatPanel/BottomPanel/HBox/CommandSection"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 20
+theme_override_constants/separation = 12
 
-[node name="AttackButton" type="Button" parent="CombatPanel/VBox/Actions"]
-custom_minimum_size = Vector2(100, 40)
+[node name="AttackButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
+custom_minimum_size = Vector2(90, 36)
 layout_mode = 2
 text = "攻击"
 
-[node name="SkillButton" type="Button" parent="CombatPanel/VBox/Actions"]
-custom_minimum_size = Vector2(120, 40)
+[node name="SkillButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
+custom_minimum_size = Vector2(110, 36)
 layout_mode = 2
 text = "异能共鸣"
 
-[node name="ActionLog" type="RichTextLabel" parent="CombatPanel/VBox"]
-custom_minimum_size = Vector2(0, 80)
+[node name="InsightButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
+custom_minimum_size = Vector2(80, 36)
 layout_mode = 2
-size_flags_vertical = 3
-bbcode_enabled = true
-scroll_following = true
+disabled = true
+text = "洞察"
+
+[node name="KeyHints" type="Label" parent="CombatPanel/BottomPanel/HBox/CommandSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+text = "[J] 攻击  [K] 技能  [L] 洞察(未解锁)"
+horizontal_alignment = 1
