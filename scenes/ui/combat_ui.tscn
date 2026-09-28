@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://b0l2p5mkqhtq0"]
+[gd_scene load_steps=14 format=3 uid="uid://b0l2p5mkqhtq0"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_ui.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://b3m1c0mbat1dl3" path="res://assets/art/characters/enemies/enemy_bone_guard_combat_idle_00.png" id="2_enemy"]
-[ext_resource type="Texture2D" uid="uid://bj5r3rmy4h62c" path="res://assets/art/fx/skills/fx_deep_echo_sil_00.png" id="3_fx"]
+[ext_resource type="Texture2D" uid="uid://cfxechopulse00" path="res://assets/art/fx/skills/fx_deep_echo_pulse_00.png" id="3_fx"]
 [ext_resource type="Texture2D" uid="uid://ctilefl00r00m1" path="res://assets/art/tiles/combat/tile_combat_floor_00.png" id="4_floor"]
 [ext_resource type="Texture2D" uid="uid://ctilewalled00m1" path="res://assets/art/tiles/combat/tile_combat_wall_edge_00.png" id="5_wall"]
+[ext_resource type="Texture2D" uid="uid://cfxhit00m1look" path="res://assets/art/fx/skills/fx_hit_00.png" id="6_hit_fx"]
+[ext_resource type="Texture2D" uid="uid://cfxinsightrev00" path="res://assets/art/fx/skills/fx_insight_reveal_00.png" id="7_insight_fx"]
+[ext_resource type="Texture2D" uid="uid://cuiintelunk32m1" path="res://assets/art/ui/intel/ui_intel_unknown_32.png" id="8_intel_unknown"]
+[ext_resource type="Texture2D" uid="uid://cuiintelrev32m1" path="res://assets/art/ui/intel/ui_intel_revealed_32.png" id="9_intel_revealed"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_top"]
 bg_color = Color(0.04, 0.03, 0.07, 0.85)
@@ -130,12 +134,24 @@ theme_override_colors/font_color = Color(1, 0.85, 0.6, 1)
 text = "敌人"
 horizontal_alignment = 1
 
-[node name="IntelLabel" type="Label" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox"]
+[node name="IntelRow" type="HBoxContainer" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 4
+
+[node name="IntelIcon" type="TextureRect" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox/IntelRow"]
+texture_filter = 0
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("8_intel_unknown")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="IntelLabel" type="Label" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox/IntelRow"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
-text = "[情报: ???]"
-horizontal_alignment = 1
+text = "情报: ???"
 
 [node name="EnemyHPBox" type="VBoxContainer" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo"]
 layout_mode = 2
@@ -174,12 +190,26 @@ position = Vector2(0, -20)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_enemy")
 
+[node name="HitFX" type="Sprite2D" parent="CombatPanel/BattleArea"]
+visible = false
+texture_filter = 0
+position = Vector2(0, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("6_hit_fx")
+
 [node name="SkillFX" type="Sprite2D" parent="CombatPanel/BattleArea"]
 visible = false
 texture_filter = 0
 position = Vector2(0, -30)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_fx")
+
+[node name="InsightFX" type="Sprite2D" parent="CombatPanel/BattleArea"]
+visible = false
+texture_filter = 0
+position = Vector2(0, -30)
+scale = Vector2(2, 2)
+texture = ExtResource("7_insight_fx")
 
 [node name="ActionLogPanel" type="PanelContainer" parent="CombatPanel"]
 layout_mode = 1
