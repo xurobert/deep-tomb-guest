@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfxechopulse00"
-path="res://.godot/imported/fx_deep_echo_pulse_00.png-m1pulse00.ctex"
+uid="uid://imsal82uxrmh"
+path="res://.godot/imported/fx_deep_echo_pulse_00.png-951dde35ecdb46d967f88ddc99dc9afd.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/art/fx/skills/fx_deep_echo_pulse_00.png"
-dest_files=["res://.godot/imported/fx_deep_echo_pulse_00.png-m1pulse00.ctex"]
+dest_files=["res://.godot/imported/fx_deep_echo_pulse_00.png-951dde35ecdb46d967f88ddc99dc9afd.ctex"]
 
 [params]
 

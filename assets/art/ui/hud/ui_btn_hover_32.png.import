@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sifkpk8ssdhu"
-path="res://.godot/imported/enemy_bone_guard_combat_idle_00.png-4c5c0015fa0f262e7aa83ff5250cbcd5.ctex"
+uid="uid://d4gru7t1o7yck"
+path="res://.godot/imported/ui_btn_hover_32.png-71c8ac83da9d0220cd2f403218a763ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/characters/enemies/enemy_bone_guard_combat_idle_00.png"
-dest_files=["res://.godot/imported/enemy_bone_guard_combat_idle_00.png-4c5c0015fa0f262e7aa83ff5250cbcd5.ctex"]
+source_file="res://assets/art/ui/hud/ui_btn_hover_32.png"
+dest_files=["res://.godot/imported/ui_btn_hover_32.png-71c8ac83da9d0220cd2f403218a763ce.ctex"]
 
 [params]
 

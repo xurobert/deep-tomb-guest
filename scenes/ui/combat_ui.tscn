@@ -155,6 +155,14 @@ theme_override_font_sizes/font_size = 12
 theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
 text = "情报: ???"
 
+[node name="WeaknessIcon" type="TextureRect" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyNameBox/IntelRow"]
+visible = false
+texture_filter = 0
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="EnemyHPBox" type="VBoxContainer" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo"]
 layout_mode = 2
 theme_override_constants/separation = 2
@@ -345,30 +353,45 @@ theme_override_colors/font_color = Color(0.8, 0.8, 0.6, 1)
 text = "◆ 指令 ◆"
 horizontal_alignment = 1
 
-[node name="Actions" type="HBoxContainer" parent="CombatPanel/BottomPanel/HBox/CommandSection"]
+[node name="Actions" type="GridContainer" parent="CombatPanel/BottomPanel/HBox/CommandSection"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 12
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 4
+columns = 3
 
 [node name="AttackButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
 custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
 text = "攻击"
+icon_alignment = 0
 
-[node name="SkillButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
-custom_minimum_size = Vector2(110, 32)
+[node name="SlashButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
+custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
-text = "异能共鸣"
+text = "斩击"
+icon_alignment = 0
+
+[node name="ArcaneBoltButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+text = "咒弹"
+icon_alignment = 0
+
+[node name="DeepEchoButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+text = "异能脉冲"
+icon_alignment = 0
 
 [node name="InsightButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
-custom_minimum_size = Vector2(80, 32)
+custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
-disabled = true
 text = "洞察"
 
 [node name="KeyHints" type="Label" parent="CombatPanel/BottomPanel/HBox/CommandSection"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-text = "[J] 攻击  [K] 技能  [L] 洞察(未解锁)"
+text = "[1] 攻击  [2] 斩击  [3] 咒弹  [4] 脉冲  [5] 洞察"
 horizontal_alignment = 1

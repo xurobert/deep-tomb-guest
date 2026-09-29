@@ -1,0 +1,31 @@
+{
+	"physical": {
+		"id": "physical",
+		"name": "物理",
+		"icon_16": "res://assets/art/ui/elements/ui_elem_physical_16.png",
+		"icon_32": "res://assets/art/ui/elements/ui_elem_physical_32.png",
+		"beats": "arcane",
+		"color": "#D8D0C4"
+	},
+	"arcane": {
+		"id": "arcane",
+		"name": "咒术",
+		"icon_16": "res://assets/art/ui/elements/ui_elem_arcane_16.png",
+		"icon_32": "res://assets/art/ui/elements/ui_elem_arcane_32.png",
+		"beats": "shadow",
+		"color": "#C9A24A"
+	},
+	"shadow": {
+		"id": "shadow",
+		"name": "暗影",
+		"icon_16": "res://assets/art/ui/elements/ui_elem_shadow_16.png",
+		"icon_32": "res://assets/art/ui/elements/ui_elem_shadow_32.png",
+		"beats": "physical",
+		"color": "#6B3FA0"
+	},
+	"multipliers": {
+		"advantage": 1.5,
+		"disadvantage": 0.75,
+		"neutral": 1.0
+	}
+}

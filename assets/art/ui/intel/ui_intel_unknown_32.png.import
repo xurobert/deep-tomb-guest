@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuiintelunk32m1"
-path="res://.godot/imported/ui_intel_unknown_32.png-m1intelunk.ctex"
+uid="uid://bb3hmsk6b6vlm"
+path="res://.godot/imported/ui_intel_unknown_32.png-cdfd88acd1e5a1eab7356ac5d9f3f782.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/art/ui/intel/ui_intel_unknown_32.png"
-dest_files=["res://.godot/imported/ui_intel_unknown_32.png-m1intelunk.ctex"]
+dest_files=["res://.godot/imported/ui_intel_unknown_32.png-cdfd88acd1e5a1eab7356ac5d9f3f782.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfxhit00m1look"
-path="res://.godot/imported/fx_hit_00.png-m1fxhit00.ctex"
+uid="uid://ipymxjubq2a1"
+path="res://.godot/imported/fx_hit_00.png-b09fdda9cd532b7de0fecae91d4311ba.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/art/fx/skills/fx_hit_00.png"
-dest_files=["res://.godot/imported/fx_hit_00.png-m1fxhit00.ctex"]
+dest_files=["res://.godot/imported/fx_hit_00.png-b09fdda9cd532b7de0fecae91d4311ba.ctex"]
 
 [params]
 

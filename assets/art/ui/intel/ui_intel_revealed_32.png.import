@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuiintelrev32m1"
-path="res://.godot/imported/ui_intel_revealed_32.png-m1intelrev.ctex"
+uid="uid://bb3hmshwm6vlm"
+path="res://.godot/imported/ui_intel_revealed_32.png-04a4dcdee59550fc36ff41b1ecb86353.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/art/ui/intel/ui_intel_revealed_32.png"
-dest_files=["res://.godot/imported/ui_intel_revealed_32.png-m1intelrev.ctex"]
+dest_files=["res://.godot/imported/ui_intel_revealed_32.png-04a4dcdee59550fc36ff41b1ecb86353.ctex"]
 
 [params]
 

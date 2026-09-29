@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfxinsightrev00"
-path="res://.godot/imported/fx_insight_reveal_00.png-m1insight00.ctex"
+uid="uid://1bt8uulsdqyh"
+path="res://.godot/imported/fx_insight_reveal_00.png-aed7e46ef51e57afc77c4440a4e43adf.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/art/fx/skills/fx_insight_reveal_00.png"
-dest_files=["res://.godot/imported/fx_insight_reveal_00.png-m1insight00.ctex"]
+dest_files=["res://.godot/imported/fx_insight_reveal_00.png-aed7e46ef51e57afc77c4440a4e43adf.ctex"]
 
 [params]
 

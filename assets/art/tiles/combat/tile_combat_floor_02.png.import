@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctilefl00r02m1"
-path="res://.godot/imported/tile_combat_floor_02.png-m1floor02.ctex"
+uid="uid://chl8gdshdksx7"
+path="res://.godot/imported/tile_combat_floor_02.png-740277535e055e3813eaa7d86cf83b9f.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/art/tiles/combat/tile_combat_floor_02.png"
-dest_files=["res://.godot/imported/tile_combat_floor_02.png-m1floor02.ctex"]
+dest_files=["res://.godot/imported/tile_combat_floor_02.png-740277535e055e3813eaa7d86cf83b9f.ctex"]
 
 [params]
 
