@@ -137,8 +137,15 @@ func _run() -> void:
 	TM.action_performed.connect(func(actor: String, action: String, target: String, damage: int, effectiveness: String) -> void:
 		action_log.append({"actor": actor, "action": action, "target": target, "damage": damage, "effectiveness": effectiveness})
 	)
+	
+	var blocked_skills: Array[Dictionary] = []
+	TM.skill_blocked.connect(func(skill_id: String, reason: String) -> void:
+		blocked_skills.append({"skill_id": skill_id, "reason": reason})
+	)
 
 	GM.player_data["overload"] = 0
+	GM.player_data["resonance"] = 100
+	GM.player_data["max_resonance"] = 100
 	GM.start_combat(enemy)
 	await process_frame
 
@@ -183,16 +190,26 @@ func _run() -> void:
 			ok = false
 			errors.append("slash should be on cooldown after use, got %d" % post_slash_cd)
 	
-	# 测试 arcane_bolt 打 shadow 敌人（克制）
-	print("测试克制伤害...")
+	# 测试 arcane_bolt（咒弹）打 shadow 敌人（克制）+ 消耗共鸣
+	print("测试咒弹克制伤害和共鸣消耗...")
+	var pre_resonance: int = TM.get_player_resonance()
+	if pre_resonance != 100:
+		ok = false
+		errors.append("initial resonance should be 100, got %d" % pre_resonance)
+	
 	var pre_overload := int(GM.player_data.get("overload", 0))
 	if TM.combat_active and TM.is_player_turn:
 		TM.perform_skill("arcane_bolt")
 		await create_timer(1.2).timeout
 	
+	var post_bolt_resonance: int = TM.get_player_resonance()
+	if post_bolt_resonance != 80:
+		ok = false
+		errors.append("after arcane_bolt resonance should be 80 (100 - 20), got %d" % post_bolt_resonance)
+	
 	var arcane_action: Dictionary = {}
 	for a: Dictionary in action_log:
-		if a["action"] == "咒术飞弹":
+		if a["action"] == "咒弹":
 			arcane_action = a
 			break
 	if arcane_action.is_empty():
@@ -239,6 +256,32 @@ func _run() -> void:
 	if post_deep_overload != 45:
 		ok = false
 		errors.append("after deep_echo_pulse overload should be 45, got %d" % post_deep_overload)
+
+	# 测试共鸣不足时咒弹不可用
+	print("测试共鸣不足时咒弹不可用...")
+	if TM.combat_active and TM.is_player_turn:
+		TM.player["resonance"] = 10
+		blocked_skills.clear()
+		
+		TM.perform_skill("arcane_bolt")
+		await create_timer(0.5).timeout
+		
+		var bolt_blocked := false
+		for b: Dictionary in blocked_skills:
+			if b["skill_id"] == "arcane_bolt":
+				bolt_blocked = true
+				break
+		if not bolt_blocked:
+			ok = false
+			errors.append("arcane_bolt should be blocked when resonance < 20")
+		
+		if not TM.has_enough_resonance("arcane_bolt"):
+			pass
+		else:
+			ok = false
+			errors.append("has_enough_resonance should return false when resonance=10 for arcane_bolt(cost=20)")
+		
+		TM.player["resonance"] = 100
 
 	# 继续战斗直到结束
 	var guard := 0

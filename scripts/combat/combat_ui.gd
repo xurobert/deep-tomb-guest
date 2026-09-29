@@ -50,10 +50,6 @@ enum IntelState { UNKNOWN, PARTIAL, COMPLETE }
 var current_intel_state: IntelState = IntelState.UNKNOWN
 var revealed_weakness: String = ""
 
-# 共鸣槽数据（暂用固定值，后续从 player_data 读取）
-var max_resonance: int = 100
-var current_resonance: int = 100
-
 # 是否已显示过键位教学
 var has_shown_key_tutorial: bool = false
 
@@ -81,7 +77,9 @@ func _ready() -> void:
 	TurnManager.turn_started.connect(_on_turn_started)
 	TurnManager.action_performed.connect(_on_action_performed)
 	TurnManager.overload_changed.connect(_on_overload_changed)
+	TurnManager.resonance_changed.connect(_on_resonance_changed)
 	TurnManager.skill_used.connect(_on_skill_used)
+	TurnManager.skill_blocked.connect(_on_skill_blocked)
 	TurnManager.enemy_weakness_revealed.connect(_on_enemy_weakness_revealed)
 
 	_setup_skill_buttons()
@@ -155,7 +153,6 @@ func _on_combat_started() -> void:
 	visible = true
 	_clear_log()
 	_reset_intel_state()
-	_init_resonance()
 	_update_all_displays()
 	_log_message("[color=yellow]══ 战斗开始 ══[/color]")
 	
@@ -243,9 +240,6 @@ func _on_overload_changed(current: int, maximum: int) -> void:
 
 
 func _on_skill_used(skill_id: String) -> void:
-	if skill_id == "deep_echo_pulse":
-		_consume_resonance(30)
-	
 	if skill_id != "deep_echo_pulse" or skill_fx == null:
 		return
 	skill_fx.visible = true
@@ -254,6 +248,17 @@ func _on_skill_used(skill_id: String) -> void:
 	tween.tween_property(skill_fx, "modulate:a", 0.0, 0.6)
 	await tween.finished
 	skill_fx.visible = false
+
+
+func _on_skill_blocked(skill_id: String, reason: String) -> void:
+	var skill := TurnManager.get_skill(skill_id)
+	var skill_name: String = str(skill.get("name", skill_id))
+	_log_message("[color=red]无法使用 %s：%s[/color]" % [skill_name, reason])
+
+
+func _on_resonance_changed(current: int, maximum: int) -> void:
+	_update_resonance_display()
+	_update_skill_availability()
 
 
 func _on_enemy_weakness_revealed(weakness_element: String) -> void:
@@ -343,6 +348,13 @@ func _update_cooldown_display() -> void:
 			slash_button.text = "斩击 (%d)" % cd
 		else:
 			slash_button.text = "斩击"
+	_update_skill_availability()
+
+
+func _update_skill_availability() -> void:
+	if arcane_bolt_button and TurnManager.is_player_turn:
+		var can_use := TurnManager.has_enough_resonance("arcane_bolt")
+		arcane_bolt_button.disabled = not can_use
 
 
 func _set_buttons_enabled(enabled: bool) -> void:
@@ -352,7 +364,8 @@ func _set_buttons_enabled(enabled: bool) -> void:
 		var slash_cd := TurnManager.get_skill_cooldown("slash")
 		slash_button.disabled = not enabled or slash_cd > 0
 	if arcane_bolt_button:
-		arcane_bolt_button.disabled = not enabled
+		var can_use_bolt := TurnManager.has_enough_resonance("arcane_bolt")
+		arcane_bolt_button.disabled = not enabled or not can_use_bolt
 	if deep_echo_button:
 		deep_echo_button.disabled = not enabled
 	if insight_button:
@@ -438,20 +451,9 @@ func reveal_enemy_intel(level: IntelState) -> void:
 
 # ========== 共鸣槽系统 ==========
 
-func _init_resonance() -> void:
-	var player_resonance = GameManager.player_data.get("resonance", -1)
-	var player_max_resonance = GameManager.player_data.get("max_resonance", -1)
-	
-	if player_resonance >= 0:
-		current_resonance = int(player_resonance)
-	else:
-		current_resonance = max_resonance
-	
-	if player_max_resonance > 0:
-		max_resonance = int(player_max_resonance)
-
-
 func _update_resonance_display() -> void:
+	var current_resonance := TurnManager.get_player_resonance()
+	var max_resonance := TurnManager.get_player_max_resonance()
 	if resonance_bar:
 		resonance_bar.max_value = max_resonance
 		resonance_bar.value = current_resonance
@@ -463,11 +465,7 @@ func _update_resonance_display() -> void:
 			resonance_label.modulate = Color.YELLOW
 		else:
 			resonance_label.modulate = Color(0.6, 0.5, 1.0)
-
-
-func _consume_resonance(amount: int) -> void:
-	current_resonance = maxi(current_resonance - amount, 0)
-	_update_resonance_display()
+	
 	if current_resonance <= 0:
 		_log_message("[color=red]共鸣能量耗尽！[/color]")
 
@@ -533,7 +531,7 @@ func _show_key_tutorial() -> void:
 	_log_message("[color=gray]◆ 操作提示 ◆[/color]")
 	_log_message("[color=gray][1] 攻击 - 稳定物理伤害[/color]")
 	_log_message("[color=gray][2] 斩击 - 强力斩击，冷却 2 回合[/color]")
-	_log_message("[color=gray][3] 咒术飞弹 - 咒术伤害，+15 失控[/color]")
-	_log_message("[color=gray][4] 异能共鸣 - 高伤害，+30 失控[/color]")
+	_log_message("[color=gray][3] 咒弹 - 咒术伤害，消耗 20 共鸣，+15 失控[/color]")
+	_log_message("[color=gray][4] 异能脉冲 - 高伤害，+30 失控[/color]")
 	_log_message("[color=gray][5] 洞察 - 揭示敌人弱点[/color]")
 	_log_message("[color=gray]─────────────────────[/color]")

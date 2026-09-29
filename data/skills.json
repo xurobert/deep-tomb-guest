@@ -21,18 +21,19 @@
 	},
 	"arcane_bolt": {
 		"id": "arcane_bolt",
-		"name": "咒术飞弹",
-		"description": "释放咒术能量打击敌人，增加失控值。",
+		"name": "咒弹",
+		"description": "释放咒术能量打击敌人，消耗共鸣，增加失控值。",
 		"damage_min": 18,
 		"damage_max": 18,
 		"overload_cost": 15,
+		"resonance_cost": 20,
 		"element": "arcane",
 		"cooldown": 0
 	},
 	"deep_echo_pulse": {
 		"id": "deep_echo_pulse",
-		"name": "异能共鸣",
-		"description": "引导来自墓穴深处的共鸣能量。高伤害，大幅增加失控值。",
+		"name": "异能脉冲",
+		"description": "引导来自墓穴深处的能量脉冲。高伤害，大幅增加失控值。",
 		"damage_min": 25,
 		"damage_max": 25,
 		"overload_cost": 30,

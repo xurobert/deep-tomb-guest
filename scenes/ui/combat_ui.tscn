@@ -368,13 +368,13 @@ icon_alignment = 0
 [node name="ArcaneBoltButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
 custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
-text = "咒术飞弹"
+text = "咒弹"
 icon_alignment = 0
 
 [node name="DeepEchoButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
 custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
-text = "异能共鸣"
+text = "异能脉冲"
 icon_alignment = 0
 
 [node name="InsightButton" type="Button" parent="CombatPanel/BottomPanel/HBox/CommandSection/Actions"]
@@ -386,5 +386,5 @@ text = "洞察"
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-text = "[1] 攻击  [2] 斩击  [3] 咒术  [4] 共鸣  [5] 洞察"
+text = "[1] 攻击  [2] 斩击  [3] 咒弹  [4] 脉冲  [5] 洞察"
 horizontal_alignment = 1

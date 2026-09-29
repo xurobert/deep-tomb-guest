@@ -7,7 +7,9 @@ signal turn_started(is_player_turn: bool)
 signal turn_ended
 signal action_performed(actor: String, action: String, target: String, damage: int, effectiveness: String)
 signal overload_changed(current: int, maximum: int)
+signal resonance_changed(current: int, maximum: int)
 signal skill_used(skill_id: String)
+signal skill_blocked(skill_id: String, reason: String)
 signal enemy_weakness_revealed(weakness_element: String)
 
 enum Effectiveness { NEUTRAL, ADVANTAGE, DISADVANTAGE }
@@ -72,6 +74,8 @@ func start_combat(player_data: Dictionary, enemy_data: Dictionary) -> void:
 	player["max_hp"] = int(player.get("max_hp", 100))
 	player["overload"] = int(player.get("overload", 0))
 	player["max_overload"] = int(player.get("max_overload", 100))
+	player["resonance"] = int(player.get("resonance", 100))
+	player["max_resonance"] = int(player.get("max_resonance", 100))
 	enemy["hp"] = int(enemy.get("hp", 30))
 	enemy["max_hp"] = int(enemy.get("max_hp", 30))
 	enemy["recognition_value"] = int(enemy.get("recognition_value", 10))
@@ -173,6 +177,42 @@ func is_skill_on_cooldown(skill_id: String) -> bool:
 	return get_skill_cooldown(skill_id) > 0
 
 
+func get_skill_resonance_cost(skill_id: String) -> int:
+	var skill := get_skill(skill_id)
+	return int(skill.get("resonance_cost", 0))
+
+
+func get_player_resonance() -> int:
+	return int(player.get("resonance", 0))
+
+
+func get_player_max_resonance() -> int:
+	return int(player.get("max_resonance", 100))
+
+
+func has_enough_resonance(skill_id: String) -> bool:
+	var cost := get_skill_resonance_cost(skill_id)
+	if cost <= 0:
+		return true
+	return get_player_resonance() >= cost
+
+
+func can_use_skill(skill_id: String) -> bool:
+	var resolved_id := _resolve_skill_alias(skill_id)
+	if is_skill_on_cooldown(resolved_id):
+		return false
+	if not has_enough_resonance(resolved_id):
+		return false
+	return true
+
+
+func consume_resonance(amount: int) -> void:
+	var current := get_player_resonance()
+	var new_val := maxi(current - amount, 0)
+	player["resonance"] = new_val
+	resonance_changed.emit(new_val, get_player_max_resonance())
+
+
 func _tick_cooldowns() -> void:
 	for skill_id: String in skill_cooldowns.keys():
 		var cd: int = int(skill_cooldowns.get(skill_id, 0))
@@ -195,6 +235,11 @@ func perform_skill(skill_id: String) -> void:
 	
 	if is_skill_on_cooldown(resolved_id):
 		return
+	
+	var resonance_cost: int = int(skill.get("resonance_cost", 0))
+	if resonance_cost > 0 and get_player_resonance() < resonance_cost:
+		skill_blocked.emit(resolved_id, "共鸣不足")
+		return
 
 	action_locked = true
 	is_player_turn = false
@@ -207,6 +252,9 @@ func perform_skill(skill_id: String) -> void:
 	if resolved_id == "insight":
 		_perform_insight(skill_name)
 		return
+	
+	if resonance_cost > 0:
+		consume_resonance(resonance_cost)
 	
 	var damage_min: int = int(skill.get("damage_min", int(skill.get("base_damage", 10))))
 	var damage_max: int = int(skill.get("damage_max", damage_min))
