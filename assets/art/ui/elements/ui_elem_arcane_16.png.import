@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sifkpk8ssdhu"
-path="res://.godot/imported/enemy_bone_guard_combat_idle_00.png-4c5c0015fa0f262e7aa83ff5250cbcd5.ctex"
+uid="uid://dftdrri4hi8vp"
+path="res://.godot/imported/ui_elem_arcane_16.png-adf0d95e9a9814a55ab1d45b62aa3a7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/characters/enemies/enemy_bone_guard_combat_idle_00.png"
-dest_files=["res://.godot/imported/enemy_bone_guard_combat_idle_00.png-4c5c0015fa0f262e7aa83ff5250cbcd5.ctex"]
+source_file="res://assets/art/ui/elements/ui_elem_arcane_16.png"
+dest_files=["res://.godot/imported/ui_elem_arcane_16.png-adf0d95e9a9814a55ab1d45b62aa3a7a.ctex"]
 
 [params]
 

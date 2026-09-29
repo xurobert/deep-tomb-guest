@@ -1,20 +1,56 @@
 {
-	"deep_echo": {
-		"id": "deep_echo",
-		"name": "异能共鸣",
-		"description": "引导来自墓穴深处的共鸣能量。高伤害，积累失控值。",
-		"base_damage": 25,
-		"overload_cost": 30,
-		"type": "magic",
-		"element": "void"
-	},
-	"basic_attack": {
-		"id": "basic_attack",
+	"attack": {
+		"id": "attack",
 		"name": "攻击",
 		"description": "标准物理攻击。",
-		"base_damage": 10,
+		"damage_min": 8,
+		"damage_max": 15,
 		"overload_cost": 0,
-		"type": "physical",
-		"element": "none"
+		"element": "physical",
+		"cooldown": 0
+	},
+	"slash": {
+		"id": "slash",
+		"name": "斩击",
+		"description": "强力物理斩击，冷却 2 回合。",
+		"damage_min": 16,
+		"damage_max": 16,
+		"overload_cost": 0,
+		"element": "physical",
+		"cooldown": 2
+	},
+	"arcane_bolt": {
+		"id": "arcane_bolt",
+		"name": "咒术飞弹",
+		"description": "释放咒术能量打击敌人，增加失控值。",
+		"damage_min": 18,
+		"damage_max": 18,
+		"overload_cost": 15,
+		"element": "arcane",
+		"cooldown": 0
+	},
+	"deep_echo_pulse": {
+		"id": "deep_echo_pulse",
+		"name": "异能共鸣",
+		"description": "引导来自墓穴深处的共鸣能量。高伤害，大幅增加失控值。",
+		"damage_min": 25,
+		"damage_max": 25,
+		"overload_cost": 30,
+		"element": "shadow",
+		"cooldown": 0
+	},
+	"insight": {
+		"id": "insight",
+		"name": "洞察",
+		"description": "观察敌人，揭示其弱点属性。",
+		"damage_min": 0,
+		"damage_max": 0,
+		"overload_cost": 0,
+		"element": "none",
+		"cooldown": 0
+	},
+	"_aliases": {
+		"deep_echo": "deep_echo_pulse",
+		"basic_attack": "attack"
 	}
 }
