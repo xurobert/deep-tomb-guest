@@ -6,6 +6,7 @@ class_name CombatTrigger
 @export var trigger_on_touch: bool = false
 @export var require_flag: String = ""
 @export var confirm_message: String = ""
+@export var defeat_flag: String = ""
 
 var enemies_data: Dictionary = {}
 var _defeated: bool = false
@@ -22,6 +23,37 @@ func _ready() -> void:
 		area.body_entered.connect(_on_body_entered)
 	
 	GameManager.combat_defeat.connect(_on_combat_defeat)
+	SaveManager.load_completed.connect(_on_load_completed)
+	
+	call_deferred("_restore_from_flags")
+
+
+func _restore_from_flags() -> void:
+	var flag_name := _get_defeat_flag()
+	if not flag_name.is_empty() and GameManager.get_flag(flag_name, false):
+		_set_defeated_state()
+
+
+func _on_load_completed(_success: bool) -> void:
+	_restore_from_flags()
+
+
+func _get_defeat_flag() -> String:
+	if not defeat_flag.is_empty():
+		return defeat_flag
+	var raw: Variant = enemies_data.get(enemy_id, {})
+	if typeof(raw) == TYPE_DICTIONARY:
+		return str(raw.get("defeat_flag", ""))
+	return ""
+
+
+func _set_defeated_state() -> void:
+	_defeated = true
+	hide_prompt()
+	visible = false
+	if area:
+		area.set_deferred("monitoring", false)
+		area.set_deferred("monitorable", false)
 
 
 func _load_enemy_data() -> void:
@@ -45,8 +77,7 @@ func _on_interacted() -> void:
 
 
 func _show_confirm_dialog() -> void:
-	print("[CombatTrigger] 确认对话: %s (自动确认进入战斗)" % confirm_message)
-	_start_combat()
+	GameManager.show_confirm(confirm_message, _start_combat)
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -99,20 +130,11 @@ func _start_combat() -> void:
 
 func _on_combat_ended(victory: bool) -> void:
 	if victory:
-		_defeated = true
-		hide_prompt()
-		visible = false
-		if area:
-			area.set_deferred("monitoring", false)
-			area.set_deferred("monitorable", false)
-		
-		var raw: Variant = enemies_data.get(enemy_id, {})
-		if typeof(raw) == TYPE_DICTIONARY:
-			var enemy_data: Dictionary = raw
-			var defeat_flag: String = str(enemy_data.get("defeat_flag", ""))
-			if not defeat_flag.is_empty():
-				GameManager.set_flag(defeat_flag, true)
-				print("[CombatTrigger] 设置 flag: %s = true" % defeat_flag)
+		var flag_name := _get_defeat_flag()
+		if not flag_name.is_empty():
+			GameManager.set_flag(flag_name, true)
+			print("[CombatTrigger] 设置 flag: %s = true" % flag_name)
+		_set_defeated_state()
 
 
 func _on_combat_defeat() -> void:

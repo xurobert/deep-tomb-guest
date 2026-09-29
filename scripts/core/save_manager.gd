@@ -73,10 +73,11 @@ func load_game() -> bool:
 		for key in save_data.player.keys():
 			GameManager.player_data[key] = save_data.player[key]
 	
-	if save_data.has("flags"):
-		var saved_flags: Variant = save_data.get("flags", {})
-		if typeof(saved_flags) == TYPE_DICTIONARY:
-			GameManager.flags = saved_flags.duplicate(true)
+	var saved_flags: Variant = save_data.get("flags", {})
+	if typeof(saved_flags) == TYPE_DICTIONARY:
+		GameManager.flags = saved_flags.duplicate(true)
+	else:
+		GameManager.flags = {}
 	
 	if save_data.has("player_position"):
 		var pos_data: Dictionary = save_data.player_position

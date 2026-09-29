@@ -106,6 +106,25 @@ func has_flag(flag_name: String) -> bool:
 	return flags.has(flag_name) and flags[flag_name]
 
 
+func show_confirm(message: String, on_confirm: Callable = Callable(), on_cancel: Callable = Callable()) -> void:
+	var dialog := get_tree().get_first_node_in_group("confirm_dialog")
+	if dialog == null:
+		dialog = _find_confirm_dialog()
+	if dialog and dialog.has_method("show_confirm"):
+		dialog.show_confirm(message, on_confirm, on_cancel)
+	else:
+		print("[GameManager] ConfirmDialog 未找到，直接执行确认回调")
+		if on_confirm.is_valid():
+			on_confirm.call()
+
+
+func _find_confirm_dialog() -> Node:
+	var root := get_tree().current_scene
+	if root:
+		return root.find_child("ConfirmDialog", true, false)
+	return null
+
+
 func _try_load_save() -> void:
 	if SaveManager.has_save():
 		SaveManager.load_game()
