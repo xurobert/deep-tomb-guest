@@ -1,0 +1,116 @@
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://bcombathudtheme"]
+
+[ext_resource type="Texture2D" uid="uid://cuibtnormal32m1" path="res://assets/art/ui/hud/ui_btn_normal_32.png" id="1_btn_normal"]
+[ext_resource type="Texture2D" uid="uid://cuibtnhover32m1" path="res://assets/art/ui/hud/ui_btn_hover_32.png" id="2_btn_hover"]
+[ext_resource type="Texture2D" uid="uid://cuibtnpress32m1" path="res://assets/art/ui/hud/ui_btn_pressed_32.png" id="3_btn_pressed"]
+[ext_resource type="Texture2D" uid="uid://cuibtndisab32m1" path="res://assets/art/ui/hud/ui_btn_disabled_32.png" id="4_btn_disabled"]
+[ext_resource type="Texture2D" uid="uid://cuibarhpbg16m1" path="res://assets/art/ui/hud/ui_bar_hp_bg_16.png" id="5_hp_bg"]
+[ext_resource type="Texture2D" uid="uid://cuibarhpfill16m1" path="res://assets/art/ui/hud/ui_bar_hp_fill_16.png" id="6_hp_fill"]
+[ext_resource type="Texture2D" uid="uid://cuibarresbg12m1" path="res://assets/art/ui/hud/ui_bar_res_bg_12.png" id="7_res_bg"]
+[ext_resource type="Texture2D" uid="uid://cuibarresfill12" path="res://assets/art/ui/hud/ui_bar_res_fill_12.png" id="8_res_fill"]
+[ext_resource type="Texture2D" uid="uid://cuibarlocbg12m1" path="res://assets/art/ui/hud/ui_bar_loc_bg_12.png" id="9_loc_bg"]
+[ext_resource type="Texture2D" uid="uid://cuibarlocfill12" path="res://assets/art/ui/hud/ui_bar_loc_fill_12.png" id="10_loc_fill"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn_normal"]
+texture = ExtResource("1_btn_normal")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn_hover"]
+texture = ExtResource("2_btn_hover")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn_pressed"]
+texture = ExtResource("3_btn_pressed")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+content_margin_top = 1.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn_disabled"]
+texture = ExtResource("4_btn_disabled")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btn_focus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hp_bg"]
+texture = ExtResource("5_hp_bg")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hp_fill"]
+texture = ExtResource("6_hp_fill")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_res_bg"]
+texture = ExtResource("7_res_bg")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_res_fill"]
+texture = ExtResource("8_res_fill")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_loc_bg"]
+texture = ExtResource("9_loc_bg")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_loc_fill"]
+texture = ExtResource("10_loc_fill")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 2
+
+[resource]
+Button/colors/font_color = Color(0.847059, 0.815686, 0.768627, 1)
+Button/colors/font_disabled_color = Color(0.478431, 0.545098, 0.603922, 1)
+Button/colors/font_focus_color = Color(0.847059, 0.815686, 0.768627, 1)
+Button/colors/font_hover_color = Color(0.847059, 0.815686, 0.768627, 1)
+Button/colors/font_hover_pressed_color = Color(0.847059, 0.815686, 0.768627, 1)
+Button/colors/font_pressed_color = Color(0.847059, 0.815686, 0.768627, 1)
+Button/styles/disabled = SubResource("StyleBoxTexture_btn_disabled")
+Button/styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+Button/styles/hover = SubResource("StyleBoxTexture_btn_hover")
+Button/styles/normal = SubResource("StyleBoxTexture_btn_normal")
+Button/styles/pressed = SubResource("StyleBoxTexture_btn_pressed")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_hp_bg")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_hp_fill")
+ResonanceBar/base_type = &"ProgressBar"
+ResonanceBar/styles/background = SubResource("StyleBoxTexture_res_bg")
+ResonanceBar/styles/fill = SubResource("StyleBoxTexture_res_fill")
+OverloadBar/base_type = &"ProgressBar"
+OverloadBar/styles/background = SubResource("StyleBoxTexture_loc_bg")
+OverloadBar/styles/fill = SubResource("StyleBoxTexture_loc_fill")

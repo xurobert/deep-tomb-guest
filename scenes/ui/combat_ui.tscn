@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://b0l2p5mkqhtq0"]
+[gd_scene load_steps=15 format=3 uid="uid://b0l2p5mkqhtq0"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_ui.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://bcombathudtheme" path="res://assets/ui/combat_hud_theme.tres" id="10_hud_theme"]
 [ext_resource type="Texture2D" uid="uid://b3m1c0mbat1dl3" path="res://assets/art/characters/enemies/enemy_bone_guard_combat_idle_00.png" id="2_enemy"]
 [ext_resource type="Texture2D" uid="uid://cfxechopulse00" path="res://assets/art/fx/skills/fx_deep_echo_pulse_00.png" id="3_fx"]
 [ext_resource type="Texture2D" uid="uid://ctilefl00r00m1" path="res://assets/art/tiles/combat/tile_combat_floor_00.png" id="4_floor"]
@@ -56,6 +57,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("10_hud_theme")
 
 [node name="BattlefieldBG" type="Control" parent="CombatPanel"]
 layout_mode = 1
@@ -166,8 +168,9 @@ layout_mode = 2
 theme_override_constants/separation = 2
 
 [node name="HPBar" type="ProgressBar" parent="CombatPanel/TopPanel/EnemySection/EnemyInfo/EnemyHPBox"]
-custom_minimum_size = Vector2(180, 18)
+custom_minimum_size = Vector2(180, 16)
 layout_mode = 2
+size_flags_vertical = 4
 max_value = 50.0
 value = 50.0
 show_percentage = false
@@ -297,9 +300,11 @@ theme_override_colors/font_color = Color(0.6, 0.5, 1, 1)
 text = "共鸣"
 
 [node name="ResonanceBar" type="ProgressBar" parent="CombatPanel/BottomPanel/HBox/PlayerSection/ResonanceRow"]
-custom_minimum_size = Vector2(120, 14)
+custom_minimum_size = Vector2(120, 12)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_type_variation = &"ResonanceBar"
 max_value = 100.0
 value = 100.0
 show_percentage = false
@@ -320,9 +325,11 @@ theme_override_colors/font_color = Color(1, 0.6, 0.4, 1)
 text = "失控"
 
 [node name="OverloadBar" type="ProgressBar" parent="CombatPanel/BottomPanel/HBox/PlayerSection/OverloadRow"]
-custom_minimum_size = Vector2(120, 14)
+custom_minimum_size = Vector2(120, 12)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_type_variation = &"OverloadBar"
 show_percentage = false
 
 [node name="OverloadLabel" type="Label" parent="CombatPanel/BottomPanel/HBox/PlayerSection/OverloadRow"]
