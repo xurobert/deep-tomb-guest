@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://confirm_dialog_m1"]
+
+[ext_resource type="Script" path="res://scripts/ui/confirm_dialog.gd" id="1_script"]
+
+[node name="ConfirmDialog" type="CanvasLayer" groups=["confirm_dialog"]]
+layer = 100
+script = ExtResource("1_script")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -50.0
+offset_right = 120.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="MessageLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "确认要执行此操作吗？"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="YesButton" type="Button" parent="Panel/VBox/HBox"]
+custom_minimum_size = Vector2(80, 30)
+layout_mode = 2
+text = "确定"
+
+[node name="NoButton" type="Button" parent="Panel/VBox/HBox"]
+custom_minimum_size = Vector2(80, 30)
+layout_mode = 2
+text = "取消"

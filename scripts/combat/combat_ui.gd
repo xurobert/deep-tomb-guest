@@ -81,6 +81,9 @@ func _ready() -> void:
 	TurnManager.skill_used.connect(_on_skill_used)
 	TurnManager.skill_blocked.connect(_on_skill_blocked)
 	TurnManager.enemy_weakness_revealed.connect(_on_enemy_weakness_revealed)
+	TurnManager.enemy_phase_changed.connect(_on_enemy_phase_changed)
+	TurnManager.enemy_telegraph.connect(_on_enemy_telegraph)
+	TurnManager.guardian_recognition_check.connect(_on_guardian_recognition_check)
 
 	_setup_skill_buttons()
 	_load_element_icons()
@@ -153,6 +156,7 @@ func _on_combat_started() -> void:
 	visible = true
 	_clear_log()
 	_reset_intel_state()
+	_update_enemy_sprite()
 	_update_all_displays()
 	_log_message("[color=yellow]══ 战斗开始 ══[/color]")
 	
@@ -535,3 +539,85 @@ func _show_key_tutorial() -> void:
 	_log_message("[color=gray][4] 异能脉冲 - 高伤害，+30 失控[/color]")
 	_log_message("[color=gray][5] 洞察 - 揭示敌人弱点[/color]")
 	_log_message("[color=gray]─────────────────────[/color]")
+
+
+# ========== 阶段变化系统 ==========
+
+func _on_enemy_phase_changed(phase: int) -> void:
+	_reset_intel_state()
+	_update_enemy_sprite()
+	_play_phase_change_effect()
+	
+	var phase_name := _get_phase_name(phase)
+	_log_message("[color=red]══════════════════════════[/color]")
+	_log_message("[color=red]铠甲崩裂——%s的%s苏醒了！[/color]" % [_get_enemy_display_name(), phase_name])
+	_log_message("[color=red]══════════════════════════[/color]")
+	_show_phase_change_banner(phase_name)
+
+
+func _get_phase_name(phase: int) -> String:
+	var phases: Variant = TurnManager.enemy.get("phases", [])
+	if typeof(phases) == TYPE_ARRAY and phases.size() > phase:
+		var phase_data: Variant = phases[phase]
+		if typeof(phase_data) == TYPE_DICTIONARY:
+			return str(phase_data.get("phase_name", "第%d阶段" % (phase + 1)))
+	return "第%d阶段" % (phase + 1)
+
+
+func _update_enemy_sprite() -> void:
+	if not enemy_sprite:
+		return
+	
+	var sprite_path: String = TurnManager.get_enemy_sprite_path()
+	if sprite_path.is_empty():
+		return
+	
+	if ResourceLoader.exists(sprite_path):
+		var new_texture := load(sprite_path) as Texture2D
+		if new_texture:
+			enemy_sprite.texture = new_texture
+
+
+func _play_phase_change_effect() -> void:
+	if enemy_sprite:
+		var tween := create_tween()
+		tween.tween_property(enemy_sprite, "modulate", Color(2.0, 2.0, 2.0), 0.1)
+		tween.tween_property(enemy_sprite, "modulate", Color.WHITE, 0.3)
+	
+	_play_screen_shake()
+
+
+func _play_screen_shake() -> void:
+	if battle_area:
+		var orig_pos := battle_area.position
+		var tween := create_tween()
+		tween.tween_property(battle_area, "position", orig_pos + Vector2(8, 0), 0.02)
+		tween.tween_property(battle_area, "position", orig_pos + Vector2(-8, 0), 0.02)
+		tween.tween_property(battle_area, "position", orig_pos + Vector2(6, 0), 0.02)
+		tween.tween_property(battle_area, "position", orig_pos + Vector2(-6, 0), 0.02)
+		tween.tween_property(battle_area, "position", orig_pos + Vector2(4, 0), 0.02)
+		tween.tween_property(battle_area, "position", orig_pos + Vector2(-4, 0), 0.02)
+		tween.tween_property(battle_area, "position", orig_pos, 0.02)
+
+
+func _show_phase_change_banner(phase_name: String) -> void:
+	pass
+
+
+# ========== 蓄力预告系统 ==========
+
+func _on_enemy_telegraph(message: String) -> void:
+	_log_message("[color=orange]★ %s[/color]" % message)
+
+
+# ========== 守护者认可系统 ==========
+
+func _on_guardian_recognition_check(passed: bool, message: String) -> void:
+	if passed:
+		_log_message("[color=gold]══════════════════════════[/color]")
+		_log_message("[color=gold]%s[/color]" % message)
+		_log_message("[color=gold]══════════════════════════[/color]")
+	else:
+		_log_message("[color=gray]══════════════════════════[/color]")
+		_log_message("[color=gray]%s[/color]" % message)
+		_log_message("[color=gray]══════════════════════════[/color]")

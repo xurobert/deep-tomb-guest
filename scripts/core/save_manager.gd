@@ -7,7 +7,10 @@ signal load_completed(success: bool)
 const SAVE_PATH := "user://save_data.json"
 
 
-func save_game() -> bool:
+func save_game(save_point_id: String = "") -> bool:
+	GameManager.restore_full_hp()
+	GameManager.reset_overload()
+	
 	var player_pos := Vector2.ZERO
 	var player_node := get_tree().get_first_node_in_group("player")
 	if player_node == null:
@@ -20,7 +23,9 @@ func save_game() -> bool:
 		"timestamp": Time.get_unix_time_from_system(),
 		"player": GameManager.player_data.duplicate(true),
 		"player_position": {"x": player_pos.x, "y": player_pos.y},
-		"scene": get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
+		"scene": get_tree().current_scene.scene_file_path if get_tree().current_scene else "",
+		"flags": GameManager.flags.duplicate(true),
+		"save_point_id": save_point_id
 	}
 	
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -28,7 +33,7 @@ func save_game() -> bool:
 		file.store_string(JSON.stringify(save_data, "\t"))
 		file.close()
 		save_completed.emit(true)
-		print("[SaveManager] 存档成功: 位置 (", player_pos.x, ", ", player_pos.y, ")")
+		print("[SaveManager] 存档成功: 位置 (", player_pos.x, ", ", player_pos.y, "), HP已回满, 失控已清零")
 		return true
 	
 	save_completed.emit(false)
@@ -68,6 +73,12 @@ func load_game() -> bool:
 		for key in save_data.player.keys():
 			GameManager.player_data[key] = save_data.player[key]
 	
+	var saved_flags: Variant = save_data.get("flags", {})
+	if typeof(saved_flags) == TYPE_DICTIONARY:
+		GameManager.flags = saved_flags.duplicate(true)
+	else:
+		GameManager.flags = {}
+	
 	if save_data.has("player_position"):
 		var pos_data: Dictionary = save_data.player_position
 		var saved_pos := Vector2(float(pos_data.get("x", 0)), float(pos_data.get("y", 0)))
@@ -76,6 +87,15 @@ func load_game() -> bool:
 	print("[SaveManager] 读档成功")
 	load_completed.emit(true)
 	return true
+
+
+func handle_combat_defeat() -> void:
+	if has_save():
+		load_game()
+		print("[SaveManager] 败后读档，回到魂灯位置")
+	else:
+		GameManager.restore_full_hp()
+		print("[SaveManager] 无存档，回满HP留在原地")
 
 
 func _restore_player_position(pos: Vector2) -> void:
