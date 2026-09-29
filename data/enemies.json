@@ -20,5 +20,107 @@
 		"recognition_value": 10,
 		"element": "arcane",
 		"description": "由远古尘埃形成的快速移动的魂灵。"
+	},
+	"death_knight": {
+		"id": "death_knight",
+		"name": "死骸骑士",
+		"hp": 140,
+		"max_hp": 140,
+		"attack": 9,
+		"defense": 3,
+		"recognition_value": 20,
+		"element": "arcane",
+		"sprite": "res://assets/art/characters/enemies/enemy_death_knight_combat_idle_p1_00.png",
+		"description": "身披咒缚铠甲的远古骑士，暗影本体潜藏其中。",
+		"is_elite": true,
+		"defeat_flag": "elite_corpse_knight_defeated",
+		"moves": {
+			"knight_cleave": {
+				"name": "横斩",
+				"damage_min": 7,
+				"damage_max": 11
+			},
+			"knight_charge": {
+				"name": "举剑蓄力",
+				"damage_min": 0,
+				"damage_max": 0,
+				"telegraph": "死骸骑士高举巨剑……下回合将发动重击！"
+			},
+			"knight_crush": {
+				"name": "碎骨重击",
+				"damage_min": 20,
+				"damage_max": 20
+			},
+			"shadow_cleave": {
+				"name": "暗影斩",
+				"damage_min": 10,
+				"damage_max": 14
+			},
+			"abyss_crush": {
+				"name": "深渊重击",
+				"damage_min": 26,
+				"damage_max": 26
+			}
+		},
+		"phases": [
+			{
+				"phase_name": "咒缚铠甲",
+				"element": "arcane",
+				"attack": 9,
+				"sprite": "res://assets/art/characters/enemies/enemy_death_knight_combat_idle_p1_00.png",
+				"rotation": ["knight_cleave", "knight_cleave", "knight_charge", "knight_crush"]
+			},
+			{
+				"phase_name": "暗影本体",
+				"element": "shadow",
+				"attack": 12,
+				"sprite": "res://assets/art/characters/enemies/enemy_death_knight_combat_idle_p2_00.png",
+				"rotation": ["shadow_cleave", "knight_charge", "abyss_crush"],
+				"hp_ratio_trigger": 0.5
+			}
+		],
+		"rotation": ["knight_cleave", "knight_cleave", "knight_charge", "knight_crush"]
+	},
+	"undead_overlord": {
+		"id": "undead_overlord",
+		"name": "死者统领",
+		"hp": 160,
+		"max_hp": 160,
+		"attack": 10,
+		"defense": 4,
+		"recognition_value": 10,
+		"element": "physical",
+		"sprite": "res://assets/art/characters/enemies/enemy_undead_overlord_combat_idle_00.png",
+		"description": "第一守护者，墓穴中所有死者的统治者。",
+		"is_guardian": true,
+		"defeat_flag": "guardian_1_defeated",
+		"moves": {
+			"necro_bolt": {
+				"name": "死灵弹",
+				"damage_min": 7,
+				"damage_max": 11
+			},
+			"tomb_chant": {
+				"name": "墓咏蓄力",
+				"damage_min": 0,
+				"damage_max": 0,
+				"telegraph": "死者统领低吟墓穴之咏……下回合将释放墓葬新星！"
+			},
+			"tomb_nova": {
+				"name": "墓葬新星",
+				"damage_min": 20,
+				"damage_max": 20
+			}
+		},
+		"rotation": ["necro_bolt", "necro_bolt", "tomb_chant", "tomb_nova"],
+		"recognition_rule": {
+			"require_insight": true,
+			"min_weakness_hits": 3,
+			"forbid_overload": true,
+			"hp_ratio_window": 0.3,
+			"recognition_bonus": 30
+		},
+		"recognition_message": "……住手。你看穿了我的本质，却没被力量吞噬。",
+		"rejection_message": "死者统领：……仅此而已吗。"
 	}
 }
