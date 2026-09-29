@@ -205,6 +205,7 @@ func _run() -> void:
 	await create_timer(0.5).timeout
 
 	# ========== 测试 5: 守护者战认可判定 - 满足条件 ==========
+	# 验收路径：洞察 + 3次脉冲(int(25*1.5)=37 each, HP=160-111=49) + 补一次物理攻击进线(<48)
 	print("测试守护者战认可判定（满足条件）...")
 	
 	var undead_overlord := {
@@ -257,6 +258,7 @@ func _run() -> void:
 		ok = false
 		errors.append("combat_stats.insight_used should be true after insight")
 	
+	# 3次脉冲：每次 int(25*1.5)=37 伤害，总计 111，HP = 160 - 111 = 49
 	var hits_needed := 3
 	var hits_done := 0
 	guard = 0
@@ -273,6 +275,18 @@ func _run() -> void:
 		ok = false
 		errors.append("combat_stats.weakness_hits should be >= 3, got %d" % TM.combat_stats["weakness_hits"])
 	
+	# 3次脉冲后 HP 应为 49，判定线是 48 (160*0.3)，还没进线
+	var hp_after_pulses: int = int(TM.enemy.get("hp", 0))
+	var threshold: int = int(160 * 0.3)  # = 48
+	if hp_after_pulses <= threshold and TM.combat_active:
+		ok = false
+		errors.append("3次脉冲后HP=%d 应该 > 判定线%d，实际进线了" % [hp_after_pulses, threshold])
+	
+	# 此时认可判定不应触发
+	if recognition_check["passed"] != null:
+		ok = false
+		errors.append("3次脉冲后认可判定不应触发，但 passed=%s" % str(recognition_check["passed"]))
+	
 	var overload_val: int = int(TM.player.get("overload", 0))
 	if overload_val >= 100:
 		ok = false
@@ -282,6 +296,7 @@ func _run() -> void:
 		ok = false
 		errors.append("combat_stats.overloaded should be false, got true")
 	
+	# 补一次物理攻击进线
 	guard = 0
 	while TM.combat_active and guard < 15:
 		guard += 1
