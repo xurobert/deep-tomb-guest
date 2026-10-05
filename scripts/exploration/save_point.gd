@@ -5,6 +5,9 @@ class_name SavePoint
 signal save_successful
 signal save_failed
 
+@export var save_point_id: String = ""
+@export var flags_to_set: Dictionary = {}
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer if has_node("AnimationPlayer") else null
 
 
@@ -21,14 +24,17 @@ func _on_interacted() -> void:
 	if animation_player:
 		animation_player.play("saving")
 
-	var success := SaveManager.save_game()
+	for flag_name: String in flags_to_set.keys():
+		GameManager.set_flag(flag_name, flags_to_set[flag_name])
+
+	var success := SaveManager.save_game(save_point_id)
 
 	if success:
 		save_successful.emit()
-		print("[SavePoint] Game saved successfully!")
+		print("[SavePoint] 存档成功! ID: %s" % save_point_id)
 	else:
 		save_failed.emit()
-		print("[SavePoint] Failed to save game.")
+		print("[SavePoint] 存档失败.")
 
 	await get_tree().create_timer(0.5).timeout
 	GameManager.change_state(GameManager.GameState.EXPLORATION)

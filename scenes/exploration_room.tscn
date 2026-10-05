@@ -87,3 +87,24 @@ position = Vector2(80, -40)
 position = Vector2(0, -50)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+# 临时位置，关卡线挤到第3层后需要移动
+[node name="DeathKnightTrigger" parent="." instance=ExtResource("3_combat")]
+position = Vector2(-100, 40)
+enemy_id = "death_knight"
+
+# 临时位置，关卡线挤到第3层后需要移动
+[node name="GuardianSavePoint" parent="." instance=ExtResource("4_save")]
+position = Vector2(0, 60)
+save_point_id = "save_point_ch1_guardian"
+flags_to_set = {
+"guardian_1_ready": true
+}
+
+# 临时位置，关卡线挤到第3层后需要移动
+[node name="GuardianDoor" parent="." instance=ExtResource("3_combat")]
+position = Vector2(100, 40)
+interaction_text = "踏入守护者殿堂"
+enemy_id = "undead_overlord"
+require_flag = "guardian_1_ready"
+confirm_message = "踏入守护者殿堂？"

@@ -1,6 +1,6 @@
 {
   "_comment": "VS 必需 Flag 定义 - 仅包含垂直切片所需的 Flag",
-  "_version": "1.0",
+  "_version": "1.1",
   "_scope": "vs",
   
   "chapter_0_started": {
@@ -82,5 +82,59 @@
     "default": false,
     "vs_required": true,
     "description": "玩家首次获得认可点数"
+  },
+  
+  "elite_corpse_knight_defeated": {
+    "id": "elite_corpse_knight_defeated",
+    "display_name": "死骸骑士击败",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家击败了精英敌人死骸骑士"
+  },
+  
+  "guardian_1_ready": {
+    "id": "guardian_1_ready",
+    "display_name": "守护者殿前准备",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家在守护者殿前魂灯存档，准备挑战守护者"
+  },
+  
+  "guardian_1_result": {
+    "id": "guardian_1_result",
+    "display_name": "守护者战结果",
+    "type": "string",
+    "default": "",
+    "vs_required": true,
+    "description": "守护者战结算结果：win/recognized/lose"
+  },
+  
+  "guardian_1_defeated": {
+    "id": "guardian_1_defeated",
+    "display_name": "守护者击败",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家击败或获得守护者认可（战斗完成）"
+  },
+  
+  "guardian_1_recognition": {
+    "id": "guardian_1_recognition",
+    "display_name": "守护者认可档次",
+    "type": "int",
+    "default": 0,
+    "vs_required": true,
+    "description": "守护者认可档次：0=未战/败，1=胜，2=认可，3=M2交涉"
+  },
+  
+  "chapter_1_complete": {
+    "id": "chapter_1_complete",
+    "display_name": "第1章完成",
+    "type": "bool",
+    "default": false,
+    "vs_required": true,
+    "description": "玩家完成了第1章（击败或认可守护者）"
   }
 }

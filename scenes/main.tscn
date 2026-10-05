@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqf5n2kxvyxjh"]
+[gd_scene load_steps=6 format=3 uid="uid://bqf5n2kxvyxjh"]
 
 [ext_resource type="PackedScene" uid="uid://ctpvyh3kg2xnv" path="res://scenes/exploration_room.tscn" id="1_room"]
 [ext_resource type="PackedScene" uid="uid://b0l2p5mkqhtq0" path="res://scenes/ui/combat_ui.tscn" id="2_combat_ui"]
 [ext_resource type="PackedScene" uid="uid://dihx8kj5ncsmd" path="res://scenes/ui/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://bywrk3h7v0c1i" path="res://scenes/ui/recognition_toast.tscn" id="4_toast"]
+[ext_resource type="PackedScene" uid="uid://confirm_dialog_m1" path="res://scenes/ui/confirm_dialog.tscn" id="5_confirm"]
 
 [node name="Main" type="Node2D"]
 
@@ -14,3 +15,5 @@
 [node name="HUD" parent="." instance=ExtResource("3_hud")]
 
 [node name="RecognitionToast" parent="." instance=ExtResource("4_toast")]
+
+[node name="ConfirmDialog" parent="." instance=ExtResource("5_confirm")]
