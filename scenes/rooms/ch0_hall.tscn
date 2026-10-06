@@ -85,7 +85,7 @@ autoplay = "burn"
 
 [node name="TorchRight" type="AnimatedSprite2D" parent="Torches"]
 texture_filter = 1
-position = Vector2(384, 16)
+position = Vector2(368, 16)
 sprite_frames = SubResource("SpriteFrames_torch")
 animation = &"burn"
 autoplay = "burn"
@@ -139,7 +139,7 @@ visible = false
 
 [node name="MuralSprite" type="Sprite2D" parent="Entities/Mural"]
 texture_filter = 1
-position = Vector2(0, -32)
+position = Vector2(0, -48)
 texture = ExtResource("7_mural")
 
 [node name="LayerGate" parent="Entities" instance=ExtResource("5_gate")]
