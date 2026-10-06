@@ -80,9 +80,21 @@ func _on_open_animation_finished() -> void:
 func _do_transition() -> void:
 	if target_room_id.is_empty():
 		print("[GateTrigger] 目标房间未设置")
+		GameManager.change_state(GameManager.GameState.EXPLORATION)
 		return
 	
+	_connect_exploration_restore()
 	RoomManager.change_room(target_room_id, target_spawn_point, area_banner_text)
+
+
+func _connect_exploration_restore() -> void:
+	var restore := GameManager.change_state.bind(GameManager.GameState.EXPLORATION)
+	if not area_banner_text.is_empty():
+		var banner := get_tree().get_first_node_in_group("area_banner")
+		if banner and banner.has_signal("banner_hidden"):
+			banner.banner_hidden.connect(restore, CONNECT_ONE_SHOT)
+			return
+	RoomManager.transition_finished.connect(restore, CONNECT_ONE_SHOT)
 
 
 func _set_opened_state_instant() -> void:

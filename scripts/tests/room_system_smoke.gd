@@ -529,6 +529,109 @@ func _run() -> void:
 		
 		entrance3.queue_free()
 
+	# ========== 测试 21: 过层门后状态回到 EXPLORATION ==========
+	print("测试 21: 过层门后状态回到 EXPLORATION...")
+	
+	var dummy_main := Node.new()
+	dummy_main.name = "Main"
+	root.add_child(dummy_main)
+	current_scene = dummy_main
+	
+	var room_container := Node2D.new()
+	room_container.name = "RoomContainer"
+	dummy_main.add_child(room_container)
+	
+	var player := Node2D.new()
+	player.name = "Player"
+	player.add_to_group("player")
+	dummy_main.add_child(player)
+	
+	var hud_packed: PackedScene = load("res://scenes/ui/hud.tscn")
+	var hud: CanvasLayer = hud_packed.instantiate()
+	dummy_main.add_child(hud)
+	
+	var banner_packed: PackedScene = load("res://scenes/ui/area_banner.tscn")
+	var test_banner: Node = banner_packed.instantiate()
+	dummy_main.add_child(test_banner)
+	
+	await process_frame
+	await process_frame
+	
+	RM.change_room_instant("ch0_hall")
+	await process_frame
+	
+	var layer_gate: Node = null
+	if RM.current_room_node:
+		layer_gate = RM.current_room_node.find_child("LayerGate", true, false)
+	
+	if layer_gate == null:
+		ok = false
+		errors.append("ch0_hall LayerGate not found for transition test")
+	else:
+		GM.change_state(GM.GameState.EXPLORATION)
+		layer_gate.call("_on_confirmed")
+		
+		if RM.get("_transitioning") != true and RM.get_current_room_id() != "ch1_f1_entrance":
+			await RM.transition_finished
+		elif RM.get("_transitioning") == true:
+			await RM.transition_finished
+		
+		if test_banner.get("visible") == true:
+			await test_banner.banner_hidden
+		
+		var wait_i := 0
+		while GM.current_state != GM.GameState.EXPLORATION and wait_i < 120:
+			await process_frame
+			wait_i += 1
+		
+		if GM.current_state != GM.GameState.EXPLORATION:
+			ok = false
+			errors.append("after gate confirm, state should be EXPLORATION, got %d" % int(GM.current_state))
+		elif RM.get_current_room_id() != "ch1_f1_entrance":
+			ok = false
+			errors.append("after gate confirm, room should be ch1_f1_entrance, got '%s'" % RM.get_current_room_id())
+		elif not hud.visible:
+			ok = false
+			errors.append("after gate confirm, HUD should be visible")
+		else:
+			print("  过层门后: EXPLORATION, ch1_f1_entrance, HUD 可见")
+
+	# ========== 测试 22: PromptLabel z_index 不被主角挡住 ==========
+	print("测试 22: PromptLabel z_index...")
+	
+	var prompt_scenes := [
+		"res://scenes/interactable.tscn",
+		"res://scenes/room_exit.tscn",
+		"res://scenes/gate_trigger.tscn",
+	]
+	var prompt_ok := true
+	for scene_path in prompt_scenes:
+		var packed: PackedScene = load(scene_path)
+		if packed == null:
+			ok = false
+			prompt_ok = false
+			errors.append("%s should load for prompt z_index check" % scene_path)
+			continue
+		var inst: Node2D = packed.instantiate()
+		root.add_child(inst)
+		await process_frame
+		var prompt := inst.get_node_or_null("PromptLabel") as Label
+		if prompt == null:
+			ok = false
+			prompt_ok = false
+			errors.append("%s should have PromptLabel" % scene_path)
+		elif prompt.z_index != 10:
+			ok = false
+			prompt_ok = false
+			errors.append("%s PromptLabel z_index should be 10, got %d" % [scene_path, prompt.z_index])
+		elif prompt.z_as_relative:
+			ok = false
+			prompt_ok = false
+			errors.append("%s PromptLabel z_as_relative should be false" % scene_path)
+		inst.queue_free()
+	if prompt_ok:
+		print("  Interactable/RoomExit/GateTrigger PromptLabel: z_index=10, z_as_relative=false")
+
 	# ========== 结果输出 ==========
 	print("")
 	if ok:

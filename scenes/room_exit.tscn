@@ -18,6 +18,8 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_exit")
 
 [node name="PromptLabel" type="Label" parent="."]
+z_index = 10
+z_as_relative = false
 offset_left = -40.0
 offset_top = -40.0
 offset_right = 40.0

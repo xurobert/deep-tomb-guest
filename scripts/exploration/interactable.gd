@@ -22,6 +22,8 @@ func _ready() -> void:
 		prompt_label.text = "[E] " + interaction_text
 		prompt_label.add_theme_color_override("font_color", prompt_color)
 		prompt_label.visible = false
+		prompt_label.z_index = 10
+		prompt_label.z_as_relative = false
 
 
 func interact() -> void:
