@@ -481,6 +481,54 @@ func _run() -> void:
 				print("  ch0_hall SpawnPoint: y=312, find_child 可找到")
 		hall3.queue_free()
 
+	# ========== 测试 20: ch1_f1_entrance 碎石封口 ==========
+	print("测试 20: ch1_f1_entrance 碎石封口...")
+	
+	var entrance_scene3 := load("res://scenes/rooms/ch1_f1_entrance.tscn")
+	if entrance_scene3:
+		var entrance3: Node2D = entrance_scene3.instantiate()
+		
+		var west_rubble := entrance3.get_node_or_null("Entities/WestRubble") as Sprite2D
+		var east_rubble := entrance3.get_node_or_null("Entities/EastRubble") as Sprite2D
+		
+		if west_rubble == null:
+			ok = false
+			errors.append("ch1_f1_entrance should have WestRubble sprite")
+		elif west_rubble.position != Vector2(48, 176):
+			ok = false
+			errors.append("WestRubble position should be (48,176), got %s" % str(west_rubble.position))
+		else:
+			print("  WestRubble: 位置 (48,176)")
+		
+		if east_rubble == null:
+			ok = false
+			errors.append("ch1_f1_entrance should have EastRubble sprite")
+		elif east_rubble.position != Vector2(592, 176):
+			ok = false
+			errors.append("EastRubble position should be (592,176), got %s" % str(east_rubble.position))
+		elif not east_rubble.flip_h:
+			ok = false
+			errors.append("EastRubble should have flip_h=true")
+		else:
+			print("  EastRubble: 位置 (592,176), flip_h=true")
+		
+		var west_exit := entrance3.get_node_or_null("Entities/WestExit")
+		var east_exit := entrance3.get_node_or_null("Entities/EastExit")
+		
+		if west_exit and west_exit.position != Vector2(80, 176):
+			ok = false
+			errors.append("WestExit position should be (80,176), got %s" % str(west_exit.position))
+		else:
+			print("  WestExit: 位置 (80,176)")
+		
+		if east_exit and east_exit.position != Vector2(560, 176):
+			ok = false
+			errors.append("EastExit position should be (560,176), got %s" % str(east_exit.position))
+		else:
+			print("  EastExit: 位置 (560,176)")
+		
+		entrance3.queue_free()
+
 	# ========== 结果输出 ==========
 	print("")
 	if ok:
