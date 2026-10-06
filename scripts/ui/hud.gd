@@ -26,7 +26,7 @@ func _update_display() -> void:
 
 
 func _on_state_changed(new_state: GameManager.GameState) -> void:
-	visible = new_state == GameManager.GameState.EXPLORATION
+	visible = new_state == GameManager.GameState.EXPLORATION or new_state == GameManager.GameState.SAVING
 
 
 func _on_save_completed(success: bool) -> void:

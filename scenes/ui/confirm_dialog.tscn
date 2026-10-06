@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://confirm_dialog_m1"]
+[gd_scene load_steps=6 format=3 uid="uid://confirm_dialog_m1"]
 
 [ext_resource type="Script" path="res://scripts/ui/confirm_dialog.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://ui_dialog_bg_m1s1" path="res://assets/art/ui/dialog/ui_dialog_bg.png" id="2_bg"]
 [ext_resource type="Theme" uid="uid://dxnk4v5tg7ykm" path="res://assets/ui/combat_hud_theme.tres" id="3_theme"]
+[ext_resource type="Texture2D" uid="uid://btn_hover_confirm" path="res://assets/art/ui/hud/ui_btn_hover_32.png" id="4_btn_hover"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_focus"]
+texture = ExtResource("4_btn_hover")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
 
 [node name="ConfirmDialog" type="CanvasLayer" groups=["confirm_dialog"]]
 layer = 100
@@ -56,9 +64,13 @@ alignment = 1
 [node name="YesButton" type="Button" parent="Panel/VBox/HBox"]
 custom_minimum_size = Vector2(80, 30)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxTexture_focus")
+theme_override_styles/hover = SubResource("StyleBoxTexture_focus")
 text = "确定"
 
 [node name="NoButton" type="Button" parent="Panel/VBox/HBox"]
 custom_minimum_size = Vector2(80, 30)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxTexture_focus")
+theme_override_styles/hover = SubResource("StyleBoxTexture_focus")
 text = "取消"

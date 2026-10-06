@@ -11,6 +11,8 @@ interaction_text = "前进"
 message = "通往其他区域的出口。"
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_exit")

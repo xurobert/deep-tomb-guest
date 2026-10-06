@@ -122,12 +122,12 @@ func _move_player_to_spawn(spawn_point_name: String) -> void:
 	if current_room_node == null:
 		return
 	
-	var spawn_point := current_room_node.get_node_or_null(spawn_point_name) as Marker2D
+	var spawn_point := current_room_node.find_child(spawn_point_name, true, false) as Marker2D
 	if spawn_point:
 		player.global_position = spawn_point.global_position
 		print("[RoomManager] 玩家移动到出生点: %s (%s)" % [spawn_point_name, spawn_point.global_position])
 	else:
-		var default_spawn := current_room_node.get_node_or_null("SpawnPoint") as Marker2D
+		var default_spawn := current_room_node.find_child("SpawnPoint", true, false) as Marker2D
 		if default_spawn:
 			player.global_position = default_spawn.global_position
 			print("[RoomManager] 使用默认出生点: SpawnPoint (%s)" % default_spawn.global_position)

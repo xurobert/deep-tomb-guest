@@ -413,6 +413,74 @@ func _run() -> void:
 		
 		confirm2.queue_free()
 
+	# ========== 测试 18: 所有可交互感应区 layer=4/mask=2 ==========
+	print("测试 18: 可交互感应区 layer/mask...")
+	
+	var interactable_scene := load("res://scenes/interactable.tscn")
+	if interactable_scene:
+		var interactable_inst: Node2D = interactable_scene.instantiate()
+		var inter_area := interactable_inst.get_node_or_null("Area2D") as Area2D
+		if inter_area == null:
+			ok = false
+			errors.append("interactable.tscn should have Area2D")
+		elif inter_area.collision_layer != 4 or inter_area.collision_mask != 2:
+			ok = false
+			errors.append("interactable Area2D should have layer=4/mask=2, got %d/%d" % [inter_area.collision_layer, inter_area.collision_mask])
+		else:
+			print("  interactable.tscn: layer=4, mask=2")
+		interactable_inst.queue_free()
+	
+	var gate_scene3 := load("res://scenes/gate_trigger.tscn")
+	if gate_scene3:
+		var gate_inst: Node2D = gate_scene3.instantiate()
+		var gate_area := gate_inst.get_node_or_null("Area2D") as Area2D
+		if gate_area == null:
+			ok = false
+			errors.append("gate_trigger.tscn should have Area2D")
+		elif gate_area.collision_layer != 4 or gate_area.collision_mask != 2:
+			ok = false
+			errors.append("gate_trigger Area2D should have layer=4/mask=2, got %d/%d" % [gate_area.collision_layer, gate_area.collision_mask])
+		else:
+			print("  gate_trigger.tscn: layer=4, mask=2")
+		gate_inst.queue_free()
+	
+	var exit_scene := load("res://scenes/room_exit.tscn")
+	if exit_scene:
+		var exit_inst: Node2D = exit_scene.instantiate()
+		var exit_area := exit_inst.get_node_or_null("Area2D") as Area2D
+		if exit_area == null:
+			ok = false
+			errors.append("room_exit.tscn should have Area2D")
+		elif exit_area.collision_layer != 4 or exit_area.collision_mask != 2:
+			ok = false
+			errors.append("room_exit Area2D should have layer=4/mask=2, got %d/%d" % [exit_area.collision_layer, exit_area.collision_mask])
+		else:
+			print("  room_exit.tscn: layer=4, mask=2")
+		exit_inst.queue_free()
+
+	# ========== 测试 19: SpawnPoint 递归查找 ==========
+	print("测试 19: SpawnPoint 在 Entities 下也能找到...")
+	
+	var hall_scene3 := load("res://scenes/rooms/ch0_hall.tscn")
+	if hall_scene3:
+		var hall3: Node2D = hall_scene3.instantiate()
+		var spawn_direct := hall3.get_node_or_null("SpawnPoint")
+		var spawn_recursive := hall3.find_child("SpawnPoint", true, false)
+		if spawn_direct != null:
+			ok = false
+			errors.append("SpawnPoint should not be direct child of room (should be under Entities)")
+		if spawn_recursive == null:
+			ok = false
+			errors.append("SpawnPoint should be findable with find_child")
+		else:
+			var spawn_pos: Vector2 = spawn_recursive.position
+			if spawn_pos.y != 312:
+				ok = false
+				errors.append("ch0_hall SpawnPoint y should be 312, got %d" % int(spawn_pos.y))
+			else:
+				print("  ch0_hall SpawnPoint: y=312, find_child 可找到")
+		hall3.queue_free()
+
 	# ========== 结果输出 ==========
 	print("")
 	if ok:

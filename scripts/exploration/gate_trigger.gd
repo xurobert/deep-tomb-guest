@@ -40,7 +40,21 @@ func _show_confirm_dialog() -> void:
 
 
 func _on_confirmed() -> void:
+	await _step_player_back()
 	_play_open_animation()
+
+
+func _step_player_back() -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player == null:
+		return
+	
+	GameManager.change_state(GameManager.GameState.DIALOGUE)
+	
+	var target_y: float = global_position.y + 103
+	var tween := create_tween()
+	tween.tween_property(player, "global_position:y", target_y, 0.15)
+	await tween.finished
 
 
 func _play_open_animation() -> void:
