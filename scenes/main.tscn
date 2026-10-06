@@ -10,9 +10,11 @@
 [ext_resource type="Script" path="res://scripts/main_controller.gd" id="8_main_script"]
 
 [node name="Main" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("8_main_script")
 
 [node name="RoomContainer" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 position = Vector2(320, 280)

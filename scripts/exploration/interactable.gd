@@ -36,12 +36,21 @@ func _on_interacted() -> void:
 
 func show_prompt() -> void:
 	if prompt_label:
+		if GameManager.current_state != GameManager.GameState.EXPLORATION:
+			prompt_label.visible = false
+			return
 		prompt_label.visible = true
 
 
 func hide_prompt() -> void:
 	if prompt_label:
 		prompt_label.visible = false
+
+
+func _process(_delta: float) -> void:
+	if prompt_label and prompt_label.visible:
+		if GameManager.current_state != GameManager.GameState.EXPLORATION:
+			prompt_label.visible = false
 
 
 func _show_message_in_dialog_box() -> void:

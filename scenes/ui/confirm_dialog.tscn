@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://confirm_dialog_m1"]
+[gd_scene load_steps=4 format=3 uid="uid://confirm_dialog_m1"]
 
 [ext_resource type="Script" path="res://scripts/ui/confirm_dialog.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://ui_dialog_bg_m1s1" path="res://assets/art/ui/dialog/ui_dialog_bg.png" id="2_bg"]
+[ext_resource type="Theme" uid="uid://dxnk4v5tg7ykm" path="res://assets/ui/combat_hud_theme.tres" id="3_theme"]
 
 [node name="ConfirmDialog" type="CanvasLayer" groups=["confirm_dialog"]]
 layer = 100
@@ -9,6 +10,7 @@ script = ExtResource("1_script")
 
 [node name="Panel" type="NinePatchRect" parent="."]
 texture_filter = 1
+theme = ExtResource("3_theme")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

@@ -35,11 +35,17 @@ func _ready() -> void:
 func _setup_map_sprite() -> void:
 	if map_sprite == null:
 		return
+	
+	var default_sprite := get_node_or_null("Sprite")
+	if default_sprite:
+		default_sprite.visible = false
+	
 	_map_sprite_node = Sprite2D.new()
 	_map_sprite_node.name = "MapSprite"
 	_map_sprite_node.texture = map_sprite
 	_map_sprite_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	_map_sprite_node.centered = true
+	_map_sprite_node.position = Vector2(0, -24)
 	add_child(_map_sprite_node)
 	move_child(_map_sprite_node, 0)
 

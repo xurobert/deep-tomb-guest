@@ -327,6 +327,92 @@ func _run() -> void:
 				print("  ConfirmDialog: Panel 是 NinePatchRect")
 			confirm_instance.queue_free()
 
+	# ========== 测试 15: ch0_hall 有墙壁碰撞和墙图 ==========
+	print("测试 15: ch0_hall 墙壁碰撞和墙图...")
+	
+	var hall_scene2 := load("res://scenes/rooms/ch0_hall.tscn")
+	if hall_scene2:
+		var hall2: Node2D = hall_scene2.instantiate()
+		var walls := hall2.get_node_or_null("Walls")
+		if walls == null:
+			ok = false
+			errors.append("ch0_hall should have Walls node")
+		else:
+			var top_wall := walls.get_node_or_null("TopWall")
+			var bottom_wall := walls.get_node_or_null("BottomWall")
+			var left_wall := walls.get_node_or_null("LeftWall")
+			var right_wall := walls.get_node_or_null("RightWall")
+			if top_wall == null or bottom_wall == null or left_wall == null or right_wall == null:
+				ok = false
+				errors.append("ch0_hall/Walls should have all 4 wall collision shapes")
+			else:
+				print("  ch0_hall: 4 面墙碰撞存在")
+			
+			var wall_visuals := walls.get_node_or_null("WallVisuals")
+			if wall_visuals == null:
+				ok = false
+				errors.append("ch0_hall/Walls should have WallVisuals node")
+			else:
+				print("  ch0_hall: WallVisuals 存在")
+		hall2.queue_free()
+
+	# ========== 测试 16: ch1_f1_entrance 有墙壁碰撞和墙图 ==========
+	print("测试 16: ch1_f1_entrance 墙壁碰撞和墙图...")
+	
+	var entrance_scene2 := load("res://scenes/rooms/ch1_f1_entrance.tscn")
+	if entrance_scene2:
+		var entrance2: Node2D = entrance_scene2.instantiate()
+		var walls2 := entrance2.get_node_or_null("Walls")
+		if walls2 == null:
+			ok = false
+			errors.append("ch1_f1_entrance should have Walls node")
+		else:
+			var top_wall2 := walls2.get_node_or_null("TopWall")
+			var bottom_wall2 := walls2.get_node_or_null("BottomWall")
+			var left_wall2 := walls2.get_node_or_null("LeftWall")
+			var right_wall2 := walls2.get_node_or_null("RightWall")
+			if top_wall2 == null or bottom_wall2 == null or left_wall2 == null or right_wall2 == null:
+				ok = false
+				errors.append("ch1_f1_entrance/Walls should have all 4 wall collision shapes")
+			else:
+				print("  ch1_f1_entrance: 4 面墙碰撞存在")
+			
+			var wall_visuals2 := walls2.get_node_or_null("WallVisuals")
+			if wall_visuals2 == null:
+				ok = false
+				errors.append("ch1_f1_entrance/Walls should have WallVisuals node")
+			else:
+				print("  ch1_f1_entrance: WallVisuals 存在")
+		entrance2.queue_free()
+
+	# ========== 测试 17: ConfirmDialog 不会在打开当帧触发 ==========
+	print("测试 17: ConfirmDialog 打开当帧不触发确认...")
+	
+	var confirm_scene2: Resource = load("res://scenes/ui/confirm_dialog.tscn")
+	if confirm_scene2:
+		var confirm2: Node = (confirm_scene2 as PackedScene).instantiate()
+		root.add_child(confirm2)
+		
+		var triggered := false
+		var test_callback := func() -> void:
+			triggered = true
+		
+		confirm2.show_confirm("测试", test_callback)
+		
+		if triggered:
+			ok = false
+			errors.append("ConfirmDialog should not trigger callback on show_confirm call")
+		else:
+			print("  ConfirmDialog: 打开时未触发回调")
+		
+		if confirm2.get("_waiting_for_release") != true:
+			ok = false
+			errors.append("ConfirmDialog should set _waiting_for_release=true on open")
+		else:
+			print("  ConfirmDialog: _waiting_for_release=true")
+		
+		confirm2.queue_free()
+
 	# ========== 结果输出 ==========
 	print("")
 	if ok:

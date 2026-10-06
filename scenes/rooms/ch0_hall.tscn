@@ -68,7 +68,7 @@ position = Vector2(624, 176)
 shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="GateBlock" type="CollisionShape2D" parent="Walls"]
-position = Vector2(320, 16)
+position = Vector2(320, 48)
 shape = SubResource("RectangleShape2D_gate_block")
 
 [node name="WallVisuals" type="Node2D" parent="Walls"]
@@ -94,7 +94,7 @@ autoplay = "burn"
 y_sort_enabled = true
 
 [node name="SpawnPoint" type="Marker2D" parent="Entities"]
-position = Vector2(320, 280)
+position = Vector2(320, 312)
 
 [node name="SpawnPointFromGate" type="Marker2D" parent="Entities"]
 position = Vector2(320, 100)
@@ -131,7 +131,7 @@ texture = ExtResource("6_lectern")
 [node name="Mural" parent="Entities" instance=ExtResource("4_interactable")]
 position = Vector2(528, 64)
 interaction_text = "观察"
-message = "壁画描绘了层层向下的深墓结构，\n底部画着一扇石门，\n周围环绕着紫色光芒\n——似乎暗示石门会回应异能之力。"
+message = "壁画描绘了层层向下的深墓结构，底部画着一扇石门，周围环绕着紫色光芒——似乎暗示石门会回应异能之力。"
 set_flag_name = "intel_fragment_0_2"
 
 [node name="Sprite" parent="Entities/Mural" index="0"]
