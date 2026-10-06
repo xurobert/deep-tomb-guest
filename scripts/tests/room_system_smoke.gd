@@ -571,18 +571,15 @@ func _run() -> void:
 		GM.change_state(GM.GameState.EXPLORATION)
 		layer_gate.call("_on_confirmed")
 		
-		if RM.get("_transitioning") != true and RM.get_current_room_id() != "ch1_f1_entrance":
+		if RM.get_current_room_id() != "ch1_f1_entrance":
 			await RM.transition_finished
-		elif RM.get("_transitioning") == true:
-			await RM.transition_finished
-		
-		if test_banner.get("visible") == true:
-			await test_banner.banner_hidden
-		
-		var wait_i := 0
-		while GM.current_state != GM.GameState.EXPLORATION and wait_i < 120:
-			await process_frame
-			wait_i += 1
+		await process_frame
+		await process_frame
+		if GM.current_state != GM.GameState.EXPLORATION:
+			if test_banner.visible:
+				await test_banner.banner_hidden
+			else:
+				await dummy_main.get_tree().create_timer(4.0).timeout
 		
 		if GM.current_state != GM.GameState.EXPLORATION:
 			ok = false
