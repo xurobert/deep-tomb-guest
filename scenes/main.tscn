@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://b0l2p5mkqhtq0" path="res://scenes/ui/combat_ui.tscn" id="2_combat_ui"]
 [ext_resource type="PackedScene" uid="uid://dihx8kj5ncsmd" path="res://scenes/ui/hud.tscn" id="3_hud"]
 [ext_resource type="PackedScene" uid="uid://bywrk3h7v0c1i" path="res://scenes/ui/recognition_toast.tscn" id="4_toast"]
-[ext_resource type="PackedScene" uid="uid://confirm_dialog_m1" path="res://scenes/ui/confirm_dialog.tscn" id="5_confirm"]
-[ext_resource type="PackedScene" uid="uid://dialog_box_m1s1" path="res://scenes/ui/dialog_box.tscn" id="6_dialog_box"]
-[ext_resource type="PackedScene" uid="uid://area_banner_m1s1" path="res://scenes/ui/area_banner.tscn" id="7_area_banner"]
+[ext_resource type="PackedScene" path="res://scenes/ui/confirm_dialog.tscn" id="5_confirm"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_box.tscn" id="6_dialog_box"]
+[ext_resource type="PackedScene" path="res://scenes/ui/area_banner.tscn" id="7_area_banner"]
 [ext_resource type="Script" path="res://scripts/main_controller.gd" id="8_main_script"]
 
 [node name="Main" type="Node2D"]

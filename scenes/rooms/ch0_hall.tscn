@@ -1,14 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://ch0_hall_m1s1"]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/exploration/room_base.gd" id="1_room_script"]
 [ext_resource type="PackedScene" uid="uid://bkl2p5mqhtrq1" path="res://scenes/save_point.tscn" id="2_save"]
 [ext_resource type="PackedScene" uid="uid://cv7h3m8kxj6nd" path="res://scenes/combat_trigger.tscn" id="3_combat"]
 [ext_resource type="PackedScene" uid="uid://dj2v8l6k3xmh5" path="res://scenes/interactable.tscn" id="4_interactable"]
-[ext_resource type="PackedScene" uid="uid://gate_trigger_m1s1" path="res://scenes/gate_trigger.tscn" id="5_gate"]
-[ext_resource type="Texture2D" uid="uid://deco_lectern_m1s1" path="res://assets/art/tiles/deco/tile_deco_lectern.png" id="6_lectern"]
-[ext_resource type="Texture2D" uid="uid://deco_mural_m1s1" path="res://assets/art/tiles/deco/tile_deco_mural_00.png" id="7_mural"]
-[ext_resource type="Texture2D" uid="uid://torch0_m1s1" path="res://assets/art/tiles/deco/tile_deco_torch_00.png" id="8_torch0"]
-[ext_resource type="Texture2D" uid="uid://torch1_m1s1" path="res://assets/art/tiles/deco/tile_deco_torch_01.png" id="9_torch1"]
+[ext_resource type="PackedScene" path="res://scenes/gate_trigger.tscn" id="5_gate"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_lectern.png" id="6_lectern"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_mural_00.png" id="7_mural"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_torch_00.png" id="8_torch0"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_torch_01.png" id="9_torch1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(576, 32)
@@ -132,7 +132,7 @@ texture = ExtResource("6_lectern")
 [node name="Mural" parent="Entities" instance=ExtResource("4_interactable")]
 position = Vector2(528, 64)
 interaction_text = "观察"
-message = "壁画描绘了层层向下的深墓结构，底部画着一扇石门，周围环绕着紫色光芒——似乎暗示石门会回应异能之力。"
+message = "壁画描绘着层层向下的深墓，最底处是一扇被紫光环绕的石门。"
 set_flag_name = "intel_fragment_0_2"
 
 [node name="Sprite" parent="Entities/Mural" index="0"]

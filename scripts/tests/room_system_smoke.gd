@@ -575,11 +575,6 @@ func _run() -> void:
 			await RM.transition_finished
 		await process_frame
 		await process_frame
-		if GM.current_state != GM.GameState.EXPLORATION:
-			if test_banner.visible:
-				await test_banner.banner_hidden
-			else:
-				await dummy_main.get_tree().create_timer(4.0).timeout
 		
 		if GM.current_state != GM.GameState.EXPLORATION:
 			ok = false
@@ -590,8 +585,11 @@ func _run() -> void:
 		elif not hud.visible:
 			ok = false
 			errors.append("after gate confirm, HUD should be visible")
+		elif not test_banner.visible:
+			ok = false
+			errors.append("after gate confirm, banner should still be visible (must not wait for banner_hidden)")
 		else:
-			print("  过层门后: EXPLORATION, ch1_f1_entrance, HUD 可见")
+			print("  过层门后: EXPLORATION, ch1_f1_entrance, HUD 可见, 横幅仍在显示")
 
 	# ========== 测试 22: PromptLabel z_index 不被主角挡住 ==========
 	print("测试 22: PromptLabel z_index...")

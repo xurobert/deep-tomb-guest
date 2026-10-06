@@ -1,12 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://ch1_f1_entrance_m1s1"]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/exploration/room_base.gd" id="1_room_base"]
 [ext_resource type="PackedScene" uid="uid://bkl2p5mqhtrq1" path="res://scenes/save_point.tscn" id="2_save"]
 [ext_resource type="PackedScene" uid="uid://cv7h3m8kxj6nd" path="res://scenes/combat_trigger.tscn" id="3_combat"]
-[ext_resource type="PackedScene" uid="uid://room_exit_m1s1" path="res://scenes/room_exit.tscn" id="4_exit"]
-[ext_resource type="Texture2D" uid="uid://death_knight_idle_m1s1" path="res://assets/art/characters/enemies/enemy_death_knight_combat_idle_p1_00.png" id="5_knight_sprite"]
-[ext_resource type="Texture2D" uid="uid://tile_gate_closed_m1s1" path="res://assets/art/tiles/interactive/tile_gate_floor_closed.png" id="6_gate_sprite"]
-[ext_resource type="Texture2D" uid="uid://dxrubble00" path="res://assets/art/tiles/deco/tile_deco_rubble_00.png" id="7_rubble"]
+[ext_resource type="PackedScene" path="res://scenes/room_exit.tscn" id="4_exit"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/enemy_death_knight_combat_idle_p1_00.png" id="5_knight_sprite"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/interactive/tile_gate_floor_closed.png" id="6_gate_sprite"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_rubble_00.png" id="7_rubble"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rubble"]
 size = Vector2(32, 32)

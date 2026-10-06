@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://area_banner_m1s1"]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/area_banner.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://banner_bg_m1s1" path="res://assets/art/ui/dialog/ui_banner_area_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/dialog/ui_banner_area_bg.png" id="2_bg"]
 
 [node name="AreaBanner" type="CanvasLayer" groups=["area_banner"]]
 layer = 95

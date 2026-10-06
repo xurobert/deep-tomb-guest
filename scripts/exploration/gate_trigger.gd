@@ -89,11 +89,6 @@ func _do_transition() -> void:
 
 func _connect_exploration_restore() -> void:
 	var restore := GameManager.change_state.bind(GameManager.GameState.EXPLORATION)
-	if not area_banner_text.is_empty():
-		var banner := get_tree().get_first_node_in_group("area_banner")
-		if banner and banner.has_signal("banner_hidden"):
-			banner.banner_hidden.connect(restore, CONNECT_ONE_SHOT)
-			return
 	RoomManager.transition_finished.connect(restore, CONNECT_ONE_SHOT)
 
 
