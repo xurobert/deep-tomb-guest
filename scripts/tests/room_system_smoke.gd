@@ -143,6 +143,190 @@ func _run() -> void:
 	else:
 		print("  存档包含 room_id 和 cleared 字段")
 
+	# ========== 测试 9: GateTrigger 场景结构 ==========
+	print("测试 9: GateTrigger 场景结构...")
+	
+	var gate_scene := load("res://scenes/gate_trigger.tscn")
+	if gate_scene == null:
+		ok = false
+		errors.append("gate_trigger.tscn should load")
+	else:
+		var gate_instance: Node2D = gate_scene.instantiate()
+		if gate_instance == null:
+			ok = false
+			errors.append("gate_trigger should instantiate")
+		else:
+			var area := gate_instance.get_node_or_null("Area2D")
+			if area == null:
+				ok = false
+				errors.append("GateTrigger should have Area2D child")
+			elif area.collision_layer != 4:
+				ok = false
+				errors.append("GateTrigger Area2D layer should be 4, got %d" % area.collision_layer)
+			elif area.collision_mask != 2:
+				ok = false
+				errors.append("GateTrigger Area2D mask should be 2, got %d" % area.collision_mask)
+			else:
+				print("  GateTrigger Area2D: layer=4, mask=2")
+			
+			var gate_sprite := gate_instance.get_node_or_null("GateSprite")
+			if gate_sprite == null:
+				ok = false
+				errors.append("GateTrigger should have GateSprite child")
+			elif gate_sprite.centered:
+				ok = false
+				errors.append("GateSprite should not be centered")
+			else:
+				print("  GateSprite: centered=false")
+			
+			gate_instance.queue_free()
+
+	# ========== 测试 10: ch0_hall 场景结构 ==========
+	print("测试 10: ch0_hall 场景结构...")
+	
+	var hall_scene := load("res://scenes/rooms/ch0_hall.tscn")
+	if hall_scene == null:
+		ok = false
+		errors.append("ch0_hall.tscn should load")
+	else:
+		var hall_instance: Node2D = hall_scene.instantiate()
+		if hall_instance == null:
+			ok = false
+			errors.append("ch0_hall should instantiate")
+		else:
+			if not hall_instance.y_sort_enabled:
+				ok = false
+				errors.append("ch0_hall should have y_sort_enabled")
+			else:
+				print("  ch0_hall: y_sort_enabled=true")
+			
+			var entities := hall_instance.get_node_or_null("Entities")
+			if entities == null:
+				ok = false
+				errors.append("ch0_hall should have Entities node")
+			elif not entities.y_sort_enabled:
+				ok = false
+				errors.append("ch0_hall/Entities should have y_sort_enabled")
+			else:
+				print("  ch0_hall/Entities: y_sort_enabled=true")
+			
+			var layer_gate := hall_instance.get_node_or_null("Entities/LayerGate")
+			if layer_gate == null:
+				ok = false
+				errors.append("ch0_hall should have LayerGate")
+			else:
+				print("  ch0_hall/LayerGate: 存在")
+			
+			hall_instance.queue_free()
+
+	# ========== 测试 11: ch1_f1_entrance 场景结构 ==========
+	print("测试 11: ch1_f1_entrance 场景结构...")
+	
+	var entrance_scene := load("res://scenes/rooms/ch1_f1_entrance.tscn")
+	if entrance_scene == null:
+		ok = false
+		errors.append("ch1_f1_entrance.tscn should load")
+	else:
+		var entrance_instance: Node2D = entrance_scene.instantiate()
+		if entrance_instance == null:
+			ok = false
+			errors.append("ch1_f1_entrance should instantiate")
+		else:
+			if not entrance_instance.y_sort_enabled:
+				ok = false
+				errors.append("ch1_f1_entrance should have y_sort_enabled")
+			else:
+				print("  ch1_f1_entrance: y_sort_enabled=true")
+			
+			var death_knight := entrance_instance.get_node_or_null("Entities/TempArea/DeathKnightTrigger")
+			if death_knight == null:
+				ok = false
+				errors.append("ch1_f1_entrance should have DeathKnightTrigger")
+			elif death_knight.get("map_sprite") == null:
+				ok = false
+				errors.append("DeathKnightTrigger should have map_sprite set")
+			else:
+				print("  DeathKnightTrigger: map_sprite 已设置")
+			
+			var guardian_door := entrance_instance.get_node_or_null("Entities/TempArea/GuardianDoor")
+			if guardian_door == null:
+				ok = false
+				errors.append("ch1_f1_entrance should have GuardianDoor")
+			elif guardian_door.get("map_sprite") == null:
+				ok = false
+				errors.append("GuardianDoor should have map_sprite set")
+			else:
+				print("  GuardianDoor: map_sprite 已设置")
+			
+			entrance_instance.queue_free()
+
+	# ========== 测试 12: RoomManager change_room 参数 ==========
+	print("测试 12: RoomManager change_room 方法签名...")
+	
+	if RM.has_method("change_room"):
+		var method_list := RM.get_method_list()
+		var found_change_room := false
+		for m in method_list:
+			if m.get("name", "") == "change_room":
+				found_change_room = true
+				var args: Array = m.get("args", [])
+				if args.size() < 3:
+					ok = false
+					errors.append("change_room should have at least 3 parameters (room_id, spawn_point, area_banner_text)")
+				else:
+					print("  change_room: 接受 area_banner_text 参数")
+				break
+		if not found_change_room:
+			ok = false
+			errors.append("change_room method not found in method_list")
+	else:
+		ok = false
+		errors.append("RoomManager should have change_room method")
+
+	# ========== 测试 13: AreaBanner 场景存在 ==========
+	print("测试 13: AreaBanner 场景...")
+	
+	var banner_scene: Resource = load("res://scenes/ui/area_banner.tscn")
+	if banner_scene == null:
+		ok = false
+		errors.append("area_banner.tscn should load")
+	else:
+		var banner_instance: Node = (banner_scene as PackedScene).instantiate()
+		if banner_instance == null:
+			ok = false
+			errors.append("area_banner should instantiate")
+		else:
+			if banner_instance.has_method("show_banner"):
+				print("  AreaBanner: show_banner 方法存在")
+			else:
+				ok = false
+				errors.append("AreaBanner should have show_banner method")
+			banner_instance.queue_free()
+
+	# ========== 测试 14: ConfirmDialog 使用 NinePatchRect ==========
+	print("测试 14: ConfirmDialog 场景结构...")
+	
+	var confirm_scene: Resource = load("res://scenes/ui/confirm_dialog.tscn")
+	if confirm_scene == null:
+		ok = false
+		errors.append("confirm_dialog.tscn should load")
+	else:
+		var confirm_instance: Node = (confirm_scene as PackedScene).instantiate()
+		if confirm_instance == null:
+			ok = false
+			errors.append("confirm_dialog should instantiate")
+		else:
+			var panel: Node = confirm_instance.get_node_or_null("Panel")
+			if panel == null:
+				ok = false
+				errors.append("ConfirmDialog should have Panel child")
+			elif not (panel is NinePatchRect):
+				ok = false
+				errors.append("ConfirmDialog Panel should be NinePatchRect, got %s" % panel.get_class())
+			else:
+				print("  ConfirmDialog: Panel 是 NinePatchRect")
+			confirm_instance.queue_free()
+
 	# ========== 结果输出 ==========
 	print("")
 	if ok:

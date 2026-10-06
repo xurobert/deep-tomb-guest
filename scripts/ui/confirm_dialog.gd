@@ -5,7 +5,7 @@ class_name ConfirmDialog
 signal confirmed
 signal cancelled
 
-@onready var panel: Panel = $Panel
+@onready var panel: Control = $Panel
 @onready var message_label: Label = $Panel/VBox/MessageLabel
 @onready var yes_button: Button = $Panel/VBox/HBox/YesButton
 @onready var no_button: Button = $Panel/VBox/HBox/NoButton

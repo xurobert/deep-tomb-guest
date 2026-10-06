@@ -68,18 +68,7 @@ func _do_transition() -> void:
 		print("[GateTrigger] 目标房间未设置")
 		return
 	
-	await RoomManager.change_room(target_room_id, target_spawn_point)
-	
-	if not area_banner_text.is_empty():
-		_show_area_banner()
-
-
-func _show_area_banner() -> void:
-	var banner := get_tree().get_first_node_in_group("area_banner")
-	if banner and banner.has_method("show_banner"):
-		banner.show_banner(area_banner_text)
-	else:
-		print("[GateTrigger] 区域横幅: %s" % area_banner_text)
+	RoomManager.change_room(target_room_id, target_spawn_point, area_banner_text)
 
 
 func _set_opened_state_instant() -> void:
@@ -87,6 +76,6 @@ func _set_opened_state_instant() -> void:
 	if gate_sprite and gate_sprite.sprite_frames and gate_sprite.sprite_frames.has_animation("open"):
 		var frame_count := gate_sprite.sprite_frames.get_frame_count("open")
 		if frame_count > 0:
+			gate_sprite.stop()
 			gate_sprite.animation = "open"
 			gate_sprite.frame = frame_count - 1
-			gate_sprite.stop()

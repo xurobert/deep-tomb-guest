@@ -23,7 +23,7 @@ func get_current_room_id() -> String:
 	return current_room_id
 
 
-func change_room(room_id: String, spawn_point_name: String = "SpawnPoint") -> void:
+func change_room(room_id: String, spawn_point_name: String = "SpawnPoint", area_banner_text: String = "") -> void:
 	if _transitioning:
 		return
 	
@@ -50,6 +50,17 @@ func change_room(room_id: String, spawn_point_name: String = "SpawnPoint") -> vo
 	
 	_transitioning = false
 	transition_finished.emit()
+	
+	if not area_banner_text.is_empty():
+		_show_area_banner(area_banner_text)
+
+
+func _show_area_banner(text: String) -> void:
+	var banner := get_tree().get_first_node_in_group("area_banner")
+	if banner and banner.has_method("show_banner"):
+		banner.show_banner(text)
+	else:
+		print("[RoomManager] 区域横幅: %s" % text)
 
 
 func change_room_instant(room_id: String, spawn_point_name: String = "SpawnPoint") -> bool:

@@ -13,6 +13,7 @@ class_name CombatTrigger
 var enemies_data: Dictionary = {}
 var _defeated: bool = false
 var _starting: bool = false
+var _map_sprite_node: Sprite2D = null
 
 
 func _ready() -> void:
@@ -21,6 +22,7 @@ func _ready() -> void:
 	prompt_color = Color(1.0, 0.35, 0.35)
 	super._ready()
 	_load_enemy_data()
+	_setup_map_sprite()
 	if trigger_on_touch and area:
 		area.body_entered.connect(_on_body_entered)
 	
@@ -28,6 +30,18 @@ func _ready() -> void:
 	SaveManager.load_completed.connect(_on_load_completed)
 	
 	call_deferred("_restore_from_flags")
+
+
+func _setup_map_sprite() -> void:
+	if map_sprite == null:
+		return
+	_map_sprite_node = Sprite2D.new()
+	_map_sprite_node.name = "MapSprite"
+	_map_sprite_node.texture = map_sprite
+	_map_sprite_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_map_sprite_node.centered = true
+	add_child(_map_sprite_node)
+	move_child(_map_sprite_node, 0)
 
 
 func _restore_from_flags() -> void:
