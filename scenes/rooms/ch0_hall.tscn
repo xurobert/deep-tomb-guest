@@ -1,0 +1,137 @@
+[gd_scene load_steps=15 format=3 uid="uid://ch0_hall_m1s1"]
+
+[ext_resource type="PackedScene" uid="uid://bkl2p5mqhtrq1" path="res://scenes/save_point.tscn" id="1_save"]
+[ext_resource type="PackedScene" uid="uid://cv7h3m8kxj6nd" path="res://scenes/combat_trigger.tscn" id="2_combat"]
+[ext_resource type="PackedScene" uid="uid://dj2v8l6k3xmh5" path="res://scenes/interactable.tscn" id="3_interactable"]
+[ext_resource type="PackedScene" uid="uid://gate_trigger_m1s1" path="res://scenes/gate_trigger.tscn" id="4_gate"]
+[ext_resource type="Texture2D" uid="uid://floor_stone0_m1s1" path="res://assets/art/tiles/floor/tile_floor_stone_00.png" id="5_floor0"]
+[ext_resource type="Texture2D" uid="uid://floor_stone1_m1s1" path="res://assets/art/tiles/floor/tile_floor_stone_01.png" id="6_floor1"]
+[ext_resource type="Texture2D" uid="uid://floor_stone2_m1s1" path="res://assets/art/tiles/floor/tile_floor_stone_02.png" id="7_floor2"]
+[ext_resource type="Texture2D" uid="uid://wall_n_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_n.png" id="8_wall_n"]
+[ext_resource type="Texture2D" uid="uid://wall_s_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_s.png" id="9_wall_s"]
+[ext_resource type="Texture2D" uid="uid://wall_w_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_w.png" id="10_wall_w"]
+[ext_resource type="Texture2D" uid="uid://wall_e_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_e.png" id="11_wall_e"]
+[ext_resource type="Texture2D" uid="uid://deco_lectern_m1s1" path="res://assets/art/tiles/deco/tile_deco_lectern.png" id="12_lectern"]
+[ext_resource type="Texture2D" uid="uid://deco_mural_m1s1" path="res://assets/art/tiles/deco/tile_deco_mural_00.png" id="13_mural"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(640, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(32, 352)
+
+[node name="ch0_hall" type="Node2D"]
+
+[node name="Floor" type="Node2D" parent="."]
+
+[node name="FloorBG" type="ColorRect" parent="Floor"]
+offset_right = 640.0
+offset_bottom = 352.0
+color = Color(0.101961, 0.109804, 0.133333, 1)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 16)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 336)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(16, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(624, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="WallVisuals" type="Node2D" parent="Walls"]
+
+[node name="NorthWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(320, 16)
+texture = ExtResource("8_wall_n")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 32)
+
+[node name="SouthWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(320, 336)
+texture = ExtResource("9_wall_s")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 32)
+
+[node name="WestWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(16, 176)
+texture = ExtResource("10_wall_w")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 352)
+
+[node name="EastWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(624, 176)
+texture = ExtResource("11_wall_e")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 352)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(320, 280)
+
+[node name="SpawnPointFromGate" type="Marker2D" parent="."]
+position = Vector2(320, 80)
+
+[node name="SavePoint" parent="." instance=ExtResource("1_save")]
+position = Vector2(320, 200)
+save_point_id = "save_point_ch0_entrance"
+flags_to_set = {
+"first_save_point_activated": true
+}
+
+[node name="BoneGuard1" parent="." instance=ExtResource("2_combat")]
+position = Vector2(160, 160)
+enemy_id = "bone_guard"
+
+[node name="BoneGuard2" parent="." instance=ExtResource("2_combat")]
+position = Vector2(480, 160)
+enemy_id = "bone_guard"
+
+[node name="Lectern" parent="." instance=ExtResource("3_interactable")]
+position = Vector2(100, 100)
+interaction_text = "阅读"
+message = "文献记载：「墓穴阴魂惧怕咒术之力，施以咒弹可造成克制伤害。」"
+set_flag_name = "intel_fragment_0_1"
+grant_intel = "tomb_shade"
+
+[node name="LecternSprite" type="Sprite2D" parent="Lectern"]
+texture_filter = 1
+texture = ExtResource("12_lectern")
+
+[node name="Mural" parent="." instance=ExtResource("3_interactable")]
+position = Vector2(540, 48)
+interaction_text = "观察"
+message = "壁画描绘了层层向下的深墓结构。底部画着一扇石门，周围环绕着紫色光芒——似乎暗示石门会回应异能之力。"
+set_flag_name = "intel_fragment_0_2"
+
+[node name="MuralSprite" type="Sprite2D" parent="Mural"]
+texture_filter = 1
+position = Vector2(0, 8)
+texture = ExtResource("13_mural")
+
+[node name="LayerGate" parent="." instance=ExtResource("4_gate")]
+position = Vector2(320, 32)
+target_room_id = "ch1_f1_entrance"
+target_spawn_point = "SpawnPoint"
+confirm_message = "踏入深处？"
+gate_opened_flag = "chapter_1_unlocked"
+flags_to_set_on_pass = {
+"chapter_0_complete": true,
+"chapter_1_unlocked": true
+}
+area_banner_text = "第1章 墓穴迷途"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)

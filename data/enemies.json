@@ -10,6 +10,17 @@
 		"element": "shadow",
 		"description": "一个在墓穴走廊中游荡的阴暗残魂。"
 	},
+	"bone_guard": {
+		"id": "bone_guard",
+		"name": "骷髅守卫",
+		"hp": 45,
+		"max_hp": 45,
+		"attack": 10,
+		"defense": 2,
+		"recognition_value": 10,
+		"element": "physical",
+		"description": "守护墓穴的骷髅士兵，弱于暗影攻击。"
+	},
 	"dust_wraith": {
 		"id": "dust_wraith",
 		"name": "尘埃怨灵",

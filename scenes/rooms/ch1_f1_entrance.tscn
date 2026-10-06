@@ -1,0 +1,129 @@
+[gd_scene load_steps=8 format=3 uid="uid://ch1_f1_entrance_m1s1"]
+
+[ext_resource type="PackedScene" uid="uid://bkl2p5mqhtrq1" path="res://scenes/save_point.tscn" id="1_save"]
+[ext_resource type="PackedScene" uid="uid://cv7h3m8kxj6nd" path="res://scenes/combat_trigger.tscn" id="2_combat"]
+[ext_resource type="PackedScene" uid="uid://room_exit_m1s1" path="res://scenes/room_exit.tscn" id="3_exit"]
+[ext_resource type="Texture2D" uid="uid://wall_n_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_n.png" id="4_wall_n"]
+[ext_resource type="Texture2D" uid="uid://wall_s_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_s.png" id="5_wall_s"]
+[ext_resource type="Texture2D" uid="uid://wall_w_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_w.png" id="6_wall_w"]
+[ext_resource type="Texture2D" uid="uid://wall_e_m1s1" path="res://assets/art/tiles/wall/tile_wall_stone_e.png" id="7_wall_e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(640, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(32, 352)
+
+[node name="ch1_f1_entrance" type="Node2D"]
+
+[node name="Floor" type="Node2D" parent="."]
+
+[node name="FloorBG" type="ColorRect" parent="Floor"]
+offset_right = 640.0
+offset_bottom = 352.0
+color = Color(0.0784314, 0.0862745, 0.109804, 1)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 16)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 336)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(16, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(624, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="WallVisuals" type="Node2D" parent="Walls"]
+
+[node name="NorthWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(320, 16)
+texture = ExtResource("4_wall_n")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 32)
+
+[node name="SouthWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(320, 336)
+texture = ExtResource("5_wall_s")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 32)
+
+[node name="WestWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(16, 176)
+texture = ExtResource("6_wall_w")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 352)
+
+[node name="EastWall" type="Sprite2D" parent="Walls/WallVisuals"]
+texture_filter = 1
+position = Vector2(624, 176)
+texture = ExtResource("7_wall_e")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 352)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(320, 280)
+
+[node name="SavePoint" parent="." instance=ExtResource("1_save")]
+position = Vector2(320, 200)
+save_point_id = "save_point_ch1_entrance"
+flags_to_set = {
+"chapter_1_started": true,
+"floor_1_entered": true
+}
+
+[node name="WestExit" parent="." instance=ExtResource("3_exit")]
+position = Vector2(48, 176)
+interaction_text = "西侧通道"
+blocked = true
+blocked_message = "前方被碎石堵住"
+
+[node name="EastExit" parent="." instance=ExtResource("3_exit")]
+position = Vector2(592, 176)
+interaction_text = "东侧通道"
+blocked = true
+blocked_message = "前方被碎石堵住"
+
+[node name="TempArea" type="Node2D" parent="."]
+
+[node name="TempAreaLabel" type="Label" parent="TempArea"]
+offset_left = 240.0
+offset_top = 40.0
+offset_right = 400.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
+text = "临时区，第4刀删除"
+horizontal_alignment = 1
+
+[node name="DeathKnightTrigger" parent="TempArea" instance=ExtResource("2_combat")]
+position = Vector2(160, 80)
+enemy_id = "death_knight"
+
+[node name="GuardianSavePoint" parent="TempArea" instance=ExtResource("1_save")]
+position = Vector2(320, 80)
+save_point_id = "save_point_ch1_guardian"
+flags_to_set = {
+"guardian_1_ready": true
+}
+
+[node name="GuardianDoor" parent="TempArea" instance=ExtResource("2_combat")]
+position = Vector2(480, 80)
+interaction_text = "踏入守护者殿堂"
+enemy_id = "undead_overlord"
+require_flag = "guardian_1_ready"
+confirm_message = "踏入守护者殿堂？"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)

@@ -7,6 +7,8 @@ class_name CombatTrigger
 @export var require_flag: String = ""
 @export var confirm_message: String = ""
 @export var defeat_flag: String = ""
+@export var map_sprite: Texture2D = null
+@export var use_persistent_cleared: bool = true
 
 var enemies_data: Dictionary = {}
 var _defeated: bool = false
@@ -31,6 +33,10 @@ func _ready() -> void:
 func _restore_from_flags() -> void:
 	var flag_name := _get_defeat_flag()
 	if not flag_name.is_empty() and GameManager.get_flag(flag_name, false):
+		_set_defeated_state()
+		return
+	
+	if use_persistent_cleared and SaveManager.is_cleared(name):
 		_set_defeated_state()
 
 
@@ -134,6 +140,10 @@ func _on_combat_ended(victory: bool) -> void:
 		if not flag_name.is_empty():
 			GameManager.set_flag(flag_name, true)
 			print("[CombatTrigger] 设置 flag: %s = true" % flag_name)
+		
+		if use_persistent_cleared:
+			SaveManager.mark_cleared(name)
+		
 		_set_defeated_state()
 
 

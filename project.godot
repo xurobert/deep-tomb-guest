@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 GameManager="*res://scripts/core/game_manager.gd"
 TurnManager="*res://scripts/core/turn_manager.gd"
 SaveManager="*res://scripts/core/save_manager.gd"
+RoomManager="*res://scripts/core/room_manager.gd"
 
 [display]
 
