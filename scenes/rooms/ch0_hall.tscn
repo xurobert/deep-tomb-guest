@@ -1,0 +1,160 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration/room_base.gd" id="1_room_script"]
+[ext_resource type="PackedScene" uid="uid://bkl2p5mqhtrq1" path="res://scenes/save_point.tscn" id="2_save"]
+[ext_resource type="PackedScene" uid="uid://cv7h3m8kxj6nd" path="res://scenes/combat_trigger.tscn" id="3_combat"]
+[ext_resource type="PackedScene" uid="uid://dj2v8l6k3xmh5" path="res://scenes/interactable.tscn" id="4_interactable"]
+[ext_resource type="PackedScene" path="res://scenes/gate_trigger.tscn" id="5_gate"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_lectern.png" id="6_lectern"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_mural_00.png" id="7_mural"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_torch_00.png" id="8_torch0"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_torch_01.png" id="9_torch1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(576, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(32, 288)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate_block"]
+size = Vector2(64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_torch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_torch0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_torch1")
+}],
+"loop": true,
+"name": &"burn",
+"speed": 6.0
+}]
+
+[node name="ch0_hall" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_room_script")
+room_seed = 42
+gate_x_tiles = Array[int]([9, 10])
+
+[node name="Floor" type="Node2D" parent="."]
+z_index = -10
+
+[node name="FloorBG" type="ColorRect" parent="Floor"]
+z_index = -10
+offset_right = 640.0
+offset_bottom = 352.0
+color = Color(0.101961, 0.109804, 0.133333, 1)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 16)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 336)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(16, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(624, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="GateBlock" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 48)
+shape = SubResource("RectangleShape2D_gate_block")
+
+[node name="WallVisuals" type="Node2D" parent="Walls"]
+z_index = -5
+
+[node name="Torches" type="Node2D" parent="."]
+z_index = -4
+
+[node name="TorchLeft" type="AnimatedSprite2D" parent="Torches"]
+texture_filter = 1
+position = Vector2(272, 16)
+sprite_frames = SubResource("SpriteFrames_torch")
+animation = &"burn"
+autoplay = "burn"
+
+[node name="TorchRight" type="AnimatedSprite2D" parent="Torches"]
+texture_filter = 1
+position = Vector2(368, 16)
+sprite_frames = SubResource("SpriteFrames_torch")
+animation = &"burn"
+autoplay = "burn"
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="SpawnPoint" type="Marker2D" parent="Entities"]
+position = Vector2(320, 312)
+
+[node name="SpawnPointFromGate" type="Marker2D" parent="Entities"]
+position = Vector2(320, 100)
+
+[node name="SavePoint" parent="Entities" instance=ExtResource("2_save")]
+position = Vector2(320, 224)
+save_point_id = "save_point_ch0_entrance"
+flags_to_set = {
+"first_save_point_activated": true
+}
+
+[node name="BoneGuard1" parent="Entities" instance=ExtResource("3_combat")]
+position = Vector2(160, 160)
+enemy_id = "bone_guard"
+
+[node name="BoneGuard2" parent="Entities" instance=ExtResource("3_combat")]
+position = Vector2(480, 160)
+enemy_id = "bone_guard"
+
+[node name="Lectern" parent="Entities" instance=ExtResource("4_interactable")]
+position = Vector2(112, 128)
+interaction_text = "阅读"
+message = "文献记载：「墓穴阴魂惧怕咒术之力，施以咒弹可造成克制伤害。」"
+set_flag_name = "intel_fragment_0_1"
+grant_intel = "tomb_shade"
+
+[node name="Sprite" parent="Entities/Lectern" index="0"]
+visible = false
+
+[node name="LecternSprite" type="Sprite2D" parent="Entities/Lectern"]
+texture_filter = 1
+texture = ExtResource("6_lectern")
+
+[node name="Mural" parent="Entities" instance=ExtResource("4_interactable")]
+position = Vector2(528, 64)
+interaction_text = "观察"
+message = "壁画描绘着层层向下的深墓，最底处是一扇被紫光环绕的石门。"
+set_flag_name = "intel_fragment_0_2"
+
+[node name="Sprite" parent="Entities/Mural" index="0"]
+visible = false
+
+[node name="MuralSprite" type="Sprite2D" parent="Entities/Mural"]
+texture_filter = 1
+z_index = -4
+position = Vector2(0, -48)
+texture = ExtResource("7_mural")
+
+[node name="LayerGate" parent="Entities" instance=ExtResource("5_gate")]
+position = Vector2(320, 0)
+target_room_id = "ch1_f1_entrance"
+target_spawn_point = "SpawnPoint"
+confirm_message = "踏入深处？"
+gate_opened_flag = "chapter_1_unlocked"
+flags_to_set_on_pass = {
+"chapter_0_complete": true,
+"chapter_1_unlocked": true
+}
+area_banner_text = "第1章 墓穴迷途"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)

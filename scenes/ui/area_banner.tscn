@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/area_banner.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/dialog/ui_banner_area_bg.png" id="2_bg"]
+
+[node name="AreaBanner" type="CanvasLayer" groups=["area_banner"]]
+layer = 95
+script = ExtResource("1_script")
+
+[node name="Panel" type="NinePatchRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 60.0
+offset_right = 120.0
+offset_bottom = 84.0
+grow_horizontal = 2
+texture = ExtResource("2_bg")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="TextLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.788235, 0.635294, 0.290196, 1)
+theme_override_font_sizes/font_size = 12
+text = "第1章 墓穴迷途"
+horizontal_alignment = 1
+vertical_alignment = 1

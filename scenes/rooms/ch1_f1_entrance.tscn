@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration/room_base.gd" id="1_room_base"]
+[ext_resource type="PackedScene" uid="uid://bkl2p5mqhtrq1" path="res://scenes/save_point.tscn" id="2_save"]
+[ext_resource type="PackedScene" uid="uid://cv7h3m8kxj6nd" path="res://scenes/combat_trigger.tscn" id="3_combat"]
+[ext_resource type="PackedScene" path="res://scenes/room_exit.tscn" id="4_exit"]
+[ext_resource type="Texture2D" path="res://assets/art/characters/enemies/enemy_death_knight_combat_idle_p1_00.png" id="5_knight_sprite"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/interactive/tile_gate_floor_closed.png" id="6_gate_sprite"]
+[ext_resource type="Texture2D" path="res://assets/art/tiles/deco/tile_deco_rubble_00.png" id="7_rubble"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rubble"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(640, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(32, 288)
+
+[node name="ch1_f1_entrance" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_room_base")
+room_seed = 54321
+auto_fill_floor = true
+auto_fill_walls = true
+gate_x_tiles = []
+
+[node name="Floor" type="Node2D" parent="."]
+z_index = -10
+
+[node name="FloorBG" type="ColorRect" parent="Floor"]
+z_index = -10
+offset_right = 640.0
+offset_bottom = 352.0
+color = Color(0.101961, 0.109804, 0.133333, 1)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 16)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(320, 336)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(16, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(624, 176)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="WallVisuals" type="Node2D" parent="Walls"]
+z_index = -5
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(320, 280)
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="SavePoint" parent="Entities" instance=ExtResource("2_save")]
+position = Vector2(320, 200)
+save_point_id = "save_point_ch1_entrance"
+flags_to_set = {
+"chapter_1_started": true,
+"floor_1_entered": true
+}
+
+[node name="WestRubble" type="Sprite2D" parent="Entities"]
+position = Vector2(48, 176)
+texture = ExtResource("7_rubble")
+
+[node name="WestRubbleCollision" type="StaticBody2D" parent="Entities"]
+position = Vector2(48, 176)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/WestRubbleCollision"]
+shape = SubResource("RectangleShape2D_rubble")
+
+[node name="EastRubble" type="Sprite2D" parent="Entities"]
+position = Vector2(592, 176)
+flip_h = true
+texture = ExtResource("7_rubble")
+
+[node name="EastRubbleCollision" type="StaticBody2D" parent="Entities"]
+position = Vector2(592, 176)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/EastRubbleCollision"]
+shape = SubResource("RectangleShape2D_rubble")
+
+[node name="WestExit" parent="Entities" instance=ExtResource("4_exit")]
+position = Vector2(80, 176)
+interaction_text = "西侧通道"
+blocked = true
+blocked_message = "前方被碎石堵住"
+
+[node name="EastExit" parent="Entities" instance=ExtResource("4_exit")]
+position = Vector2(560, 176)
+interaction_text = "东侧通道"
+blocked = true
+blocked_message = "前方被碎石堵住"
+
+[node name="TempArea" type="Node2D" parent="Entities"]
+y_sort_enabled = true
+
+[node name="TempAreaLabel" type="Label" parent="Entities/TempArea"]
+visible = false
+offset_left = 240.0
+offset_top = 40.0
+offset_right = 400.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
+text = "临时区，第4刀删除"
+horizontal_alignment = 1
+
+[node name="DeathKnightTrigger" parent="Entities/TempArea" instance=ExtResource("3_combat")]
+position = Vector2(160, 120)
+enemy_id = "death_knight"
+map_sprite = ExtResource("5_knight_sprite")
+
+[node name="GuardianSavePoint" parent="Entities/TempArea" instance=ExtResource("2_save")]
+position = Vector2(320, 80)
+save_point_id = "save_point_ch1_guardian"
+flags_to_set = {
+"guardian_1_ready": true
+}
+
+[node name="GuardianDoor" parent="Entities/TempArea" instance=ExtResource("3_combat")]
+position = Vector2(480, 120)
+interaction_text = "踏入守护者殿堂"
+enemy_id = "undead_overlord"
+require_flag = "guardian_1_ready"
+confirm_message = "踏入守护者殿堂？"
+map_sprite = ExtResource("6_gate_sprite")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)

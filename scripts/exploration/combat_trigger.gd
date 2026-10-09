@@ -7,10 +7,13 @@ class_name CombatTrigger
 @export var require_flag: String = ""
 @export var confirm_message: String = ""
 @export var defeat_flag: String = ""
+@export var map_sprite: Texture2D = null
+@export var use_persistent_cleared: bool = true
 
 var enemies_data: Dictionary = {}
 var _defeated: bool = false
 var _starting: bool = false
+var _map_sprite_node: Sprite2D = null
 
 
 func _ready() -> void:
@@ -19,6 +22,7 @@ func _ready() -> void:
 	prompt_color = Color(1.0, 0.35, 0.35)
 	super._ready()
 	_load_enemy_data()
+	_setup_map_sprite()
 	if trigger_on_touch and area:
 		area.body_entered.connect(_on_body_entered)
 	
@@ -28,9 +32,31 @@ func _ready() -> void:
 	call_deferred("_restore_from_flags")
 
 
+func _setup_map_sprite() -> void:
+	if map_sprite == null:
+		return
+	
+	var default_sprite := get_node_or_null("Sprite")
+	if default_sprite:
+		default_sprite.visible = false
+	
+	_map_sprite_node = Sprite2D.new()
+	_map_sprite_node.name = "MapSprite"
+	_map_sprite_node.texture = map_sprite
+	_map_sprite_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_map_sprite_node.centered = true
+	_map_sprite_node.position = Vector2(0, -24)
+	add_child(_map_sprite_node)
+	move_child(_map_sprite_node, 0)
+
+
 func _restore_from_flags() -> void:
 	var flag_name := _get_defeat_flag()
 	if not flag_name.is_empty() and GameManager.get_flag(flag_name, false):
+		_set_defeated_state()
+		return
+	
+	if use_persistent_cleared and SaveManager.is_cleared(name):
 		_set_defeated_state()
 
 
@@ -134,6 +160,10 @@ func _on_combat_ended(victory: bool) -> void:
 		if not flag_name.is_empty():
 			GameManager.set_flag(flag_name, true)
 			print("[CombatTrigger] 设置 flag: %s = true" % flag_name)
+		
+		if use_persistent_cleared:
+			SaveManager.mark_cleared(name)
+		
 		_set_defeated_state()
 
 
